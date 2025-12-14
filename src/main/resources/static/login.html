@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | TechySpine</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #0f172a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e5e7eb;
+        }
+
+        .card {
+            background: #020617;
+            padding: 40px;
+            width: 360px;
+            border-radius: 14px;
+            border: 1px solid #1e293b;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #84a98c;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #020617;
+            color: #e5e7eb;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #84a98c;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: #84a98c;
+            color: #020617;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #6b9080;
+        }
+
+        .error {
+            margin-top: 12px;
+            text-align: center;
+            color: #f87171;
+            font-size: 13px;
+        }
+
+        .link {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .link a {
+            color: #84a98c;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Login to TechySpine</h2>
+
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <div class="error" id="error"></div>
+
+    <div class="link">
+        New here? <a href="register.html">Create an account</a>
+    </div>
+</div>
+
+<script>
+function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+    })
+    .then(res => res.text())
+    .then(data => {
+        if (data === "Login successful") {
+            location.href = "index.html";
+        } else {
+            document.getElementById("error").innerText = data;
+        }
+    });
+}
+</script>
+
+</body>
+</html>
