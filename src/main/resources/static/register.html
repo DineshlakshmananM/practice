@@ -73,6 +73,14 @@
             font-size: 13px;
         }
 
+        .msg.error {
+            color: #f87171;
+        }
+
+        .msg.success {
+            color: #4ade80;
+        }
+
         .link {
             margin-top: 18px;
             text-align: center;
@@ -105,21 +113,43 @@
 
 <script>
 function register() {
-    const username = document.getElementById("username").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const msg = document.getElementById("msg");
+
+    msg.innerText = "";
+    msg.className = "msg";
+
+    if (!username || !email || !password) {
+        msg.innerText = "All fields are required";
+        msg.classList.add("error");
+        return;
+    }
 
     fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password })
     })
-    .then(res => res.text())
+    .then(res => res.json())
     .then(data => {
-        document.getElementById("msg").innerText = data;
-        if (data === "Registration successful") {
-            setTimeout(() => location.href = "login.html", 1500);
+        if (!data.success) {
+            msg.innerText = data.message;
+            msg.classList.add("error");
+            return;
         }
+
+        msg.innerText = data.message;
+        msg.classList.add("success");
+
+        setTimeout(() => {
+            location.href = "login.html";
+        }, 1500);
+    })
+    .catch(() => {
+        msg.innerText = "Server error. Please try again later.";
+        msg.classList.add("error");
     });
 }
 </script>

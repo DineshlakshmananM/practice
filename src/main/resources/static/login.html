@@ -105,21 +105,37 @@
 
 <script>
 function login() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const errorDiv = document.getElementById("error");
+
+    errorDiv.innerText = "";
+
+    if (!email || !password) {
+        errorDiv.innerText = "Please enter email and password";
+        return;
+    }
 
     fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
     })
-    .then(res => res.text())
+    .then(res => res.json())
     .then(data => {
-        if (data === "Login successful") {
-            location.href = "index.html";
-        } else {
-            document.getElementById("error").innerText = data;
+        if (!data.success) {
+            errorDiv.innerText = data.message;
+            return;
         }
+
+        // Save logged-in user
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        // Redirect to home
+        location.href = "index.html";
+    })
+    .catch(() => {
+        errorDiv.innerText = "Server error. Please try again later.";
     });
 }
 </script>

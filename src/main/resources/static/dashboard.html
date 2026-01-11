@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Learning Dashboard | TechySpine</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #0f172a;
+    color: #e5e7eb;
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    background: #020617;
+    border-right: 1px solid #1e293b;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.sidebar h3 {
+    color: #38bdf8;
+    margin-bottom: 10px;
+}
+
+.sidebar button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 8px;
+    border: none;
+    border-radius: 6px;
+    background: #1e293b;
+    color: #e5e7eb;
+    cursor: pointer;
+    text-align: left;
+}
+
+.sidebar button:hover {
+    background: #334155;
+}
+
+.content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.content h1 {
+    color: #f8fafc;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+    <h3>Java</h3>
+    <button onclick="loadContent('content/java/basics.html')">Java Basics</button>
+    <button onclick="loadContent('content/java/oop.html')">OOP</button>
+    <button onclick="loadContent('content/java/collections.html')">Collections</button>
+    <button onclick="loadContent('content/java/advanced.html')">Advanced Java</button>
+
+    <h3>MySQL</h3>
+    <button onclick="loadContent('content/mysql/basics.html')">MySQL Basics</button>
+    <button onclick="loadContent('content/mysql/joins.html')">Joins</button>
+    <button onclick="loadContent('content/mysql/advanced.html')">Advanced SQL</button>
+
+    <h3>C</h3>
+    <button onclick="loadContent('content/c/basics.html')">C Basics</button>
+    <button onclick="loadContent('content/c/pointers.html')">Pointers</button>
+
+    <h3>C++</h3>
+    <button onclick="loadContent('content/cpp/basics.html')">C++ Basics</button>
+    <button onclick="loadContent('content/cpp/stl.html')">STL</button>
+</div>
+
+<div class="content" id="content">
+    <h1>Welcome to TechySpine Learning</h1>
+    <p>Select a topic from the left to start learning.</p>
+</div>
+
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+if (!user) {
+    location.href = "login.html";
+}
+
+function loadContent(path) {
+    fetch(path)
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById("content").innerHTML = html;
+        })
+        .catch(() => {
+            document.getElementById("content").innerHTML =
+                "<p>Content not found.</p>";
+        });
+}
+</script>
+
+</body>
+</html>

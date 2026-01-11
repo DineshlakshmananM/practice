@@ -13,8 +13,8 @@
         }
 
         body {
-            background-color: #0f172a; /* dark background */
-            color: #e5e7eb;           /* light text */
+            background-color: #0f172a;
+            color: #e5e7eb;
         }
 
         /* ===== NAVBAR ===== */
@@ -25,12 +25,13 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #1e293b;
+            position: relative;
         }
 
         .logo {
             font-size: 24px;
             font-weight: 700;
-            color: #38bdf8; /* light blue */
+            color: #38bdf8;
         }
 
         .nav-buttons button {
@@ -52,6 +53,58 @@
             background: #38bdf8;
             color: #020617;
             font-weight: 600;
+        }
+
+        /* ===== PROFILE ===== */
+        .profile {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .profile img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #334155;
+        }
+
+        .profile span {
+            font-size: 14px;
+            color: #e5e7eb;
+        }
+
+        .profile-menu {
+            display: none;
+            position: absolute;
+            top: 55px;
+            right: 0;
+            background: #020617;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 12px;
+            width: 220px;
+            z-index: 10;
+        }
+
+        .profile-menu p {
+            font-size: 13px;
+            color: #cbd5f5;
+            margin-bottom: 10px;
+        }
+
+        .profile-menu button {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            background: #ef4444;
+            color: white;
+            font-size: 13px;
         }
 
         /* ===== HERO ===== */
@@ -101,12 +154,6 @@
             padding: 28px;
             border-radius: 12px;
             border: 1px solid #1e293b;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
 
         .card h3 {
@@ -135,9 +182,22 @@
 <!-- NAVBAR -->
 <header>
     <div class="logo">TechySpine</div>
-    <div class="nav-buttons">
+
+    <!-- LOGIN / REGISTER -->
+    <div class="nav-buttons" id="authButtons">
         <button class="login" onclick="location.href='login.html'">Login</button>
         <button class="register" onclick="location.href='register.html'">Register</button>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="profile" id="profile">
+        <img id="profileImage" src="" alt="Profile">
+        <span id="profileName"></span>
+
+        <div class="profile-menu" id="profileMenu">
+            <p id="profileEmail"></p>
+            <button onclick="logout()">Logout</button>
+        </div>
     </div>
 </header>
 
@@ -178,6 +238,39 @@
 <footer>
     © 2025 TechySpine · Learn · Practice · Grow
 </footer>
+
+<script>
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    const authButtons = document.getElementById("authButtons");
+    const profile = document.getElementById("profile");
+    const profileName = document.getElementById("profileName");
+    const profileEmail = document.getElementById("profileEmail");
+    const profileImage = document.getElementById("profileImage");
+    const profileMenu = document.getElementById("profileMenu");
+
+    if (user) {
+        authButtons.style.display = "none";
+        profile.style.display = "flex";
+
+        profileName.textContent = user.username;
+        profileEmail.textContent = user.email;
+
+        profileImage.src = user.profileImage
+            ? user.profileImage
+            : "https://ui-avatars.com/api/?name=" + user.username;
+    }
+
+    profile.addEventListener("click", () => {
+        profileMenu.style.display =
+            profileMenu.style.display === "block" ? "none" : "block";
+    });
+
+    function logout() {
+        localStorage.removeItem("user");
+        location.reload();
+    }
+</script>
 
 </body>
 </html>
