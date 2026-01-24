@@ -67,6 +67,22 @@
             background: #6b9080;
         }
 
+        .google-btn {
+            margin-top: 12px;
+            background: #ffffff;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .google-btn img {
+            width: 18px;
+            height: 18px;
+        }
+
         .msg {
             margin-top: 12px;
             text-align: center;
@@ -79,6 +95,13 @@
 
         .msg.success {
             color: #4ade80;
+        }
+
+        .divider {
+            margin: 18px 0;
+            text-align: center;
+            font-size: 12px;
+            color: #94a3b8;
         }
 
         .link {
@@ -98,11 +121,20 @@
 <div class="card">
     <h2>Create your TechySpine account</h2>
 
+    <!-- MANUAL REGISTER -->
     <input type="text" id="username" placeholder="Username">
     <input type="email" id="email" placeholder="Email">
     <input type="password" id="password" placeholder="Password">
 
     <button onclick="register()">Register</button>
+
+    <div class="divider">OR</div>
+
+    <!-- GOOGLE REGISTER -->
+    <button class="google-btn" onclick="googleRegister()">
+        <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google">
+        Continue with Google
+    </button>
 
     <div class="msg" id="msg"></div>
 
@@ -130,7 +162,12 @@ function register() {
     fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password })
+        body: JSON.stringify({
+            username,
+            email,
+            password,
+            provider: "LOCAL"
+        })
     })
     .then(res => res.json())
     .then(data => {
@@ -151,6 +188,11 @@ function register() {
         msg.innerText = "Server error. Please try again later.";
         msg.classList.add("error");
     });
+}
+
+function googleRegister() {
+    // Redirect to backend Google OAuth
+    window.location.href = "/oauth2/authorization/google";
 }
 </script>
 

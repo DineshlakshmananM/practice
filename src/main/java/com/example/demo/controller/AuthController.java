@@ -6,7 +6,9 @@ import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,9 +18,11 @@ import java.util.Map;
 public class AuthController {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public AuthController(UserRepository userRepository) {
+    public AuthController(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // ================= REGISTER =================
@@ -27,14 +31,14 @@ public class AuthController {
 
         Map<String, Object> response = new HashMap<>();
 
-        // Check email
+        // Email check
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             response.put("success", false);
             response.put("message", "Email already exists");
             return ResponseEntity.badRequest().body(response);
         }
 
-        // Check username
+        // Username check
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
             response.put("success", false);
             response.put("message", "Username already exists");
@@ -44,8 +48,10 @@ public class AuthController {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword()); // plain text (learning phase)
-        user.setProfileImage(null); // future use
+        user.setPassword(passwordEncoder.encode(request.getPassword())); // Hashed password
+        user.setProvider("LOCAL");
+        user.setProfileImage(null);
+        // createdAt handled by @PrePersist
 
         userRepository.save(user);
 
@@ -63,13 +69,19 @@ public class AuthController {
 
         return userRepository.findByEmail(request.getEmail())
                 .map(user -> {
-                    if (!user.getPassword().equals(request.getPassword())) {
+
+                    if (user.getPassword() == null ||
+                        !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+
                         response.put("success", false);
                         response.put("message", "Invalid email or password");
                         return ResponseEntity.badRequest().body(response);
                     }
 
-                    // Login success → return user details
+                    // Update last login time
+                    user.setLastLogin(LocalDateTime.now());
+                    userRepository.save(user);
+
                     response.put("success", true);
                     response.put("message", "Login successful");
 
@@ -78,6 +90,8 @@ public class AuthController {
                     userData.put("username", user.getUsername());
                     userData.put("email", user.getEmail());
                     userData.put("profileImage", user.getProfileImage());
+                    userData.put("provider", user.getProvider());
+                    userData.put("createdAt", user.getCreatedAt());
 
                     response.put("user", userData);
 
@@ -88,5 +102,14 @@ public class AuthController {
                     response.put("message", "Invalid email or password");
                     return ResponseEntity.badRequest().body(response);
                 });
+    }
+
+    // ================= LOGOUT =================
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("message", "Logout successful");
+        return ResponseEntity.ok(response);
     }
 }

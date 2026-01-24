@@ -67,6 +67,17 @@
             background: #6b9080;
         }
 
+        .google-btn {
+            margin-top: 12px;
+            background: #1e293b;
+            color: #e5e7eb;
+            border: 1px solid #334155;
+        }
+
+        .google-btn:hover {
+            background: #334155;
+        }
+
         .error {
             margin-top: 12px;
             text-align: center;
@@ -94,7 +105,13 @@
     <input type="email" id="email" placeholder="Email">
     <input type="password" id="password" placeholder="Password">
 
+    <!-- Manual login -->
     <button onclick="login()">Login</button>
+
+    <!-- Google login -->
+    <button class="google-btn" onclick="googleLogin()">
+        Continue with Google
+    </button>
 
     <div class="error" id="error"></div>
 
@@ -104,6 +121,7 @@
 </div>
 
 <script>
+/* ===== MANUAL LOGIN ===== */
 function login() {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
@@ -119,24 +137,63 @@ function login() {
     fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({
+            email,
+            password,
+            provider: "LOCAL"
+        })
     })
     .then(res => res.json())
     .then(data => {
+        console.log("Login response:", data);
+        
         if (!data.success) {
             errorDiv.innerText = data.message;
             return;
         }
 
-        // Save logged-in user
-        localStorage.setItem("user", JSON.stringify(data.user));
+        if (!data.user) {
+            errorDiv.innerText = "Invalid response from server";
+            console.error("No user data in response");
+            return;
+        }
 
-        // Redirect to home
-        location.href = "index.html";
+        // Ensure user object has ALL required fields
+        const user = {
+            id: data.user.id,
+            username: data.user.username,
+            email: data.user.email,
+            provider: data.user.provider || "LOCAL",
+            profileImage: data.user.profileImage || null
+        };
+
+        // Validate required fields
+        if (!user.id || !user.username || !user.email) {
+            errorDiv.innerText = "Invalid user data from server";
+            console.error("Missing required fields:", user);
+            return;
+        }
+
+        console.log("Saving user to localStorage:", user);
+        localStorage.setItem("user", JSON.stringify(user));
+        
+        console.log("Login successful, redirecting to learning.html");
+        // Redirect immediately to learning.html
+        location.href = "learning.html";
     })
     .catch(() => {
-        errorDiv.innerText = "Server error. Please try again later.";
+        errorDiv.innerText = "Server error. Try again later.";
     });
+}
+
+/* ===== GOOGLE LOGIN (UI FLOW) ===== */
+function googleLogin() {
+    /*
+      Backend must expose:
+      GET /api/auth/google
+      which redirects to Google OAuth
+    */
+    window.location.href = "/api/auth/google";
 }
 </script>
 

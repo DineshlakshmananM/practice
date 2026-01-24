@@ -6,6 +6,9 @@ public class RegisterRequest {
     private String email;
     private String password;
 
+    // LOCAL or GOOGLE (future-ready)
+    private String provider;
+
     public RegisterRequest() {
     }
 
@@ -31,5 +34,13 @@ public class RegisterRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
     }
 }

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Skill Rating | TechySpine</title>
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/theme.css">
+
+<style>
+.bar {
+    height: 24px;
+    background: #1e293b;
+    border-radius: 6px;
+    overflow: hidden;
+}
+.bar-fill {
+    height: 100%;
+    background: #38bdf8;
+    width: 0%;
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+    <div class="logo">TechySpine</div>
+    <button onclick="logout()">Logout</button>
+</header>
+
+<div class="content">
+    <h1>Skill Rating</h1>
+
+    <div class="card">
+        <p>Overall Skill Level</p>
+        <div class="bar">
+            <div class="bar-fill" id="skillBar"></div>
+        </div>
+        <p id="skillText">0 / 5</p>
+    </div>
+</div>
+
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+if (!user) location.href = "login.html";
+
+fetch(`/api/user/profile/${user.id}`)
+    .then(res => res.json())
+    .then(data => {
+        const rating = data.skillRating ?? 0;
+        document.getElementById("skillText").innerText =
+            rating + " / 5";
+
+        document.getElementById("skillBar").style.width =
+            (rating / 5) * 100 + "%";
+    });
+
+function logout() {
+    localStorage.removeItem("user");
+    location.href = "login.html";
+}
+</script>
+</body>
+</html>

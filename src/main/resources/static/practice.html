@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Practice History | TechySpine</title>
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="logo">TechySpine</div>
+    <button onclick="logout()">Logout</button>
+</header>
+
+<div class="content">
+    <h1>Practice History</h1>
+
+    <div class="card">
+        <p>Problems Solved</p>
+        <h2 id="practiceCount">0</h2>
+    </div>
+</div>
+
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+if (!user) location.href = "login.html";
+
+fetch(`/api/user/profile/${user.id}`)
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("practiceCount").innerText =
+            data.problemsSolved ?? 0;
+    });
+
+function logout() {
+    localStorage.removeItem("user");
+    location.href = "login.html";
+}
+</script>
+</body>
+</html>

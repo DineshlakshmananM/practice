@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Learning Progress | TechySpine</title>
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="logo">TechySpine</div>
+    <button onclick="logout()">Logout</button>
+</header>
+
+<div class="content">
+    <h1>Learning Progress</h1>
+
+    <div class="card">
+        <p>Total Topics Completed</p>
+        <h2 id="learningCount">0</h2>
+    </div>
+</div>
+
+<script>
+/* ===== GET USER FROM LOCALSTORAGE ===== */
+let user = JSON.parse(localStorage.getItem("user"));
+console.log("Profile page loaded, user:", user);
+fetch(`/api/user/profile/${user.id}`)
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("learningCount").innerText =
+            data.learningCount ?? 0;
+    })
+    .catch(err => console.error("Error loading profile:", err));
+</script>
+</body>
+</html>

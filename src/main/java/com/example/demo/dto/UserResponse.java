@@ -1,81 +1,29 @@
-package com.example.demo.entity;
+package com.example.demo.dto;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(
-    name = "users",
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email"),
-        @UniqueConstraint(columnNames = "username")
-    }
-)
-public class User {
+public class UserResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    // ================= BASIC INFO =================
-
-    @Column(nullable = false)
     private String username;
-
-    @Column(nullable = false)
     private String email;
-
-    // Nullable for GOOGLE users
-    @Column
-    private String password;
-
-    // LOCAL / GOOGLE
-    @Column(nullable = false)
     private String provider;
-
-    // Profile image URL or file name
-    @Column(name = "profile_image")
     private String profileImage;
 
-    // ================= LEARNING PROFILE =================
-
-    // Total problems solved (LeetCode-style)
-    @Column(name = "problems_solved", nullable = false)
-    private int problemsSolved = 0;
-
-    // Learning streak (days)
-    @Column(name = "learning_streak", nullable = false)
-    private int learningStreak = 0;
-
-    // Overall skill rating (0–5)
-    @Column(name = "skill_rating", nullable = false)
-    private double skillRating = 0.0;
-
-    // Languages learned (comma-separated: JAVA,MYSQL,C++)
-    @Column(length = 500)
+    // Learning stats
+    private int problemsSolved;
+    private int learningStreak;
+    private double skillRating;
     private String skills;
 
-    // ================= AUDIT =================
-
-    @Column(name = "created_at", nullable = false, updatable = false)
+    // Audit
     private LocalDateTime createdAt;
-
-    @Column(name = "last_login")
     private LocalDateTime lastLogin;
 
-    public User() {
-        // default provider for normal signup
-        this.provider = "LOCAL";
+    public UserResponse() {
     }
 
-    // ================= JPA HOOK =================
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-    }
-
-    // ================= GETTERS & SETTERS =================
+    // ===== Getters & Setters =====
 
     public Long getId() {
         return id;
@@ -88,7 +36,7 @@ public class User {
     public String getUsername() {
         return username;
     }
-
+    
     public void setUsername(String username) {
         this.username = username;
     }
@@ -101,18 +49,10 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-    
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getProvider() {
         return provider;
     }
-
+    
     public void setProvider(String provider) {
         this.provider = provider;
     }
@@ -159,6 +99,10 @@ public class User {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public LocalDateTime getLastLogin() {

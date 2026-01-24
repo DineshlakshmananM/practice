@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Java Introduction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0;
+            padding: 20px;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        h1 { color: #0ea5e9; margin-top: 0; }
+        h2 { color: #06b6d4; margin-top: 30px; }
+        code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #fca5a5;
+        }
+        pre {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #0ea5e9;
+        }
+        .concept { background: #1e293b; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        .note { background: #334155; padding: 12px; border-left: 3px solid #f59e0b; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Java Introduction</h1>
+
+    <h2>What is Java?</h2>
+    <p>
+        Java is a general-purpose, object-oriented programming language designed to be portable and platform-independent. 
+        It follows the philosophy: "Write Once, Run Anywhere" (WORA).
+    </p>
+
+    <h2>History of Java</h2>
+    <div class="concept">
+        <strong>Created by:</strong> Sun Microsystems (1995)<br>
+        <strong>Creator:</strong> James Gosling<br>
+        <strong>Current Owner:</strong> Oracle Corporation (since 2010)<br>
+        <strong>Latest LTS Version:</strong> Java 21 (released September 2023)
+    </div>
+
+    <h2>Key Features of Java</h2>
+    <ul>
+        <li><strong>Simple:</strong> Similar syntax to C/C++ but simplified</li>
+        <li><strong>Object-Oriented:</strong> Everything is an object</li>
+        <li><strong>Platform-Independent:</strong> Bytecode runs on any JVM</li>
+        <li><strong>Secure:</strong> Built-in security features</li>
+        <li><strong>Robust:</strong> Strong memory management and exception handling</li>
+        <li><strong>Multithreaded:</strong> Built-in support for concurrent programming</li>
+    </ul>
+
+    <h2>Java Platform Architecture</h2>
+    <div class="concept">
+        <strong>Java Virtual Machine (JVM):</strong> Executes Java bytecode<br>
+        <strong>Java Runtime Environment (JRE):</strong> JVM + libraries for running Java programs<br>
+        <strong>Java Development Kit (JDK):</strong> JRE + tools for developing Java programs
+    </div>
+
+    <h2>Your First Java Program</h2>
+    <pre><code>public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</code></pre>
+
+    <div class="note">
+        <strong>📌 Note:</strong> The main() method is the entry point of any Java program. 
+        The public static void keywords have specific meanings:
+        <ul>
+            <li><code>public</code> - Accessible from anywhere</li>
+            <li><code>static</code> - Can be called without creating an instance</li>
+            <li><code>void</code> - Returns nothing</li>
+        </ul>
+    </div>
+
+    <h2>Why Learn Java?</h2>
+    <ul>
+        <li>🏢 Used in enterprise applications and large-scale systems</li>
+        <li>📱 Android app development (though Kotlin is preferred now)</li>
+        <li>🎮 Game development frameworks</li>
+        <li>💼 High-paying job opportunities</li>
+        <li>🌐 Backend development with Spring Boot</li>
+    </ul>
+
+    <h2>Next Steps</h2>
+    <p>
+        After understanding Java basics, you'll learn:
+        <ul>
+            <li>Data types and variables</li>
+            <li>Control flow (if-else, loops)</li>
+            <li>Object-Oriented Programming (OOP)</li>
+            <li>Advanced concepts (Collections, Streams, Multithreading)</li>
+        </ul>
+    </p>
+
+    <div class="note">
+        <strong>✅ Quick Assignment:</strong> Create and run the HelloWorld program on your computer!
+    </div>
+</body>
+</html>

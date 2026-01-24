@@ -1,0 +1,108 @@
+:root {
+    --bg-main: #020617;
+    --bg-secondary: #0f172a;
+    --bg-card: #020617;
+    --border-color: #1e293b;
+    --text-main: #e5e7eb;
+    --text-muted: #94a3b8;
+    --primary: #38bdf8;
+    --primary-hover: #0ea5e9;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(180deg, #020617, #0f172a);
+    color: var(--text-main);
+}
+
+/* Header */
+.navbar {
+    background: linear-gradient(90deg, #020617, #020617);
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar h1 {
+    color: var(--primary);
+    font-size: 22px;
+    margin: 0;
+}
+
+.navbar .right {
+    display: flex;
+    gap: 16px;
+}
+
+/* Buttons */
+.btn {
+    background: var(--primary);
+    color: #020617;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: var(--primary-hover);
+}
+
+/* Layout */
+.container {
+    display: flex;
+    height: calc(100vh - 70px);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: #020617;
+    border-right: 1px solid var(--border-color);
+    padding: 20px;
+}
+
+.sidebar h3 {
+    margin-top: 0;
+    color: var(--primary);
+    font-size: 16px;
+}
+
+.sidebar button {
+    width: 100%;
+    background: #020617;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.sidebar button:hover {
+    background: #0f172a;
+}
+
+/* Content */
+.content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.card {
+    background: #020617;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}

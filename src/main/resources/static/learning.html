@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TechySpine | Learning</title>
+
+    <!-- Reuse existing styles -->
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <style>
+        /* Page-specific layout only, colors untouched */
+
+        body {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--bg-dark);
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .sidebar button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            border: none;
+            background: #1e293b;
+            color: var(--text-main);
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .sidebar button:hover {
+            background: #334155;
+        }
+
+        #topics {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+        }
+
+        #topics h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 14px;
+            margin-top: 0;
+        }
+
+        #topics button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            border: none;
+            background: #0ea5e9;
+            color: #020617;
+            cursor: pointer;
+            text-align: left;
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        #topics button:hover {
+            background: #0ba5d9;
+        }
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            height: 60px;
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <h3>Languages</h3>
+
+    <button onclick="loadTopics('java')">Java</button>
+    <button onclick="loadTopics('c')">C</button>
+    <button onclick="loadTopics('cpp')">C++</button>
+    <button onclick="loadTopics('mysql')">MySQL</button>
+
+    <div id="topics"></div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <div id="userInfo">Learning</div>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+        <iframe id="contentFrame"></iframe>
+    </div>
+</div>
+
+<script>
+/* ===== GET USER FROM LOCALSTORAGE ===== */
+let user = JSON.parse(localStorage.getItem("user"));
+console.log("Learning page loaded, user:", user);
+
+// Initialize page with user data
+if (user && user.username) {
+    document.getElementById("userInfo").innerText = "Welcome, " + user.username;
+}
+
+// Load languages on page load
+loadLanguages();
+
+/* ===== COURSE STRUCTURE (MATCHES YOUR FILES) ===== */
+const courses = {
+    java: [
+        "01-introduction.html",
+        "02-installation.html",
+        "03-syntax.html",
+        "04-datatypes.html",
+        "05-operators.html",
+        "06-control-statements.html",
+        "07-arrays.html",
+        "08-strings.html",
+        "09-oop-concepts.html",
+        "10-inheritance.html",
+        "11-polymorphism.html",
+        "12-abstraction.html",
+        "13-interfaces.html",
+        "14-exception-handling.html",
+        "15-collections.html",
+        "16-stream-api.html",
+        "17-file-handling.html",
+        "18-multithreading.html",
+        "19-advanced-java.html"
+    ],
+    c: [
+        "01-introduction.html",
+        "02-structure.html",
+        "03-datatypes.html",
+        "04-operators.html",
+        "05-control-statements.html",
+        "06-functions.html",
+        "07-arrays.html",
+        "08-pointers.html",
+        "09-strings.html",
+        "10-structures.html",
+        "11-file-handling.html",
+        "12-advanced-c.html"
+    ],
+    cpp: [
+        "01-introduction.html",
+        "02-syntax.html",
+        "03-oop.html",
+        "04-constructors.html",
+        "05-inheritance.html",
+        "06-polymorphism.html",
+        "07-templates.html",
+        "08-stl.html",
+        "09-file-handling.html",
+        "10-advanced-cpp.html"
+    ],
+    mysql: [
+        "01-introduction.html",
+        "02-installation.html",
+        "03-database-basics.html",
+        "04-tables.html",
+        "05-crud.html",
+        "06-constraints.html",
+        "07-joins.html",
+        "08-subqueries.html",
+        "09-indexes.html",
+        "10-views.html",
+        "11-stored-procedures.html",
+        "12-triggers.html",
+        "13-advanced-sql.html"
+    ]
+};
+
+/* ===== LOAD LANGUAGES ===== */
+function loadLanguages() {
+    const sidebar = document.getElementById("sidebar");
+    
+    // Remove only language buttons (not the topics div)
+    const languageButtons = sidebar.querySelectorAll("button");
+    languageButtons.forEach(btn => btn.remove());
+    
+    // Add language buttons back
+    Object.keys(courses).forEach(lang => {
+        const btn = document.createElement("button");
+        btn.innerText = lang.toUpperCase();
+        btn.onclick = () => loadTopics(lang);
+        sidebar.insertBefore(btn, document.getElementById("topics"));
+    });
+}
+
+/* ===== LOAD TOPICS ===== */
+function loadTopics(lang) {
+    const topicsDiv = document.getElementById("topics");
+    topicsDiv.innerHTML = "<h3>Topics</h3>";
+
+    courses[lang].forEach(file => {
+        const btn = document.createElement("button");
+        btn.innerText = file.replace(".html", "").replace(/-/g, " ");
+        btn.onclick = () => loadContent(lang, file);
+        topicsDiv.appendChild(btn);
+    });
+
+    // auto-load first topic
+    loadContent(lang, courses[lang][0]);
+}
+
+/* ===== LOAD CONTENT ===== */
+function loadContent(lang, file) {
+    document.getElementById("contentFrame").src =
+        `content/${lang}/${file}`;
+}
+
+/* ===== LOGOUT ===== */
+function logout() {
+    localStorage.removeItem("user");
+    location.href = "login.html";
+}
+</script>
+
+</body>
+</html>

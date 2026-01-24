@@ -5,6 +5,9 @@ public class LoginRequest {
     private String email;
     private String password;
 
+    // For future use: LOCAL / GOOGLE
+    private String provider;
+
     public LoginRequest() {
     }
 
@@ -22,5 +25,13 @@ public class LoginRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
     }
 }
