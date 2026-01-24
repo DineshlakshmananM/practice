@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>C Program Structure</title>
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-dark: #0f172a;
+            --bg-secondary: #0f172a;
+            --bg-card: #020617;
+            --border-color: #1e293b;
+            --text-main: #e5e7eb;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0;
+            padding: 20px;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        h1 { color: var(--primary); margin-top: 0; }
+        h2 { color: var(--primary-hover); margin-top: 30px; }
+        code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #fca5a5;
+        }
+        pre {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #0ea5e9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+        }
+        th {
+            background: #0f172a;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .concept { background: #1e293b; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        .note { background: #334155; padding: 12px; border-left: 3px solid #f59e0b; margin: 10px 0; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: #020617; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #334155; color: #f8fafc; }
+        .btn-secondary:hover { background: #475569; }
+    </style>
+</head>
+<body>
+    <h1>C Program Structure</h1>
+
+    <h2>Basic Structure of a C Program</h2>
+    <p>
+        Every C program follows a specific structure. Understanding this structure is fundamental to writing C programs correctly. A typical C program consists of several sections.
+    </p>
+
+    <h2>Components of a C Program</h2>
+    <ul>
+        <li><strong>Preprocessor Directives:</strong> Start with # symbol, processed before compilation</li>
+        <li><strong>Comments:</strong> Explanation of code, ignored by compiler</li>
+        <li><strong>Global Variables:</strong> Declared outside functions, accessible everywhere</li>
+        <li><strong>Function Declarations:</strong> Function prototypes or signatures</li>
+        <li><strong>Main Function:</strong> Entry point where program execution begins</li>
+        <li><strong>Function Definitions:</strong> Implementation of user-defined functions</li>
+    </ul>
+
+    <h2>Program Structure Example</h2>
+    <pre><code>#include &lt;stdio.h&gt;           // Preprocessor directive
+#include &lt;stdlib.h&gt;
+
+// Single line comment
+/* Multi-line comment */
+
+int globalVar = 10;             // Global variable
+
+// Function declaration (Prototype)
+int add(int a, int b);
+void displayMessage();
+
+int main() {                    // Main function - entry point
+    int a = 5, b = 3;           // Local variables
+    int sum = add(a, b);        // Function call
+    
+    printf("Sum: %d\n", sum);
+    displayMessage();
+    
+    return 0;                   // Return statement
+}
+
+// Function definitions
+int add(int a, int b) {
+    return a + b;
+}
+
+void displayMessage() {
+    printf("Welcome to C!\n");
+}</code></pre>
+
+    <h2>Execution Flow</h2>
+    <div class="concept">
+        1. Preprocessor processes directives (#include, #define)<br>
+        2. Compilation translates code to machine code<br>
+        3. Linking combines object files and libraries<br>
+        4. Program starts executing from main() function<br>
+        5. Functions are called as needed<br>
+        6. Program returns control to OS when main() completes
+    </div>
+
+    <h2>Key Points</h2>
+    <ul>
+        <li>Every C program must have a main() function</li>
+        <li>main() is where execution begins and ends</li>
+        <li>Return 0 indicates successful execution</li>
+        <li>Curly braces {} define code blocks</li>
+        <li>Semicolons; terminate statements (except for loops and conditionals)</li>
+        <li>Comments help explain code and are ignored by compiler</li>
+    </ul>
+
+    <div class="note">
+        <strong>📌 Remember:</strong> Proper structure makes code readable, maintainable, and easier to debug!
+    </div>
+        <button class="btn btn-secondary" onclick="history.back()">← Back</button>
+        <button class="btn btn-primary" onclick="location.href='03-datatypes.html'">Next →</button>
+    </div>
+</body>
+</html>

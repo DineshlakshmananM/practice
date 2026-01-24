@@ -36,6 +36,11 @@ public class SecurityConfig {
                 // Allow all API auth endpoints (register, login, logout, google)
                 .requestMatchers("/api/auth/**").permitAll()
             )
+            .headers(headers -> headers
+                .frameOptions(frameOptions -> frameOptions
+                    .sameOrigin()  // Allow iframes from same origin for /content/**
+                )
+            )
             .httpBasic(basic -> {});
         
         return http.build();

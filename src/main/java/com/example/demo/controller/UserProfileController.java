@@ -1,13 +1,14 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.User;
+import com.example.demo.entity.LearningProgress;
+import com.example.demo.dto.ProfileResponse;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.LearningProgressRepository;
 import com.example.demo.repository.PracticeHistoryRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -30,7 +31,7 @@ public class UserProfileController {
 
     // ================= USER PROFILE =================
     @GetMapping("/profile/{userId}")
-    public Map<String, Object> getProfile(@PathVariable Long userId) {
+    public ProfileResponse getProfile(@PathVariable Long userId) {
 
         // ✅ Explicit null check (kills IDE warning properly)
         if (userId == null) {
@@ -43,28 +44,55 @@ public class UserProfileController {
         User user = userRepository.findById(safeUserId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Map<String, Object> response = new HashMap<>();
+        ProfileResponse response = new ProfileResponse();
 
-        response.put("id", user.getId());
-        response.put("username", user.getUsername());
-        response.put("email", user.getEmail());
-        response.put("profileImage", user.getProfileImage());
-        response.put("provider", user.getProvider());
+        response.setId(user.getId());
+        response.setUsername(user.getUsername());
+        response.setEmail(user.getEmail());
+        response.setProfileImage(user.getProfileImage());
+        response.setProvider(user.getProvider());
 
-        response.put("problemsSolved", user.getProblemsSolved());
-        response.put("learningStreak", user.getLearningStreak());
-        response.put("skillRating", user.getSkillRating());
-        response.put("skills", user.getSkills());
+        response.setProblemsSolved(user.getProblemsSolved());
+        response.setLearningStreak(user.getLearningStreak());
+        response.setSkillRating(user.getSkillRating());
+        response.setSkills(user.getSkills());
 
-        response.put("createdAt", user.getCreatedAt());
-        response.put("lastLogin", user.getLastLogin());
+        response.setCreatedAt(user.getCreatedAt());
+        response.setLastLogin(user.getLastLogin());
 
-        // ✅ Use the safe primitive-backed ID everywhere
-        response.put("learningProgress",
-                learningRepo.findByUserId(safeUserId));
+        // ✅ Calculate difficulty-based progress
+        List<LearningProgress> allProgress = learningRepo.findByUserId(safeUserId);
+        
+        // Count Easy topics (C, Introduction topics)
+        long easyCompleted = allProgress.stream()
+                .filter(p -> (p.getLanguage().equals("C") || p.getTopic().toLowerCase().contains("introduction")) && p.isCompleted())
+                .count();
+        long easyTotal = allProgress.stream()
+                .filter(p -> p.getLanguage().equals("C") || p.getTopic().toLowerCase().contains("introduction"))
+                .count();
+        
+        // Count Medium topics (Java, CPP, MySQL)
+        long mediumCompleted = allProgress.stream()
+                .filter(p -> (p.getLanguage().equals("JAVA") || p.getLanguage().equals("CPP") || p.getLanguage().equals("MYSQL")) && p.isCompleted())
+                .count();
+        long mediumTotal = allProgress.stream()
+                .filter(p -> p.getLanguage().equals("JAVA") || p.getLanguage().equals("CPP") || p.getLanguage().equals("MYSQL"))
+                .count();
+        
+        // Count Hard topics (Advanced topics)
+        long hardCompleted = allProgress.stream()
+                .filter(p -> (p.getTopic().toLowerCase().contains("advanced") || p.getTopic().toLowerCase().contains("pointer") || p.getTopic().toLowerCase().contains("inheritance")) && p.isCompleted())
+                .count();
+        long hardTotal = allProgress.stream()
+                .filter(p -> p.getTopic().toLowerCase().contains("advanced") || p.getTopic().toLowerCase().contains("pointer") || p.getTopic().toLowerCase().contains("inheritance"))
+                .count();
 
-        response.put("practiceHistory",
-                practiceRepo.findByUserId(safeUserId));
+        response.setEasyStats(new ProfileResponse.DifficultyStats((int) easyCompleted, (int) easyTotal));
+        response.setMediumStats(new ProfileResponse.DifficultyStats((int) mediumCompleted, (int) mediumTotal));
+        response.setHardStats(new ProfileResponse.DifficultyStats((int) hardCompleted, (int) hardTotal));
+
+        response.setLearningCount(allProgress.size());
+        response.setPracticeCount((int) practiceRepo.findByUserId(safeUserId).stream().count());
 
         return response;
     }

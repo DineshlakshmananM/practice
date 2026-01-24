@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>C Control Statements</title>
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-dark: #0f172a;
+            --bg-secondary: #0f172a;
+            --bg-card: #020617;
+            --border-color: #1e293b;
+            --text-main: #e5e7eb;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0;
+            padding: 20px;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        h1 { color: var(--primary); margin-top: 0; }
+        h2 { color: var(--primary-hover); margin-top: 30px; }
+        code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #fca5a5;
+        }
+        pre {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #0ea5e9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+        }
+        th {
+            background: #0f172a;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .concept { background: #1e293b; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        .note { background: #334155; padding: 12px; border-left: 3px solid #f59e0b; margin: 10px 0; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: #020617; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #334155; color: #f8fafc; }
+        .btn-secondary:hover { background: #475569; }
+    </style>
+</head>
+<body>
+    <h1>C Control Statements</h1>
+
+    <h2>What are Control Statements?</h2>
+    <p>
+        Control statements are used to control the flow of program execution. They determine which instructions to execute and how many times to execute them based on certain conditions.
+    </p>
+
+    <h2>if Statement</h2>
+    <p>Executes a block of code if a condition is true:</p>
+    <pre><code>int age = 18;
+
+if (age >= 18) {
+    printf("You are an adult\n");
+}</code></pre>
+
+    <h2>if-else Statement</h2>
+    <p>Executes one block if condition is true, another if false:</p>
+    <pre><code>int age = 15;
+
+if (age >= 18) {
+    printf("You are an adult\n");
+} else {
+    printf("You are a minor\n");
+}</code></pre>
+
+    <h2>if-else if-else Statement</h2>
+    <pre><code>int score = 75;
+
+if (score >= 90) {
+    printf("Grade: A\n");
+} else if (score >= 80) {
+    printf("Grade: B\n");
+} else if (score >= 70) {
+    printf("Grade: C\n");
+} else {
+    printf("Grade: F\n");
+}</code></pre>
+
+    <h2>switch Statement</h2>
+    <p>Used when you have multiple alternatives:</p>
+    <pre><code>int choice = 2;
+
+switch(choice) {
+    case 1:
+        printf("You chose option 1\n");
+        break;
+    case 2:
+        printf("You chose option 2\n");
+        break;
+    default:
+        printf("Invalid choice\n");
+}</code></pre>
+
+    <h2>while Loop</h2>
+    <p>Repeats as long as condition is true:</p>
+    <pre><code>int i = 0;
+
+while (i < 5) {
+    printf("%d\n", i);
+    i++;
+}</code></pre>
+
+    <h2>do-while Loop</h2>
+    <p>Executes at least once, then repeats if condition is true:</p>
+    <pre><code>int i = 0;
+
+do {
+    printf("%d\n", i);
+    i++;
+} while (i < 5);</code></pre>
+
+    <h2>for Loop</h2>
+    <p>Repeats a fixed number of times:</p>
+    <pre><code>// for (init; condition; update)
+for (int i = 0; i < 5; i++) {
+    printf("%d\n", i);
+}</code></pre>
+
+    <h2>break and continue</h2>
+    <div class="concept">
+        <strong>break:</strong> Exits the loop immediately<br>
+        <strong>continue:</strong> Skips the rest of current iteration<br>
+    </div>
+
+    <pre><code>for (int i = 0; i < 10; i++) {
+    if (i == 3) continue;      // Skip 3
+    if (i == 7) break;          // Exit loop at 7
+    printf("%d\n", i);
+}</code></pre>
+
+    <div class="note">
+        <strong>📌 Remember:</strong> Always initialize loop variables and ensure loop conditions will eventually become false to avoid infinite loops!
+    </div>
+        <button class="btn btn-secondary" onclick="history.back()">← Back</button>
+        <button class="btn btn-primary" onclick="location.href='06-functions.html'">Next →</button>
+    </div>
+</body>
+</html>

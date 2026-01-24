@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Java Installation and Setup</title>
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-dark: #0f172a;
+            --bg-secondary: #0f172a;
+            --bg-card: #020617;
+            --border-color: #1e293b;
+            --text-main: #e5e7eb;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0;
+            padding: 20px;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        h1 { color: var(--primary); margin-top: 0; }
+        h2 { color: var(--primary-hover); margin-top: 30px; }
+        code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #fca5a5;
+        }
+        pre {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #0ea5e9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+        }
+        th {
+            background: #0f172a;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .concept { background: #1e293b; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        .note { background: #334155; padding: 12px; border-left: 3px solid #f59e0b; margin: 10px 0; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: #020617; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #334155; color: #f8fafc; }
+        .btn-secondary:hover { background: #475569; }
+    </style>
+</head>
+<body>
+    <h1>Java Installation and Setup</h1>
+
+    <h2>System Requirements</h2>
+    <ul>
+        <li>Operating System: Windows, macOS, or Linux</li>
+        <li>RAM: Minimum 2GB (4GB or more recommended)</li>
+        <li>Disk Space: 100MB for JDK, more for IDE</li>
+        <li>Internet: Required for downloading JDK and dependencies</li>
+    </ul>
+
+    <h2>What to Install</h2>
+    <div class="concept">
+        <strong>JDK (Java Development Kit):</strong> Contains JRE, compiler (javac), and development tools<br>
+        <strong>IDE (Optional):</strong> IntelliJ IDEA, Eclipse, or NetBeans for easier development<br>
+        <strong>Text Editor (Optional):</strong> VS Code, Sublime Text as lightweight alternative
+    </div>
+
+    <h2>Download Java JDK</h2>
+    <p>Visit: <strong>https://www.oracle.com/java/technologies/downloads/</strong></p>
+    <ul>
+        <li>Download latest LTS version (Java 21 LTS recommended)</li>
+        <li>Select installer for your operating system</li>
+        <li>Accept license terms and download</li>
+    </ul>
+
+    <h2>Installation on Windows</h2>
+    <ol>
+        <li>Run the downloaded .exe file</li>
+        <li>Click "Next" to proceed through installation wizard</li>
+        <li>Choose installation directory (default is fine)</li>
+        <li>Complete installation</li>
+        <li>Open Command Prompt and verify: <code>java -version</code></li>
+    </ol>
+
+    <h2>Installation on macOS</h2>
+    <ol>
+        <li>Run the downloaded .dmg file</li>
+        <li>Double-click installer package</li>
+        <li>Follow installation prompts</li>
+        <li>Open Terminal and verify: <code>java -version</code></li>
+    </ol>
+
+    <h2>Installation on Linux</h2>
+    <pre><code># Ubuntu/Debian
+sudo apt update
+sudo apt install openjdk-21-jdk
+
+# Fedora/CentOS
+sudo dnf install java-21-openjdk-devel
+
+# Verify installation
+java -version</code></pre>
+
+    <h2>Verify Installation</h2>
+    <p>Check if installation was successful:</p>
+    <pre><code>java -version          # Shows Java version
+javac -version         # Shows compiler version
+echo $JAVA_HOME         # Shows Java installation path</code></pre>
+
+    <h2>Install an IDE (Recommended)</h2>
+    <div class="concept">
+        <strong>IntelliJ IDEA Community:</strong> Professional IDE, free community edition<br>
+        <strong>Eclipse:</strong> Open-source, lightweight, widely used<br>
+        <strong>VS Code:</strong> Lightweight, requires extensions<br>
+        <strong>NetBeans:</strong> User-friendly for beginners
+    </div>
+
+    <h2>Set Up First Project</h2>
+    <ol>
+        <li>Create a folder for your project</li>
+        <li>Create a file named <code>HelloWorld.java</code></li>
+        <li>Write your first program</li>
+        <li>Compile: <code>javac HelloWorld.java</code></li>
+        <li>Run: <code>java HelloWorld</code></li>
+    </ol>
+
+    <div class=\"note\">
+        <strong>✅ Next Step:</strong> Once installed, write and run your first Java program to confirm everything works!
+    </div>
+        <button class="btn btn-secondary" onclick="history.back()">← Back</button>
+        <button class="btn btn-primary" onclick="location.href='03-syntax.html'">Next →</button>
+    </div>
+</body>
+</html>

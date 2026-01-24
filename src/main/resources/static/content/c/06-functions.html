@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>C Functions</title>
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-dark: #0f172a;
+            --bg-secondary: #0f172a;
+            --bg-card: #020617;
+            --border-color: #1e293b;
+            --text-main: #e5e7eb;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0;
+            padding: 20px;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        h1 { color: var(--primary); margin-top: 0; }
+        h2 { color: var(--primary-hover); margin-top: 30px; }
+        code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #fca5a5;
+        }
+        pre {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #0ea5e9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+        }
+        th {
+            background: #0f172a;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .concept { background: #1e293b; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        .note { background: #334155; padding: 12px; border-left: 3px solid #f59e0b; margin: 10px 0; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: #020617; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #334155; color: #f8fafc; }
+        .btn-secondary:hover { background: #475569; }
+    </style>
+</head>
+<body>
+    <h1>C Functions</h1>
+
+    <h2>What is a Function?</h2>
+    <p>
+        A function is a reusable block of code that performs a specific task. Functions help organize code, make it more readable, and allow code reuse. Every function has a name, parameters, and a return type.
+    </p>
+
+    <h2>Function Basics</h2>
+    <div class="concept">
+        <strong>Return Type:</strong> Data type of value returned by function<br>
+        <strong>Function Name:</strong> Unique identifier for the function<br>
+        <strong>Parameters:</strong> Input values passed to function<br>
+        <strong>Function Body:</strong> Code that executes when function is called<br>
+        <strong>Return Statement:</strong> Value sent back to caller
+    </div>
+
+    <h2>Function Declaration (Prototype)</h2>
+    <p>Tells compiler the function exists before it is defined:</p>
+    <pre><code>// Prototype
+int add(int a, int b);
+
+// Later in code
+int result = add(5, 3);</code></pre>
+
+    <h2>Function Definition</h2>
+    <p>Actual implementation of the function:</p>
+    <pre><code>int add(int a, int b) {
+    int sum = a + b;
+    return sum;
+}</code></pre>
+
+    <h2>Function with No Return Value</h2>
+    <p>Use return type <strong>void</strong> when function doesn't return anything:</p>
+    <pre><code>void greet(char name[]) {
+    printf("Hello, %s!\n", name);
+    // No return statement needed
+}
+
+// Calling the function
+greet("John");</code></pre>
+
+    <h2>Function with No Parameters</h2>
+    <pre><code>int getCurrentYear() {
+    return 2024;
+}
+
+int year = getCurrentYear();</code></pre>
+
+    <h2>Complete Function Example</h2>
+    <pre><code>// Function that calculates factorial
+int factorial(int n) {
+    if (n == 0 || n == 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+// Calling the function
+int result = factorial(5);      // Result: 120</code></pre>
+
+    <h2>Function Parameters</h2>
+    <div class="concept">
+        <strong>Pass by Value:</strong> Copy of variable is passed, original not changed<br>
+        <strong>Pass by Reference:</strong> Address of variable is passed using pointers, can modify original<br>
+    </div>
+
+    <h2>Scope of Variables</h2>
+    <ul>
+        <li><strong>Local Variables:</strong> Declared inside function, only accessible there</li>
+        <li><strong>Global Variables:</strong> Declared outside functions, accessible everywhere</li>
+        <li><strong>Static Variables:</strong> Retain value between function calls</li>
+    </ul>
+
+    <h2>Recursive Functions</h2>
+    <p>A function that calls itself:</p>
+    <pre><code>// Calculate sum of numbers 1 to n
+int sumNumbers(int n) {
+    if (n == 0) {
+        return 0;           // Base case
+    }
+    return n + sumNumbers(n - 1);   // Recursive call
+}</code></pre>
+
+    <div class=\"note\">
+        <strong>💡 Best Practices:</strong> Functions should do one thing well, have clear names, and be well-documented!
+    </div>
+        <button class="btn btn-secondary" onclick="history.back()">← Back</button>
+        <button class="btn btn-primary" onclick="location.href='07-arrays.html'">Next →</button>
+    </div>
+</body>
+</html>

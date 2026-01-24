@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>C Programming - Introduction</title>
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-dark: #0f172a;
+            --bg-secondary: #0f172a;
+            --bg-card: #020617;
+            --border-color: #1e293b;
+            --text-main: #e5e7eb;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0;
+            padding: 20px;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        h1 { color: var(--primary); margin-top: 0; }
+        h2 { color: var(--primary-hover); margin-top: 30px; }
+        code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #fca5a5;
+        }
+        pre {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #0ea5e9;
+        }
+        .concept { background: #1e293b; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        .note { background: #334155; padding: 12px; border-left: 3px solid #f59e0b; margin: 10px 0; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: #020617; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #334155; color: #f8fafc; }
+        .btn-secondary:hover { background: #475569; }
+    </style>
+</head>
+<body>
+    <h1>Introduction to C Programming</h1>
+
+    <h2>What is C?</h2>
+    <p>
+        C is a general-purpose, procedural programming language created in the early 1970s by Dennis Ritchie. It is one of the most influential programming languages and has served as the foundation for many modern languages like C++, Java, and C#.
+    </p>
+    <p>
+        C is known for its simplicity, efficiency, and close-to-the-hardware capabilities, making it ideal for system programming, embedded systems, operating systems, compilers, and performance-critical applications.
+    </p>
+
+    <h2>History of C</h2>
+    <div class="concept">
+        <strong>Created:</strong> 1972 by Dennis Ritchie at Bell Labs<br>
+        <strong>Purpose:</strong> Rewrite UNIX operating system<br>
+        <strong>Evolution:</strong> K&R C (1978) → C89 (ANSI) → C99 → C11 → C17<br>
+        <strong>Impact:</strong> Foundation for modern programming languages
+    </div>
+
+    <h2>Key Features of C</h2>
+    <ul>
+        <li><strong>Simple and Compact Syntax:</strong> Easy to learn and understand</li>
+        <li><strong>Procedural Language:</strong> Follows a top-down approach with structured programming</li>
+        <li><strong>Efficient:</strong> Produces compact and fast code close to assembly</li>
+        <li><strong>Portable:</strong> Code written in C can run on different platforms with minimal changes</li>
+        <li><strong>Extensible:</strong> Easy to add new features through modular functions</li>
+        <li><strong>Low-level Access:</strong> Pointers allow direct memory manipulation and control</li>
+        <li><strong>Minimal Runtime Overhead:</strong> Direct access to memory without abstraction</li>
+    </ul>
+
+    <h2>Why Learn C?</h2>
+    <p>Learning C is beneficial for several reasons:</p>
+    <ul>
+        <li>Foundation for understanding computer architecture and memory management</li>
+        <li>Used extensively in operating systems (Linux kernel, Windows), databases, and embedded systems</li>
+        <li>Better understanding of how computers actually work at a lower level</li>
+        <li>Develops strong programming fundamentals applicable to any language</li>
+        <li>High demand in industry for systems programming and firmware development</li>
+        <li>Better understanding of performance optimization and resource management</li>
+    </ul>
+
+    <h2>Your First C Program</h2>
+    <p>Let's look at a simple C program:</p>
+    <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    printf("Hello, World!");
+    return 0;
+}</code></pre>
+
+    <h2>Program Explanation</h2>
+    <div class="concept">
+        <strong>#include &lt;stdio.h&gt;</strong> - Includes the standard input/output library<br>
+        <strong>int main()</strong> - The main function where program execution begins<br>
+        <strong>printf()</strong> - Function to print text to the screen<br>
+        <strong>return 0;</strong> - Returns 0 to indicate successful execution<br>
+        <strong>Semicolon (;)</strong> - Terminates each statement
+    </div>
+
+    <h2>C Program Structure</h2>
+    <ul>
+        <li><strong>Preprocessor Directives:</strong> #include, #define - processed before compilation</li>
+        <li><strong>Global Variables:</strong> Variables accessible throughout the program</li>
+        <li><strong>Function Declarations:</strong> Function prototypes</li>
+        <li><strong>Main Function:</strong> Entry point of every C program</li>
+        <li><strong>Function Definitions:</strong> Implementation of functions</li>
+    </ul>
+
+    <h2>How to Get Started</h2>
+    <div class="concept">
+        <ul>
+            <li>Install a C compiler: GCC (Linux/Mac), MinGW (Windows), or Clang</li>
+            <li>Use an IDE: Code::Blocks, Dev-C++, Visual Studio Code, or CLion</li>
+            <li>Or use online compilers: repl.it, ideone.com, or godbolt.org</li>
+            <li>Write, compile, and run your first program</li>
+            <li>Learn about variables, data types, and control structures next</li>
+        </ul>
+    </div>
+
+    <div class="note">
+        <strong>✅ Quick Assignment:</strong> Install a C compiler and run the HelloWorld program on your computer! Try modifying the message to print your name.
+    </div>
+
+    <div class="nav-buttons">
+        <button class="btn btn-secondary" onclick="history.back()">← Back</button>
+        <button class="btn btn-primary" onclick="location.href='02-structure.html'">Next: Program Structure →</button>
+    </div>
+</body>
+</html>

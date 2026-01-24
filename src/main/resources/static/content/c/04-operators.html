@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>C Operators</title>
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-dark: #0f172a;
+            --bg-secondary: #0f172a;
+            --bg-card: #020617;
+            --border-color: #1e293b;
+            --text-main: #e5e7eb;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0;
+            padding: 20px;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        h1 { color: var(--primary); margin-top: 0; }
+        h2 { color: var(--primary-hover); margin-top: 30px; }
+        code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #fca5a5;
+        }
+        pre {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #0ea5e9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+        }
+        th {
+            background: #0f172a;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .concept { background: #1e293b; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        .note { background: #334155; padding: 12px; border-left: 3px solid #f59e0b; margin: 10px 0; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: #020617; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #334155; color: #f8fafc; }
+        .btn-secondary:hover { background: #475569; }
+    </style>
+</head>
+<body>
+    <h1>C Operators</h1>
+
+    <h2>Introduction to Operators</h2>
+    <p>
+        Operators are symbols that perform operations on variables and values. C supports various types of operators for performing arithmetic, logical, relational, and bitwise operations.
+    </p>
+
+    <h2>Arithmetic Operators</h2>
+    <div class="concept">
+        <strong>+</strong> Addition<br>
+        <strong>-</strong> Subtraction<br>
+        <strong>*</strong> Multiplication<br>
+        <strong>/</strong> Division (integer division if both are integers)<br>
+        <strong>%</strong> Modulus (remainder after division)
+    </div>
+
+    <h2>Arithmetic Operations Example</h2>
+    <pre><code>int a = 20, b = 10;
+
+printf("%d\n", a + b);      // Output: 30
+printf("%d\n", a - b);      // Output: 10
+printf("%d\n", a * b);      // Output: 200
+printf("%d\n", a / b);      // Output: 2
+printf("%d\n", a % b);      // Output: 0</code></pre>
+
+    <h2>Assignment Operators</h2>
+    <pre><code>int x = 10;
+x += 5;                     // x = x + 5;  (x is now 15)
+x -= 3;                     // x = x - 3;  (x is now 12)
+x *= 2;                     // x = x * 2;  (x is now 24)
+x /= 4;                     // x = x / 4;  (x is now 6)</code></pre>
+
+    <h2>Relational Operators</h2>
+    <div class="concept">
+        <strong>==</strong> Equal to (returns 1 if true, 0 if false)<br>
+        <strong>!=</strong> Not equal to<br>
+        <strong>&gt;</strong> Greater than<br>
+        <strong>&lt;</strong> Less than<br>
+        <strong>&gt;=</strong> Greater than or equal to<br>
+        <strong>&lt;=</strong> Less than or equal to
+    </div>
+
+    <h2>Logical Operators</h2>
+    <pre><code>int a = 1, b = 0;
+
+// && (AND) - Both conditions must be true
+if (a && b) { printf("Both true\n"); }  // Not executed
+
+// || (OR) - At least one condition must be true
+if (a || b) { printf("At least one true\n"); }  // Executed
+
+// ! (NOT) - Reverses the result
+if (!b) { printf("b is false\n"); }     // Executed</code></pre>
+
+    <h2>Increment and Decrement</h2>
+    <pre><code>int count = 5;
+
+count++;                    // Post-increment (count becomes 6)
+++count;                    // Pre-increment (count becomes 7)
+count--;                    // Post-decrement (count becomes 6)
+--count;                    // Pre-decrement (count becomes 5)</code></pre>
+
+    <h2>Operator Precedence</h2>
+    <div class="concept">
+        Operators are evaluated in this order (highest to lowest):<br>
+        1. () [] (Parentheses, Brackets)<br>
+        2. ++ -- + - ! (Increment, Decrement, Unary)<br>
+        3. * / % (Multiplication, Division, Modulus)<br>
+        4. + - (Addition, Subtraction)<br>
+        5. &lt; &lt;= &gt; &gt;= (Relational)<br>
+        6. == != (Equality)<br>
+        7. && (Logical AND)<br>
+        8. || (Logical OR)<br>
+        9. = += -= etc. (Assignment)
+    </div>
+
+    <div class="note">
+        <strong>💡 Tip:</strong> Use parentheses to make precedence clear and code more readable!
+    </div>
+        <button class="btn btn-secondary" onclick="history.back()">← Back</button>
+        <button class="btn btn-primary" onclick="location.href='05-control-statements.html'">Next →</button>
+    </div>
+</body>
+</html>

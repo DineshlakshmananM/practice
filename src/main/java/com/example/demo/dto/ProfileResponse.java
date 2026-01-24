@@ -22,6 +22,11 @@ public class ProfileResponse {
     private int learningCount;
     private int practiceCount;
 
+    // ===== DIFFICULTY-BASED PROGRESS (Easy, Medium, Hard) =====
+    private DifficultyStats easyStats;
+    private DifficultyStats mediumStats;
+    private DifficultyStats hardStats;
+
     // ===== AUDIT =====
     private LocalDateTime createdAt;
     private LocalDateTime lastLogin;
@@ -153,5 +158,75 @@ public class ProfileResponse {
 
     public void setRecentPractices(List<String> recentPractices) {
         this.recentPractices = recentPractices;
+    }
+
+    public DifficultyStats getEasyStats() {
+        return easyStats;
+    }
+
+    public void setEasyStats(DifficultyStats easyStats) {
+        this.easyStats = easyStats;
+    }
+
+    public DifficultyStats getMediumStats() {
+        return mediumStats;
+    }
+
+    public void setMediumStats(DifficultyStats mediumStats) {
+        this.mediumStats = mediumStats;
+    }
+
+    public DifficultyStats getHardStats() {
+        return hardStats;
+    }
+
+    public void setHardStats(DifficultyStats hardStats) {
+        this.hardStats = hardStats;
+    }
+
+    // ===== INNER CLASS: Difficulty Stats =====
+    public static class DifficultyStats {
+        private int completed;    // Completed topics count
+        private int total;        // Total topics in this difficulty
+        private double percentage; // Percentage completed (0-100)
+
+        public DifficultyStats() {
+        }
+
+        public DifficultyStats(int completed, int total) {
+            this.completed = completed;
+            this.total = total;
+            this.percentage = total > 0 ? (completed * 100.0 / total) : 0;
+        }
+
+        public int getCompleted() {
+            return completed;
+        }
+
+        public void setCompleted(int completed) {
+            this.completed = completed;
+            updatePercentage();
+        }
+
+        public int getTotal() {
+            return total;
+        }
+
+        public void setTotal(int total) {
+            this.total = total;
+            updatePercentage();
+        }
+
+        public double getPercentage() {
+            return percentage;
+        }
+
+        public void setPercentage(double percentage) {
+            this.percentage = percentage;
+        }
+
+        private void updatePercentage() {
+            this.percentage = total > 0 ? (completed * 100.0 / total) : 0;
+        }
     }
 }

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>C Data Types</title>
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-dark: #0f172a;
+            --bg-secondary: #0f172a;
+            --bg-card: #020617;
+            --border-color: #1e293b;
+            --text-main: #e5e7eb;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0;
+            padding: 20px;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        h1 { color: var(--primary); margin-top: 0; }
+        h2 { color: var(--primary-hover); margin-top: 30px; }
+        code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #fca5a5;
+        }
+        pre {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #0ea5e9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+        }
+        th {
+            background: #0f172a;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .concept { background: #1e293b; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        .note { background: #334155; padding: 12px; border-left: 3px solid #f59e0b; margin: 10px 0; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: #020617; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #334155; color: #f8fafc; }
+        .btn-secondary:hover { background: #475569; }
+    </style>
+</head>
+<body>
+    <h1>C Data Types</h1>
+
+    <h2>What are Data Types?</h2>
+    <p>
+        Data types specify the type and size of data that a variable can hold. C provides several built-in data types that determine how much memory is allocated and what operations can be performed on the data.
+    </p>
+
+    <h2>Basic Data Types</h2>
+    <div class="concept">
+        <strong>1. int:</strong> Integer values (whole numbers)<br>
+        <strong>2. float:</strong> Floating-point numbers with single precision<br>
+        <strong>3. double:</strong> Floating-point numbers with double precision<br>
+        <strong>4. char:</strong> Single character or ASCII value<br>
+        <strong>5. void:</strong> Represents absence of type
+    </div>
+
+    <h2>Integer Data Type</h2>
+    <pre><code>int age = 25;              // Standard integer (2-4 bytes)
+short count = 100;         // Smaller range (2 bytes)
+long population = 1000000; // Larger range (4-8 bytes)
+unsigned int score = 500;  // Non-negative values only
+
+printf("%d\n", age);        // Print integer</code></pre>
+
+    <h2>Floating-Point Data Types</h2>
+    <pre><code>float price = 19.99;       // Single precision (4 bytes)
+double pi = 3.14159265;    // Double precision (8 bytes)
+
+printf("%f\n", price);      // Print float with 6 decimals
+printf("%.2f\n", price);    // Print float with 2 decimals</code></pre>
+
+    <h2>Character Data Type</h2>
+    <pre><code>char grade = 'A';          // Single character
+char newline = '\n';       // Escape sequence
+int ascii_value = 65;      // 'A' has ASCII value 65
+
+printf("%c\n", grade);      // Print character
+printf("%d\n", (int)'A');   // Print ASCII value</code></pre>
+
+    <h2>Size of Data Types</h2>
+    <pre><code>printf("int: %lu bytes\n", sizeof(int));
+printf("float: %lu bytes\n", sizeof(float));
+printf("double: %lu bytes\n", sizeof(double));
+printf("char: %lu bytes\n", sizeof(char));</code></pre>
+
+    <h2>Type Modifiers</h2>
+    <div class="concept">
+        <strong>short:</strong> Reduces the size of integer<br>
+        <strong>long:</strong> Increases the size of integer<br>
+        <strong>signed:</strong> Can hold positive and negative values (default)<br>
+        <strong>unsigned:</strong> Can hold only non-negative values
+    </div>
+
+    <h2>Variable Declaration and Assignment</h2>
+    <pre><code>int x, y, z;               // Multiple declarations
+int a = 10, b = 20;        // Declaration with initialization
+float salary = 5000.50;
+char initial = 'J';
+
+// Rules for variable names:
+// - Must start with letter or underscore
+// - Can contain letters, digits, underscores
+// - Case-sensitive (age != Age)</code></pre>
+
+    <div class="note">
+        <strong>💡 Tip:</strong> Use appropriate data types to save memory and avoid overflow errors!
+    </div>
+        <button class="btn btn-secondary" onclick="history.back()">← Back</button>
+        <button class="btn btn-primary" onclick="location.href='04-operators.html'">Next →</button>
+    </div>
+</body>
+</html>

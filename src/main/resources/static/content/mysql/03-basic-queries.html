@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic MySQL Queries</title>
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-dark: #0f172a;
+            --bg-secondary: #0f172a;
+            --bg-card: #020617;
+            --border-color: #1e293b;
+            --text-main: #e5e7eb;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0;
+            padding: 20px;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        h1 { color: var(--primary); margin-top: 0; }
+        h2 { color: var(--primary-hover); margin-top: 30px; }
+        code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #fca5a5;
+        }
+        pre {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #0ea5e9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+        }
+        th {
+            background: #0f172a;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .concept { background: #1e293b; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        .note { background: #334155; padding: 12px; border-left: 3px solid #f59e0b; margin: 10px 0; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: #020617; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #334155; color: #f8fafc; }
+        .btn-secondary:hover { background: #475569; }
+    </style>
+</head>
+<body>
+    <h1>Basic MySQL Queries</h1>
+
+    <h2>SQL Basics</h2>
+    <p>
+        SQL (Structured Query Language) is used to manage data in databases. Learn the fundamental queries to create, read, update, and delete data (CRUD operations).
+    </p>
+
+    <h2>CREATE Database and Tables</h2>
+    <pre><code>-- Create a new database
+CREATE DATABASE IF NOT EXISTS myapp;
+
+-- Use the database
+USE myapp;
+
+-- Create a table
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    age INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);</code></pre>
+
+    <h2>INSERT - Add Data</h2>
+    <pre><code>-- Insert single record
+INSERT INTO users (name, email, age) 
+VALUES ('John Doe', 'john@example.com', 28);
+
+-- Insert multiple records
+INSERT INTO users (name, email, age) VALUES
+('Alice Smith', 'alice@example.com', 25),
+('Bob Johnson', 'bob@example.com', 32),
+('Carol White', 'carol@example.com', 27);</code></pre>
+
+    <h2>SELECT - Retrieve Data</h2>
+    <div class="concept">
+        <strong>SELECT is the most important query!</strong> It retrieves data from tables.
+    </div>
+
+    <pre><code>-- Select all columns
+SELECT * FROM users;
+
+-- Select specific columns
+SELECT name, email FROM users;
+
+-- Select with WHERE clause
+SELECT * FROM users WHERE age > 25;
+
+-- Select with sorting
+SELECT * FROM users ORDER BY name ASC;
+
+-- Select with LIMIT
+SELECT * FROM users LIMIT 5;</code></pre>
+
+    <h2>WHERE Clause - Filter Data</h2>
+    <pre><code>-- Equal to
+SELECT * FROM users WHERE age = 28;
+
+-- Greater than / Less than
+SELECT * FROM users WHERE age > 25;
+SELECT * FROM users WHERE age < 30;
+
+-- Between
+SELECT * FROM users WHERE age BETWEEN 25 AND 30;
+
+-- IN operator
+SELECT * FROM users WHERE age IN (25, 28, 32);
+
+-- LIKE pattern matching
+SELECT * FROM users WHERE name LIKE 'A%';  -- Starts with A</code></pre>
+
+    <h2>UPDATE - Modify Data</h2>
+    <pre><code>-- Update single record
+UPDATE users SET age = 30 WHERE id = 1;
+
+-- Update multiple records
+UPDATE users SET age = age + 1 WHERE age > 25;
+
+-- Update specific field
+UPDATE users SET email = 'newemail@example.com' 
+WHERE name = 'John Doe';</code></pre>
+
+    <h2>DELETE - Remove Data</h2>
+    <pre><code>-- Delete specific record
+DELETE FROM users WHERE id = 1;
+
+-- Delete multiple records
+DELETE FROM users WHERE age < 18;
+
+-- Delete all records (use with caution!)
+DELETE FROM users;</code></pre>
+
+    <h2>JOIN - Combine Tables</h2>
+    <pre><code>-- Create another table
+CREATE TABLE posts (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    title VARCHAR(200),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- INNER JOIN
+SELECT users.name, posts.title 
+FROM users 
+INNER JOIN posts ON users.id = posts.user_id;
+
+-- LEFT JOIN
+SELECT users.name, posts.title 
+FROM users 
+LEFT JOIN posts ON users.id = posts.user_id;</code></pre>
+
+    <h2>Aggregate Functions</h2>
+    <pre><code>-- COUNT records
+SELECT COUNT(*) FROM users;
+
+-- SUM values
+SELECT SUM(age) FROM users;
+
+-- Average
+SELECT AVG(age) FROM users;
+
+-- MIN and MAX
+SELECT MIN(age), MAX(age) FROM users;
+
+-- GROUP BY
+SELECT age, COUNT(*) 
+FROM users 
+GROUP BY age;</code></pre>
+
+    <div class="note">
+        <strong>⚠️ Important:</strong> Always backup your database before running DELETE or UPDATE queries on large datasets!
+    </div>
+
+    <div class="nav-buttons">
+        <button class="btn btn-secondary" onclick="history.back()">← Back</button>
+        <button class="btn btn-primary" onclick="location.href='04-advanced-queries.html'">Next →</button>
+    </div>
+</body>
+</html>

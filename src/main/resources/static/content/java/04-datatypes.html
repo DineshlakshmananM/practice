@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Java Data Types</title>
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-dark: #0f172a;
+            --bg-secondary: #0f172a;
+            --bg-card: #020617;
+            --border-color: #1e293b;
+            --text-main: #e5e7eb;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0;
+            padding: 20px;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        h1 { color: var(--primary); margin-top: 0; }
+        h2 { color: var(--primary-hover); margin-top: 30px; }
+        code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #fca5a5;
+        }
+        pre {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #0ea5e9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+        }
+        th {
+            background: #0f172a;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .concept { background: #1e293b; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        .note { background: #334155; padding: 12px; border-left: 3px solid #f59e0b; margin: 10px 0; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: #020617; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #334155; color: #f8fafc; }
+        .btn-secondary:hover { background: #475569; }
+    </style>
+</head>
+<body>
+    <h1>Java Data Types</h1>
+
+    <h2>What are Data Types?</h2>
+    <p>
+        Data types in Java specify the size and type of values that a variable can hold. Java supports two categories of data types: primitive types and reference types.
+    </p>
+
+    <h2>Primitive Data Types</h2>
+    <div class="concept">
+        <strong>byte:</strong> 8-bit integer (-128 to 127)<br>
+        <strong>short:</strong> 16-bit integer (-32,768 to 32,767)<br>
+        <strong>int:</strong> 32-bit integer (default for whole numbers)<br>
+        <strong>long:</strong> 64-bit integer<br>
+        <strong>float:</strong> 32-bit single precision decimal<br>
+        <strong>double:</strong> 64-bit double precision decimal (default for decimals)<br>
+        <strong>char:</strong> 16-bit Unicode character<br>
+        <strong>boolean:</strong> true or false
+    </div>
+
+    <h2>Integer Data Types</h2>
+    <pre><code>byte smallNumber = 100;
+short mediumNumber = 5000;
+int standardInt = 100000;
+long largeNumber = 10000000000L;  // L suffix for long</code></pre>
+
+    <h2>Floating-Point Data Types</h2>
+    <pre><code>float price = 19.99f;           // f suffix for float
+double salary = 50000.75;       // double is default
+double pi = 3.14159265358979;</code></pre>
+
+    <h2>Character and Boolean</h2>
+    <pre><code>char letter = 'A';
+char digit = '5';
+char unicode = '\u0041';  // Unicode character
+
+boolean isJavaFun = true;
+boolean isProgrammer = false;</code></pre>
+
+    <h2>Reference Data Types (Non-Primitive)</h2>
+    <ul>
+        <li><strong>String:</strong> Sequence of characters</li>
+        <li><strong>Array:</strong> Collection of elements of same type</li>
+        <li><strong>Class:</strong> User-defined reference type</li>
+        <li><strong>Interface:</strong> Contract that classes can implement</li>
+    </ul>
+
+    <h2>String Data Type</h2>
+    <pre><code>String name = "John Doe";
+String message = "Hello, Java!";
+String empty = "";
+
+// String methods
+int length = name.length();           // Get length
+String upper = name.toUpperCase();    // Convert to uppercase
+String lower = name.toLowerCase();    // Convert to lowercase
+char firstChar = name.charAt(0);      // Get character at index</code></pre>
+
+    <h2>Arrays</h2>
+    <pre><code>// One-dimensional array
+int[] numbers = {10, 20, 30, 40, 50};
+String[] names = new String[3];
+
+// Accessing array elements
+int first = numbers[0];      // 10
+names[0] = "Alice";
+
+// Array length
+int size = numbers.length;   // 5</code></pre>
+
+    <h2>Type Conversion</h2>
+    <pre><code>// Automatic conversion (widening)
+int intValue = 10;
+long longValue = intValue;
+
+// Manual conversion (narrowing)
+double doubleValue = 9.99;
+int intFromDouble = (int) doubleValue;  // Result: 9
+
+// String to number
+int num = Integer.parseInt("42");
+double decimal = Double.parseDouble("3.14");</code></pre>
+
+    <h2>Variable Declaration</h2>
+    <pre><code>int age = 25;
+double height = 5.9;
+String country = "USA";
+boolean isStudentActive = true;
+
+// Multiple variables of same type
+int x = 5, y = 10, z = 15;</code></pre>
+
+    <div class="note">
+        <strong>💡 Tip:</strong> Always initialize variables before using them to avoid compilation errors!
+    </div>
+        <button class="btn btn-secondary" onclick="history.back()">← Back</button>
+        <button class="btn btn-primary" onclick="location.href='05-operators.html'">Next →</button>
+    </div>
+</body>
+</html>

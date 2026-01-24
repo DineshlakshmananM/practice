@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Introduction to MySQL</title>
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-dark: #0f172a;
+            --bg-secondary: #0f172a;
+            --bg-card: #020617;
+            --border-color: #1e293b;
+            --text-main: #e5e7eb;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0;
+            padding: 20px;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        h1 { color: var(--primary); margin-top: 0; }
+        h2 { color: var(--primary-hover); margin-top: 30px; }
+        code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #fca5a5;
+        }
+        pre {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #0ea5e9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+        }
+        th {
+            background: #0f172a;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .concept { background: #1e293b; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        .note { background: #334155; padding: 12px; border-left: 3px solid #f59e0b; margin: 10px 0; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: #020617; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #334155; color: #f8fafc; }
+        .btn-secondary:hover { background: #475569; }
+    </style>
+</head>
+<body>
+    <h1>Introduction to MySQL</h1>
+
+    <h2>What is MySQL?</h2>
+    <p>
+        MySQL is a popular open-source relational database management system (RDBMS) that uses Structured Query Language (SQL) to manage data. It's one of the most widely used databases in web applications and is known for its reliability, performance, and ease of use.
+    </p>
+
+    <h2>What is a Relational Database?</h2>
+    <p>
+        A relational database organizes data into tables (relations) with rows and columns. Each table represents an entity, and relationships between tables are maintained through keys. This structure makes it easy to store, organize, and retrieve data efficiently.
+    </p>
+
+    <div class="concept">
+        <strong>Key Components:</strong><br>
+        • Tables: Collections of related data organized in rows and columns<br>
+        • Rows (Records): Individual entries in a table<br>
+        • Columns (Fields): Attributes of the data<br>
+        • Primary Key: Unique identifier for each row<br>
+        • Foreign Key: Reference to primary key in another table
+    </div>
+
+    <h2>Why Use MySQL?</h2>
+    <ul>
+        <li><strong>Open Source:</strong> Free to use and modify</li>
+        <li><strong>Reliable:</strong> ACID-compliant transactions ensure data integrity</li>
+        <li><strong>Performance:</strong> Fast query processing and indexing</li>
+        <li><strong>Security:</strong> User privilege system and password encryption</li>
+        <li><strong>Scalability:</strong> Handles large datasets efficiently</li>
+        <li><strong>Platform Independent:</strong> Runs on Linux, Windows, macOS, etc.</li>
+    </ul>
+
+    <h2>Key Features</h2>
+    <pre><code>✓ ACID Properties (Atomicity, Consistency, Isolation, Durability)
+✓ Support for multiple storage engines
+✓ Full-text search capabilities
+✓ Replication for data redundancy
+✓ Backup and recovery tools
+✓ SSL support for secure connections
+✓ Stored procedures and triggers</code></pre>
+
+    <h2>RDBMS vs NoSQL</h2>
+    <div class="concept">
+        <strong>RDBMS (MySQL):</strong> Structured data, relationships, ACID compliance, complex queries<br>
+        <strong>NoSQL:</strong> Unstructured data, flexible schema, eventual consistency, simple queries
+    </div>
+
+    <h2>Common Use Cases</h2>
+    <ul>
+        <li>Web applications and content management systems (WordPress, Drupal)</li>
+        <li>E-commerce platforms (storing products, orders, customers)</li>
+        <li>Social media applications (user profiles, posts, relationships)</li>
+        <li>Banking and financial systems</li>
+        <li>Healthcare management systems</li>
+        <li>Business intelligence and analytics</li>
+    </ul>
+
+    <div class="note">
+        <strong>💡 Interesting Fact:</strong> MySQL powers over 40% of the web, including major companies like Facebook, Twitter, and YouTube (originally).
+    </div>
+
+    <div class="nav-buttons">
+        <button class="btn btn-secondary" onclick="history.back()">← Back</button>
+        <button class="btn btn-primary" onclick="location.href='02-installation.html'">Next →</button>
+    </div>
+</body>
+</html>

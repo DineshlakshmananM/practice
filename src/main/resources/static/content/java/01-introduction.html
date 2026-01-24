@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <title>Java Introduction</title>
     <style>
+        :root {
+            --bg-main: #020617;
+            --bg-dark: #0f172a;
+            --bg-secondary: #0f172a;
+            --bg-card: #020617;
+            --border-color: #1e293b;
+            --text-main: #e5e7eb;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+        }
+
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -13,8 +26,8 @@
             background: #0f172a;
             color: #e2e8f0;
         }
-        h1 { color: #0ea5e9; margin-top: 0; }
-        h2 { color: #06b6d4; margin-top: 30px; }
+        h1 { color: var(--primary); margin-top: 0; }
+        h2 { color: var(--primary-hover); margin-top: 30px; }
         code {
             background: #1e293b;
             padding: 2px 6px;
@@ -31,6 +44,12 @@
         }
         .concept { background: #1e293b; padding: 15px; border-radius: 6px; margin: 15px 0; }
         .note { background: #334155; padding: 12px; border-left: 3px solid #f59e0b; margin: 10px 0; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: #020617; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #334155; color: #f8fafc; }
+        .btn-secondary:hover { background: #475569; }
     </style>
 </head>
 <body>
@@ -106,6 +125,11 @@
 
     <div class="note">
         <strong>✅ Quick Assignment:</strong> Create and run the HelloWorld program on your computer!
+    </div>
+
+    <div class="nav-buttons">
+        <button class="btn btn-secondary" onclick="history.back()">← Back</button>
+        <button class="btn btn-primary" onclick="location.href='02-installation.html'">Next: Installation →</button>
     </div>
 </body>
 </html>
