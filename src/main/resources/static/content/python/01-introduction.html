@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Python Introduction</title>
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-dark: #0f172a;
+            --bg-secondary: #0f172a;
+            --bg-card: #020617;
+            --border-color: #1e293b;
+            --text-main: #e5e7eb;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0;
+            padding: 20px;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        h1 { color: var(--primary); margin-top: 0; }
+        h2 { color: var(--primary-hover); margin-top: 30px; }
+        code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #fca5a5;
+        }
+        pre {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #0ea5e9;
+        }
+        .concept { background: #1e293b; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        .note { background: #334155; padding: 12px; border-left: 3px solid #f59e0b; margin: 10px 0; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: #020617; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #334155; color: #f8fafc; }
+        .btn-secondary:hover { background: #475569; }
+    </style>
+</head>
+<body>
+    <h1>Python Introduction</h1>
+
+    <h2>What is Python?</h2>
+    <p>
+        Python is a high-level, interpreted programming language known for its simplicity and readability. 
+        It supports multiple programming paradigms including procedural, object-oriented, and functional programming.
+    </p>
+
+    <h2>History of Python</h2>
+    <div class="concept">
+        <strong>Created by:</strong> Guido van Rossum<br>
+        <strong>First Release:</strong> 1991<br>
+        <strong>Philosophy:</strong> Readability, simplicity, and explicit is better than implicit
+    </div>
+
+    <h2>Key Features of Python</h2>
+    <ul>
+        <li><strong>Easy to Learn:</strong> Simple syntax similar to English</li>
+        <li><strong>Interpreted:</strong> No compilation needed, runs line by line</li>
+        <li><strong>Versatile:</strong> Used in web development, data science, AI, automation, and more</li>
+        <li><strong>Large Ecosystem:</strong> Thousands of libraries and frameworks</li>
+        <li><strong>Cross-platform:</strong> Runs on Windows, Mac, Linux, and more</li>
+    </ul>
+
+    <h2>Your First Python Program</h2>
+    <pre><code>print("Hello, World!")</code></pre>
+
+    <div class="note">
+        <strong>📌 Note:</strong> Unlike Java, Python doesn't require a main() method or class wrapper 
+        for simple scripts. The code executes from top to bottom.
+    </div>
+
+    <h2>Why Learn Python?</h2>
+    <ul>
+        <li>🤖 AI and Machine Learning (TensorFlow, PyTorch)</li>
+        <li>📊 Data Science and Analytics (Pandas, NumPy)</li>
+        <li>🌐 Web Development (Django, Flask)</li>
+        <li>🔧 Automation and Scripting</li>
+        <li>💼 High demand in job market</li>
+    </ul>
+
+    <h2>Next Steps</h2>
+    <p>
+        Continue learning Python:
+        <ul>
+            <li>Variables and Data Types</li>
+            <li>Operators and Expressions</li>
+            <li>Control Flow (if-else, loops)</li>
+            <li>Functions and Modules</li>
+        </ul>
+    </p>
+
+    <div class="note">
+        <strong>✅ Quick Assignment:</strong> Write a Python program that prints your name!
+    </div>
+
+    <div class="nav-buttons">
+        <button class="btn btn-secondary" onclick="history.back()">← Back</button>
+        <button class="btn btn-primary" onclick="location.href='02-setup.html'">Next: Setup →</button>
+    </div>
+</body>
+</html>
+

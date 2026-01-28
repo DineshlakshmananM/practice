@@ -2,244 +2,732 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TechySpine | Learn to Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechySpine | Master Programming Fundamentals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --dark-bg: #0f172a;
+            --darker-bg: #020617;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5f1;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
         }
 
         body {
-            background-color: #0f172a;
-            color: #e5e7eb;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1a1f3a 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
         }
 
         /* ===== NAVBAR ===== */
         header {
-            background: #020617;
-            padding: 15px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+            padding: 18px 40px;
+        }
+
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #1e293b;
-            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: #38bdf8;
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: -1px;
         }
 
-        .nav-buttons button {
-            margin-left: 10px;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            cursor: pointer;
-            border: none;
-        }
-
-        .login {
-            background: transparent;
-            color: #e5e7eb;
-            border: 1px solid #334155;
-        }
-
-        .register {
-            background: #38bdf8;
-            color: #020617;
-            font-weight: 600;
-        }
-
-        /* ===== PROFILE ===== */
-        .profile {
-            display: none;
+        .nav-menu {
+            display: flex;
+            gap: 40px;
             align-items: center;
-            gap: 10px;
-            cursor: pointer;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
             position: relative;
         }
 
-        .profile img {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: #334155;
+        .nav-menu a:hover {
+            color: var(--primary);
         }
 
-        .profile span {
-            font-size: 14px;
-            color: #e5e7eb;
-        }
-
-        .profile-menu {
-            display: none;
+        .nav-menu a::after {
+            content: '';
             position: absolute;
-            top: 55px;
-            right: 0;
-            background: #020617;
-            border: 1px solid #1e293b;
-            border-radius: 8px;
-            padding: 12px;
-            width: 220px;
-            z-index: 10;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
         }
 
-        .profile-menu p {
-            font-size: 13px;
-            color: #cbd5f5;
-            margin-bottom: 10px;
-        }
-
-        .profile-menu button {
+        .nav-menu a:hover::after {
             width: 100%;
-            padding: 8px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            background: #ef4444;
-            color: white;
-            font-size: 13px;
         }
 
-        /* ===== HERO ===== */
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 10px 24px;
+            border-radius: 8px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* ===== HERO SECTION ===== */
         .hero {
-            padding: 90px 40px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            background: radial-gradient(circle at top, #1e293b, #020617);
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float-reverse 10s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
         }
 
         .hero h1 {
-            font-size: 44px;
-            margin-bottom: 15px;
-            color: #f8fafc;
+            font-size: 72px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            font-size: 18px;
-            max-width: 750px;
-            margin: auto;
-            color: #cbd5f5;
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-weight: 300;
         }
 
-        .hero button {
-            margin-top: 30px;
-            padding: 14px 32px;
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-large {
+            padding: 16px 40px;
             font-size: 16px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            background: #38bdf8;
-            color: #020617;
-            font-weight: 600;
-        }
-
-        /* ===== FEATURES ===== */
-        .features {
-            padding: 70px 40px;
-            max-width: 1200px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background: #020617;
-            padding: 28px;
             border-radius: 12px;
-            border: 1px solid #1e293b;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .card h3 {
-            margin-bottom: 10px;
-            color: #38bdf8;
+        .btn-large.primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
         }
 
-        .card p {
+        .btn-large.primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-large.secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-large.secondary:hover {
+            background: rgba(99, 102, 241, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features {
+            padding: 100px 40px;
+            background: rgba(15, 23, 42, 0.5);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
             font-size: 14px;
-            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        /* ===== LANGUAGES SECTION ===== */
+        .languages {
+            padding: 100px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .language-card {
+            background: linear-gradient(135deg, var(--card-bg) 0%, rgba(30, 41, 59, 0.8) 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .language-card:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.25);
+        }
+
+        .language-icon {
+            font-size: 56px;
+            margin-bottom: 15px;
+        }
+
+        .language-card h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .language-card p {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        /* ===== STATS SECTION ===== */
+        .stats {
+            padding: 80px 40px;
+            background: rgba(99, 102, 241, 0.05);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 48px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-item p {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta {
+            padding: 100px 40px;
+            text-align: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 52px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* ===== FOOTER ===== */
         footer {
-            background: #020617;
-            border-top: 1px solid #1e293b;
-            color: #94a3b8;
-            padding: 20px;
+            background: var(--darker-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 40px;
             text-align: center;
-            font-size: 13px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        footer p {
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero {
+                min-height: 80vh;
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-large {
+                width: 100%;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .features {
+                padding: 60px 20px;
+            }
+
+            .cta {
+                padding: 60px 20px;
+            }
+
+            .cta h2 {
+                font-size: 36px;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease;
         }
     </style>
 </head>
 <body>
+    <!-- NAVBAR -->
+    <header>
+        <nav>
+            <a href="#" class="logo">TechySpine</a>
+            <div class="nav-menu">
+                <a href="#features">Features</a>
+                <a href="#languages">Languages</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="location.href='login.html'">Login</button>
+                <button class="btn-primary" onclick="location.href='register.html'">Sign Up</button>
+            </div>
+        </nav>
+    </header>
 
-<!-- NAVBAR -->
-<header>
-    <div class="logo">TechySpine</div>
-
-    <!-- LOGIN / REGISTER -->
-    <div class="nav-buttons" id="authButtons">
-        <button class="login" onclick="location.href='login.html'">Login</button>
-        <button class="register" onclick="location.href='register.html'">Register</button>
-    </div>
-
-    <!-- PROFILE -->
-    <div class="profile" id="profile">
-        <img id="profileImage" src="" alt="Profile">
-        <span id="profileName"></span>
-
-        <div class="profile-menu" id="profileMenu">
-            <p id="profileEmail"></p>
-            <button onclick="logout()">Logout</button>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content fade-in">
+            <h1>Master Programming<br>From Basics to Advanced</h1>
+            <p>Learn coding the right way with interactive challenges, real-world projects, and expert guidance</p>
+            <div class="hero-buttons">
+                <button class="btn-large primary" onclick="location.href='register.html'">Start Learning Free</button>
+                <button class="btn-large secondary" onclick="location.href='#features'">Explore Features</button>
+            </div>
         </div>
-    </div>
-</header>
+    </section>
 
-<!-- HERO -->
-<section class="hero">
-    <h1>Learn Coding the Smart Way</h1>
-    <p>
-        TechySpine is a modern learning platform designed to help you master
-        programming fundamentals through structured lessons and hands-on practice.
-    </p>
-    <button onclick="startLearning()">Start Learning</button>
-</section>
+    <!-- FEATURES SECTION -->
+    <section class="features" id="features">
+        <h2 class="section-title">Why Choose CodeMastery?</h2>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🎯</div>
+                <h3>Structured Learning</h3>
+                <p>Follow a carefully crafted curriculum designed by industry experts to ensure you master each concept before moving forward.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">⚡</div>
+                <h3>Interactive Challenges</h3>
+                <p>Practice with real-world coding problems and instant feedback to accelerate your learning and build confidence.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">📊</div>
+                <h3>Progress Tracking</h3>
+                <p>Monitor your learning journey with detailed analytics and personalized recommendations to optimize your study path.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🏆</div>
+                <h3>Achievement System</h3>
+                <p>Earn badges and certificates as you complete courses, showcase your skills, and motivate your learning journey.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">👥</div>
+                <h3>Community Support</h3>
+                <p>Connect with thousands of learners, share knowledge, and grow together in a supportive learning community.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">💎</div>
+                <h3>Premium Resources</h3>
+                <p>Access premium tutorials, code snippets, and exclusive content to accelerate your mastery and boost career prospects.</p>
+            </div>
+        </div>
+    </section>
 
-<!-- FEATURES -->
-<section class="features">
-    <div class="card">
-        <h3>Beginner Friendly</h3>
-        <p>Step-by-step learning paths for absolute beginners.</p>
-    </div>
+    <!-- LANGUAGES SECTION -->
+    <section class="languages" id="languages">
+        <h2 class="section-title">Learn Popular Languages</h2>
+        <div class="languages-grid">
+            <div class="language-card">
+                <div class="language-icon">☕</div>
+                <h4>Java</h4>
+                <p>Object-oriented programming</p>
+            </div>
+            <div class="language-card">
+                <div class="language-icon">🐍</div>
+                <h4>Python</h4>
+                <p>Beginner-friendly & powerful</p>
+            </div>
+            <div class="language-card">
+                <div class="language-icon">⚙️</div>
+                <h4>C/C++</h4>
+                <p>Systems & competitive coding</p>
+            </div>
+            <div class="language-card">
+                <div class="language-icon">🗄️</div>
+                <h4>MySQL</h4>
+                <p>Database fundamentals</p>
+            </div>
+            <div class="language-card">
+                <div class="language-icon">🌐</div>
+                <h4>Web Dev</h4>
+                <p>HTML, CSS, JavaScript</p>
+            </div>
+            <div class="language-card">
+                <div class="language-icon">⚛️</div>
+                <h4>React</h4>
+                <p>Modern front-end framework</p>
+            </div>
+        </div>
+    </section>
 
-    <div class="card">
-        <h3>Multiple Languages</h3>
-        <p>Java, Python, C, JavaScript, SQL and more.</p>
-    </div>
+    <!-- STATS SECTION -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>50K+</h3>
+                <p>Active Learners</p>
+            </div>
+            <div class="stat-item">
+                <h3>200+</h3>
+                <p>Video Lessons</p>
+            </div>
+            <div class="stat-item">
+                <h3>1000+</h3>
+                <p>Code Challenges</p>
+            </div>
+            <div class="stat-item">
+                <h3>95%</h3>
+                <p>Success Rate</p>
+            </div>
+        </div>
+    </section>
 
-    <div class="card">
-        <h3>Practice Problems</h3>
-        <p>Real-world coding challenges with increasing difficulty.</p>
-    </div>
+    <!-- CTA SECTION -->
+    <section class="cta">
+        <h2>Ready to Level Up Your Coding Skills?</h2>
+        <p>Join thousands of programmers who are already mastering their coding skills with CodeMastery. Start your journey today!</p>
+        <button class="btn-large primary" onclick="location.href='register.html'">Get Started Now</button>
+    </section>
 
-    <div class="card">
-        <h3>Career Oriented</h3>
-        <p>Build strong fundamentals for interviews and professional growth.</p>
-    </div>
-</section>
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2024 CodeMastery. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#terms">Terms of Service</a>
+            <a href="#contact">Contact Us</a>
+            <a href="#blog">Blog</a>
+        </div>
+    </footer>
 
-<!-- FOOTER -->
-<footer>
-    © 2025 TechySpine · Learn · Practice · Grow
-</footer>
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
 
-<script src="js/home.js"></script>
+        // Add fade-in animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
 
+        document.querySelectorAll('.feature-card, .language-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>

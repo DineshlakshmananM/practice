@@ -2,200 +2,420 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | TechySpine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 
     <style>
         * {
             box-sizing: border-box;
-            font-family: "Segoe UI", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --dark-bg: #0f172a;
+            --darker-bg: #020617;
+            --card-bg: #1e293b;
+            --border-color: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5f1;
+            --text-muted: #94a3b8;
+            --danger: #ef4444;
         }
 
         body {
-            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1a1f3a 100%);
+            color: var(--text-primary);
             height: 100vh;
-            background: #0f172a;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #e5e7eb;
+            overflow: hidden;
         }
 
-        .card {
-            background: #020617;
-            padding: 40px;
-            width: 360px;
-            border-radius: 14px;
-            border: 1px solid #1e293b;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #84a98c;
-        }
-
-        input {
+        .container {
+            display: flex;
             width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            background: #020617;
-            color: #e5e7eb;
+            height: 100vh;
+            max-width: 100%;
+        }
+
+        .left-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .left-content {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+        }
+
+        .left-content h1 {
+            font-size: 48px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .left-content p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .features-list {
+            list-style: none;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-secondary);
             font-size: 14px;
         }
 
-        input:focus {
-            outline: none;
-            border-color: #84a98c;
+        .features-list li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 18px;
         }
 
-        button {
+        .right-panel {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            background: rgba(2, 6, 23, 0.5);
+        }
+
+        .login-card {
             width: 100%;
-            padding: 12px;
-            border-radius: 8px;
+            max-width: 450px;
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-section h2 {
+            font-size: 28px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .logo-section p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: rgba(15, 23, 42, 0.8);
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(15, 23, 42, 1);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .forgot-password {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: var(--accent);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
             border: none;
-            background: #84a98c;
-            color: #020617;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
         }
 
-        button:hover {
-            background: #6b9080;
+        .login-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.4);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            gap: 10px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .divider span {
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 500;
         }
 
         .google-btn {
-            margin-top: 12px;
-            background: #1e293b;
-            color: #e5e7eb;
-            border: 1px solid #334155;
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .google-btn:hover {
-            background: #334155;
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
         }
 
         .error {
-            margin-top: 12px;
-            text-align: center;
-            color: #f87171;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger);
+            color: #fca5a5;
             font-size: 13px;
+            margin-bottom: 20px;
+            display: none;
         }
 
-        .link {
-            margin-top: 18px;
-            text-align: center;
-            font-size: 13px;
+        .error.show {
+            display: block;
         }
 
-        .link a {
-            color: #84a98c;
+        .signup-link {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .signup-link p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: var(--primary);
             text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-panel {
+                display: none;
+            }
+
+            .right-panel {
+                width: 100%;
+                height: 100vh;
+                padding: 20px;
+            }
+
+            .login-card {
+                padding: 40px 25px;
+            }
+
+            .logo-section h2 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <div class="left-content">
+                <h1>Welcome Back!</h1>
+                <p>Continue your coding journey and master programming skills with interactive challenges and real-world projects.</p>
+                <ul class="features-list">
+                    <li>Interactive Coding Challenges</li>
+                    <li>Track Your Progress</li>
+                    <li>Earn Achievements</li>
+                    <li>Community Support</li>
+                </ul>
+            </div>
+        </div>
 
-<div class="card">
-    <h2>Login to TechySpine</h2>
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <div class="login-card">
+                <div class="logo-section">
+                    <h2>TechySpine</h2>
+                    <p>Master Programming Skills</p>
+                </div>
 
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
+                <div class="error" id="error"></div>
 
-    <!-- Manual login -->
-    <button onclick="login()">Login</button>
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="your@email.com" required>
+                    </div>
 
-    <!-- Google login -->
-    <button class="google-btn" onclick="googleLogin()">
-        Continue with Google
-    </button>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
 
-    <div class="error" id="error"></div>
+                    <div class="forgot-password">
+                        <a href="forgot-password.html">Forgot password?</a>
+                    </div>
 
-    <div class="link">
-        New here? <a href="register.html">Create an account</a>
+                    <button type="submit" class="login-btn" id="loginBtn">Sign In</button>
+                </form>
+
+                <div class="divider">
+                    <span>or</span>
+                </div>
+
+                <button class="google-btn" onclick="googleLogin()">
+                    <span>🔗</span> Continue with Google
+                </button>
+
+                <div class="signup-link">
+                    <p>Don't have an account? <a href="register.html">Create one now</a></p>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
-<script>
-/* ===== MANUAL LOGIN ===== */
-function login() {
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const errorDiv = document.getElementById("error");
-
-    errorDiv.innerText = "";
-
-    if (!email || !password) {
-        errorDiv.innerText = "Please enter email and password";
-        return;
-    }
-
-    fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            email,
-            password,
-            provider: "LOCAL"
-        })
-    })
-    .then(res => res.json())
-    .then(data => {
-        console.log("Login response:", data);
-        
-        if (!data.success) {
-            errorDiv.innerText = data.message;
-            return;
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+            login();
         }
 
-        if (!data.user) {
-            errorDiv.innerText = "Invalid response from server";
-            console.error("No user data in response");
-            return;
+        function googleLogin() {
+            window.location.href = "/api/auth/google";
         }
 
-        // Ensure user object has ALL required fields
-        const user = {
-            id: data.user.id,
-            username: data.user.username,
-            email: data.user.email,
-            provider: data.user.provider || "LOCAL",
-            profileImage: data.user.profileImage || null
-        };
-
-        // Validate required fields
-        if (!user.id || !user.username || !user.email) {
-            errorDiv.innerText = "Invalid user data from server";
-            console.error("Missing required fields:", user);
-            return;
-        }
-
-        console.log("Saving user to localStorage:", user);
-        localStorage.setItem("user", JSON.stringify(user));
-        
-        console.log("Login successful, redirecting to learning.html");
-        // Redirect immediately to learning.html
-        location.href = "learning.html";
-    })
-    .catch(() => {
-        errorDiv.innerText = "Server error. Try again later.";
-    });
-}
-
-/* ===== GOOGLE LOGIN (UI FLOW) ===== */
-function googleLogin() {
-    /*
-      Backend must expose:
-      GET /api/auth/google
-      which redirects to Google OAuth
-    */
-    window.location.href = "/api/auth/google";
-}
-</script>
-
-</body>
-</html>
+        // Check for OAuth callback on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('code') || urlParams.has('error')) {
+                handleOAuthRedirect();
+            }
+        });
+    </script>

@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechySpine | Master Programming Fundamentals</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0f172a;
+            color: #e5e7eb;
+            line-height: 1.6;
+        }
+
+        /* ===== NAVBAR ===== */
+        header {
+            background: #020617;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            position: relative;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #38bdf8;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            font-size: 18px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: #cbd5f5;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #38bdf8;
+        }
+
+        .nav-buttons button {
+            margin-left: 10px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .login {
+            background: transparent;
+            color: #e5e7eb;
+            border: 1px solid #334155;
+        }
+
+        .login:hover {
+            border-color: #38bdf8;
+            color: #38bdf8;
+        }
+
+        .register {
+            background: #38bdf8;
+            color: #020617;
+            font-weight: 600;
+        }
+
+        .register:hover {
+            background: #0ea5e9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+        }
+
+        /* ===== PROFILE ===== */
+        .profile {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .profile img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #334155;
+            border: 2px solid #38bdf8;
+        }
+
+        .profile span {
+            font-size: 14px;
+            color: #e5e7eb;
+        }
+
+        .profile-menu {
+            display: none;
+            position: absolute;
+            top: 55px;
+            right: 0;
+            background: #020617;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 12px;
+            width: 220px;
+            z-index: 10;
+        }
+
+        .profile-menu a {
+            display: block;
+            padding: 8px;
+            color: #cbd5f5;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .profile-menu a:hover {
+            background: #1e293b;
+            color: #38bdf8;
+        }
+
+        .profile-menu p {
+            font-size: 13px;
+            color: #cbd5f5;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 8px;
+        }
+
+        .profile-menu button {
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            background: #ef4444;
+            color: white;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .profile-menu button:hover {
+            background: #dc2626;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 100px 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #020617 0%, #1e293b 50%, #020617 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            color: #f8fafc;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: #38bdf8;
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #cbd5f5;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-buttons button {
+            padding: 14px 32px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #38bdf8;
+            color: #020617;
+        }
+
+        .btn-primary:hover {
+            background: #0ea5e9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(56, 189, 248, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #38bdf8;
+            border: 2px solid #38bdf8;
+        }
+
+        .btn-secondary:hover {
+            background: #38bdf8;
+            color: #020617;
+        }
+
+        /* ===== STATS ===== */
+        .stats {
+            padding: 50px 40px;
+            background: #1e293b;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #38bdf8;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #cbd5f5;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features-section {
+            padding: 80px 40px;
+            background: #0f172a;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .section-header h2 {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #f8fafc;
+        }
+
+        .section-header p {
+            font-size: 16px;
+            color: #cbd5f5;
+        }
+
+        .features {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: #020617;
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: #38bdf8;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(56, 189, 248, 0.15);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+            color: #f8fafc;
+            font-size: 18px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* ===== LANGUAGES SECTION ===== */
+        .languages-section {
+            padding: 80px 40px;
+            background: #1e293b;
+        }
+
+        .languages {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .language-box {
+            background: #020617;
+            padding: 24px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .language-box:hover {
+            border-color: #38bdf8;
+            box-shadow: 0 8px 16px rgba(56, 189, 248, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .language-box-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .language-box-name {
+            font-weight: 600;
+            color: #f8fafc;
+            margin-bottom: 4px;
+        }
+
+        .language-box-level {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-section {
+            padding: 80px 40px;
+            background: #0f172a;
+        }
+
+        .testimonials {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial {
+            background: #020617;
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+        }
+
+        .testimonial-text {
+            color: #cbd5f5;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-style: italic;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #020617;
+            font-size: 18px;
+        }
+
+        .testimonial-info h4 {
+            color: #f8fafc;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .testimonial-info p {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #f8fafc;
+        }
+
+        .cta-content p {
+            font-size: 16px;
+            color: #cbd5f5;
+            margin-bottom: 30px;
+        }
+
+        /* ===== PRICING ===== */
+        .pricing-section {
+            padding: 80px 40px;
+            background: #0f172a;
+        }
+
+        .pricing {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: #020617;
+            padding: 40px 32px;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card.popular {
+            border-color: #38bdf8;
+            transform: scale(1.05);
+            box-shadow: 0 12px 32px rgba(56, 189, 248, 0.2);
+        }
+
+        .pricing-card.popular::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #38bdf8;
+            color: #020617;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .pricing-name {
+            font-size: 20px;
+            color: #f8fafc;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .pricing-desc {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        .pricing-price {
+            font-size: 32px;
+            color: #38bdf8;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .pricing-price span {
+            font-size: 14px;
+            color: #cbd5f5;
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin: 30px 0;
+            padding: 20px 0;
+            border-top: 1px solid #1e293b;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .pricing-features li {
+            list-style: none;
+            padding: 8px 0;
+            font-size: 13px;
+            color: #cbd5f5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: #38bdf8;
+            font-weight: 700;
+        }
+
+        .pricing-button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .pricing-button.primary {
+            background: #38bdf8;
+            color: #020617;
+        }
+
+        .pricing-button.primary:hover {
+            background: #0ea5e9;
+            transform: translateY(-2px);
+        }
+
+        .pricing-button.secondary {
+            background: transparent;
+            border: 1px solid #334155;
+            color: #cbd5f5;
+        }
+
+        .pricing-button.secondary:hover {
+            border-color: #38bdf8;
+            color: #38bdf8;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #020617;
+            border-top: 1px solid #1e293b;
+            color: #94a3b8;
+            padding: 50px 40px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: #f8fafc;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 13px;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #38bdf8;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #1e293b;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-header h2 {
+                font-size: 28px;
+            }
+
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-buttons button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header>
+    <div class="logo">
+        <span>🧬</span>
+        <div>TechySpine</div>
+    </div>
+
+    <nav class="nav-menu">
+        <a href="#features">Features</a>
+        <a href="#languages">Languages</a>
+        <a href="#testimonials">Testimonials</a>
+    </nav>
+
+    <!-- LOGIN / REGISTER -->
+    <div class="nav-buttons" id="authButtons">
+        <button class="login" onclick="location.href='login.html'">Login</button>
+        <button class="register" onclick="location.href='login.html'">Get Started</button>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="profile" id="profile">
+        <img id="profileImage" src="" alt="Profile">
+        <span id="profileName"></span>
+
+        <div class="profile-menu" id="profileMenu">
+            <p id="profileEmail"></p>
+            <a href="profile.html">My Profile</a>
+            <a href="dashboard.html">Dashboard</a>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Master <span>Programming Fundamentals</span><br> The Smart Way</h1>
+        <p>
+            TechySpine is your ultimate destination for learning programming. With structured lessons, 
+            hands-on practice problems, and an interactive learning platform, we help you build a strong 
+            foundation in coding and ace technical interviews.
+        </p>
+        <div class="hero-buttons">
+            <button class="btn-primary" onclick="startLearning()">🚀 Start Learning Now</button>
+            <button class="btn-secondary" onclick="document.getElementById('features').scrollIntoView({behavior: 'smooth'})">Learn More</button>
+        </div>
+    </div>
+</section>
+
+<!-- STATS SECTION -->
+<section class="stats">
+    <div class="stat-box">
+        <div class="stat-number">50K+</div>
+        <div class="stat-label">Active Learners</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-number">1000+</div>
+        <div class="stat-label">Practice Problems</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">Programming Languages</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-number">95%</div>
+        <div class="stat-label">Success Rate</div>
+    </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="features-section" id="features">
+    <div class="section-header">
+        <h2>Why Choose TechySpine?</h2>
+        <p>Everything you need to become a proficient programmer in one place</p>
+    </div>
+
+    <div class="features">
+        <div class="card">
+            <div class="card-icon">📚</div>
+            <h3>Structured Learning Paths</h3>
+            <p>Carefully designed curriculum starting from absolute basics to advanced concepts. Learn at your own pace with clear progression.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">💻</div>
+            <h3>Multiple Programming Languages</h3>
+            <p>Master Java, Python, C, C++, JavaScript, MySQL and more. Each language with complete tutorials and documentation.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3>1000+ Practice Problems</h3>
+            <p>Real-world coding challenges with varying difficulty levels. Build confidence through hands-on practice.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📊</div>
+            <h3>Progress Tracking</h3>
+            <p>Monitor your learning journey with detailed analytics. Track problems solved, streaks, and skill ratings.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🎯</div>
+            <h3>Interview Preparation</h3>
+            <p>Specifically curated content to help you ace technical interviews. Build strong fundamentals for your career.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">👥</div>
+            <h3>Community Support</h3>
+            <p>Learn from a community of programmers, share solutions, and grow together. Get help when you're stuck.</p>
+        </div>
+    </div>
+</section>
+
+<!-- LANGUAGES SECTION -->
+<section class="languages-section" id="languages">
+    <div class="section-header">
+        <h2>Learn Your Favorite Language</h2>
+        <p>Choose from our comprehensive selection of programming languages</p>
+    </div>
+
+    <div class="languages">
+        <div class="language-box">
+            <div class="language-box-icon">☕</div>
+            <div class="language-box-name">Java</div>
+            <div class="language-box-level">Beginner → Advanced</div>
+        </div>
+
+        <div class="language-box">
+            <div class="language-box-icon">🐍</div>
+            <div class="language-box-name">Python</div>
+            <div class="language-box-level">Beginner → Advanced</div>
+        </div>
+
+        <div class="language-box">
+            <div class="language-box-icon">⚙️</div>
+            <div class="language-box-name">C</div>
+            <div class="language-box-level">Beginner → Advanced</div>
+        </div>
+
+        <div class="language-box">
+            <div class="language-box-icon">🔧</div>
+            <div class="language-box-name">C++</div>
+            <div class="language-box-level">Beginner → Advanced</div>
+        </div>
+
+        <div class="language-box">
+            <div class="language-box-icon">✨</div>
+            <div class="language-box-name">JavaScript</div>
+            <div class="language-box-level">Beginner → Advanced</div>
+        </div>
+
+        <div class="language-box">
+            <div class="language-box-icon">🗄️</div>
+            <div class="language-box-name">MySQL</div>
+            <div class="language-box-level">Beginner → Advanced</div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS SECTION -->
+<section class="testimonials-section" id="testimonials">
+    <div class="section-header">
+        <h2>What Our Learners Say</h2>
+        <p>Real stories from real people who transformed their coding skills</p>
+    </div>
+
+    <div class="testimonials">
+        <div class="testimonial">
+            <div class="testimonial-text">
+                "TechySpine completely transformed how I learn programming. The structured approach and practice problems helped me land my first dev job!"
+            </div>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">AJ</div>
+                <div class="testimonial-info">
+                    <h4>Arun Joshi</h4>
+                    <p>Junior Developer at TechCorp</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial">
+            <div class="testimonial-text">
+                "The practice problems are incredibly well-designed. They match the actual interview questions I faced. Highly recommend!"
+            </div>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">SP</div>
+                <div class="testimonial-info">
+                    <h4>Sophia Patel</h4>
+                    <p>Software Engineer at StartupXYZ</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial">
+            <div class="testimonial-text">
+                "As a self-taught programmer, I struggled with fundamentals. TechySpine's curriculum filled all the gaps and gave me confidence."
+            </div>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">MK</div>
+                <div class="testimonial-info">
+                    <h4>Marco Kumar</h4>
+                    <p>Full Stack Developer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+    <div class="cta-content">
+        <h2>Ready to Start Your Coding Journey?</h2>
+        <p>Join thousands of learners who are mastering programming with TechySpine. Start free today!</p>
+        <button class="btn-primary" onclick="startLearning()" style="padding: 14px 32px; font-size: 16px;">
+            🚀 Begin Learning Now
+        </button>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Product</h4>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#languages">Languages</a>
+            <a href="dashboard.html">Dashboard</a>
+        </div>
+
+        <div class="footer-section">
+            <h4>Learning</h4>
+            <a href="learning.html">Start Learning</a>
+            <a href="practice.html">Practice Problems</a>
+            <a href="skills.html">Skills</a>
+            <a href="#">Resources</a>
+        </div>
+
+        <div class="footer-section">
+            <h4>Company</h4>
+            <a href="#">About Us</a>
+            <a href="#">Blog</a>
+            <a href="#">Contact</a>
+            <a href="#">Careers</a>
+        </div>
+
+        <div class="footer-section">
+            <h4>Legal</h4>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Sitemap</a>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2025 TechySpine. All rights reserved. | Empowering programmers worldwide 🌍</p>
+    </div>
+</footer>
+
+<script src="js/home.js"></script>
+
+</body>
+</html>

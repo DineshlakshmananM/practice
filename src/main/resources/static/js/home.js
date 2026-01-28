@@ -32,7 +32,7 @@ function startLearning() {
     if (user && user.username) {
         location.href = "learning.html";
     } else {
-        location.href = "register.html";
+        location.href = "login.html";
     }
 }
 

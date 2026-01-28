@@ -6,7 +6,7 @@
 
     <!-- Reuse existing styles -->
     <link rel="stylesheet" href="css/theme.css">
-    <link rel="stylesheet" href="css/dashboard.css">
+    <link class="user-theme" rel="stylesheet" href="css/dashboard.css">
 
     <style>
         /* Page-specific layout only, colors untouched */
@@ -14,6 +14,8 @@
         body {
             display: flex;
             height: 100vh;
+            background: var(--bg-main);
+            color: var(--text-main);
         }
 
         .sidebar {
@@ -40,10 +42,23 @@
             color: var(--text-main);
             cursor: pointer;
             text-align: left;
+            transition: all 0.2s ease;
         }
 
         .sidebar button:hover {
             background: #334155;
+        }
+
+        .sidebar button.active {
+            background: var(--primary);
+            color: #020617;
+            font-weight: 600;
+        }
+
+        .sidebar button.completed::after {
+            content: '✓';
+            float: right;
+            color: #22c55e;
         }
 
         #topics {
@@ -71,10 +86,27 @@
             text-align: left;
             font-weight: 500;
             font-size: 13px;
+            transition: all 0.2s ease;
         }
 
         #topics button:hover {
-            background: #0ba5d9;
+            background: #38bdf8;
+        }
+
+        #topics button.active {
+            background: var(--primary);
+            box-shadow: 0 0 0 2px #fff;
+        }
+
+        #topics button.completed {
+            background: #166534;
+            color: #fff;
+        }
+
+        #topics button.completed::after {
+            content: '✓';
+            float: right;
+            color: #4ade80;
         }
 
         .main {
@@ -97,13 +129,16 @@
             flex: 1;
             padding: 30px;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
 
-        iframe {
+        #contentFrame {
+            flex: 1;
             width: 100%;
-            height: 100%;
             border: none;
             background: transparent;
+            border-radius: 8px;
         }
 
         .topbar-actions {
@@ -132,13 +167,6 @@
             transform: scale(1.1);
         }
 
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
         .topbar button {
             background: #ef4444;
             color: white;
@@ -152,6 +180,130 @@
         .topbar button:hover {
             background: #dc2626;
         }
+
+        /* Search Bar */
+        .search-container {
+            margin: 15px 0;
+        }
+
+        #topicSearch {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: #0f172a;
+            color: var(--text-main);
+            font-size: 14px;
+        }
+
+        #topicSearch:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb span {
+            color: var(--text-main);
+        }
+
+        /* Navigation Controls */
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            color: #020617;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .topic-counter {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Progress indicator */
+        .progress-info {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #334155;
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        /* Loading state */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-muted);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 15px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -160,12 +312,23 @@
 <aside class="sidebar" id="sidebar">
     <h3 id="languagesTitle">Languages</h3>
 
-    <button onclick="loadTopics('java')">Java</button>
-    <button onclick="loadTopics('c')">C</button>
-    <button onclick="loadTopics('cpp')">C++</button>
-    <button onclick="loadTopics('mysql')">MySQL</button>
+    <button onclick="loadTopics('java')" id="btn-java">Java</button>
+    <button onclick="loadTopics('c')" id="btn-c">C</button>
+    <button onclick="loadTopics('cpp')" id="btn-cpp">C++</button>
+    <button onclick="loadTopics('mysql')" id="btn-mysql">MySQL</button>
+
+    <div class="search-container">
+        <input type="text" id="topicSearch" placeholder="Search topics..." oninput="filterTopics(this.value)">
+    </div>
 
     <div id="topics"></div>
+    
+    <div class="progress-info">
+        <div id="progressText">Progress: 0%</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+    </div>
 </aside>
 
 <!-- MAIN -->
@@ -184,127 +347,28 @@
 
     <!-- CONTENT -->
     <div class="content">
-        <iframe id="contentFrame"></iframe>
+        <!-- Breadcrumb -->
+        <div class="breadcrumb" id="breadcrumb">
+            <span>Select a language to begin</span>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="nav-controls">
+            <button class="nav-btn" id="prevBtn" onclick="navigateTopic(-1)" disabled>&larr; Previous</button>
+            <span class="topic-counter" id="topicCounter"></span>
+            <button class="nav-btn" id="nextBtn" onclick="navigateTopic(1)" disabled>Next &rarr;</button>
+        </div>
+
+        <!-- Content Frame -->
+        <div id="contentContainer">
+            <iframe id="contentFrame"></iframe>
+        </div>
     </div>
 </div>
 
-<script>
-/* ===== GET USER FROM LOCALSTORAGE ===== */
-let user = JSON.parse(localStorage.getItem("user"));
-console.log("Learning page loaded, user:", user);
-
-// Initialize page with user data
-if (user && user.username) {
-    document.getElementById("userInfo").innerText = "Welcome, " + user.username;
-    
-    // Set avatar initial from username
-    const initial = user.username.charAt(0).toUpperCase();
-    document.getElementById("avatarInitial").innerText = initial;
-}
-
-/* ===== COURSE STRUCTURE (MATCHES YOUR FILES) ===== */
-const courses = {
-    java: [
-        "01-introduction.html",
-        "02-installation.html",
-        "03-syntax.html",
-        "04-datatypes.html",
-        "05-operators.html",
-        "06-control-statements.html",
-        "07-arrays.html",
-        "08-strings.html",
-        "09-oop-concepts.html",
-        "10-inheritance.html",
-        "11-polymorphism.html",
-        "12-abstraction.html",
-        "13-interfaces.html",
-        "14-exception-handling.html",
-        "15-collections.html",
-        "16-stream-api.html",
-        "17-file-handling.html",
-        "18-multithreading.html",
-        "19-advanced-java.html"
-    ],
-    c: [
-        "01-introduction.html",
-        "02-structure.html",
-        "03-datatypes.html",
-        "04-operators.html",
-        "05-control-statements.html",
-        "06-functions.html",
-        "07-arrays.html",
-        "08-pointers.html",
-        "09-strings.html",
-        "10-structures.html",
-        "11-file-handling.html",
-        "12-advanced-c.html"
-    ],
-    cpp: [
-        "01-introduction.html",
-        "02-syntax.html",
-        "03-oop.html",
-        "04-constructors.html",
-        "05-inheritance.html",
-        "06-polymorphism.html",
-        "07-templates.html",
-        "08-stl.html",
-        "09-file-handling.html",
-        "10-advanced-cpp.html"
-    ],
-    mysql: [
-        "01-introduction.html",
-        "02-installation.html",
-        "03-database-basics.html",
-        "04-tables.html",
-        "05-crud.html",
-        "06-constraints.html",
-        "07-joins.html",
-        "08-subqueries.html",
-        "09-indexes.html",
-        "10-views.html",
-        "11-stored-procedures.html",
-        "12-triggers.html",
-        "13-advanced-sql.html"
-    ]
-};
-
-/* ===== LOAD TOPICS ===== */
-function loadTopics(lang) {
-    console.log("Loading topics for:", lang);
-    const topicsDiv = document.getElementById("topics");
-    
-    if (!topicsDiv) {
-        console.error("Topics div not found!");
-        return;
-    }
-    
-    topicsDiv.innerHTML = "<h3>Topics</h3>";
-
-    courses[lang].forEach(file => {
-        const btn = document.createElement("button");
-        btn.innerText = file.replace(".html", "").replace(/-/g, " ");
-        btn.onclick = () => loadContent(lang, file);
-        topicsDiv.appendChild(btn);
-        console.log("Added topic button:", file);
-    });
-
-    console.log("Total topics added:", courses[lang].length);
-    // auto-load first topic
-    loadContent(lang, courses[lang][0]);
-}
-
-/* ===== LOAD CONTENT ===== */
-function loadContent(lang, file) {
-    document.getElementById("contentFrame").src =
-        `content/${lang}/${file}`;
-}
-
-/* ===== LOGOUT ===== */
-function logout() {
-    localStorage.removeItem("user");
-    location.href = "login.html";
-}
-</script>
+<!-- Load JavaScript -->
+<script src="js/learning.js"></script>
 
 </body>
 </html>
+

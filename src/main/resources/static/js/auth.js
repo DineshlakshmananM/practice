@@ -6,6 +6,7 @@ function login() {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
     const errorDiv = document.getElementById("error");
+    const loginBtn = document.getElementById("loginBtn");
 
     errorDiv.innerText = "";
 
@@ -14,21 +15,37 @@ function login() {
         return;
     }
 
+    if (!email.includes('@')) {
+        errorDiv.innerText = "Please enter a valid email";
+        return;
+    }
+
+    loginBtn.disabled = true;
+    loginBtn.innerText = "Logging in...";
+
     apiLogin(email, password)
         .then(data => {
             if (!data.success) {
-                errorDiv.innerText = data.message;
+                errorDiv.innerText = data.message || "Invalid email or password";
+                loginBtn.disabled = false;
+                loginBtn.innerText = "Login";
                 return;
             }
 
             // Save user session
             localStorage.setItem("user", JSON.stringify(data.user));
+            localStorage.setItem("sessionToken", new Date().getTime());
 
             // Redirect to dashboard
-            location.href = "dashboard.html";
+            setTimeout(() => {
+                location.href = "dashboard.html";
+            }, 300);
         })
-        .catch(() => {
-            errorDiv.innerText = "Server error. Try again later.";
+        .catch((err) => {
+            console.error("Login error:", err);
+            errorDiv.innerText = "Network error. Please try again.";
+            loginBtn.disabled = false;
+            loginBtn.innerText = "Login";
         });
 }
 

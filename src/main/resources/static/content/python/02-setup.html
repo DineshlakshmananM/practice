@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Python Setup</title>
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-dark: #0f172a;
+            --bg-secondary: #0f172a;
+            --bg-card: #020617;
+            --border-color: #1e293b;
+            --text-main: #e5e7eb;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0ea5e9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0;
+            padding: 20px;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+        h1 { color: var(--primary); margin-top: 0; }
+        h2 { color: var(--primary-hover); margin-top: 30px; }
+        h3 { color: #f59e0b; margin-top: 25px; }
+        code {
+            background: #1e293b;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #fca5a5;
+        }
+        pre {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            border-left: 3px solid #0ea5e9;
+        }
+        .concept { background: #1e293b; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        .note { background: #334155; padding: 12px; border-left: 3px solid #f59e0b; margin: 10px 0; }
+        .warning { background: #7f1d1d; padding: 12px; border-left: 3px solid #ef4444; margin: 10px 0; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .btn { padding: 12px 24px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: #020617; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background: #334155; color: #f8fafc; }
+        .btn-secondary:hover { background: #475569; }
+        ol { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+    <h1>Python Setup</h1>
+
+    <h2>Installing Python</h2>
+    
+    <h3>Windows</h3>
+    <ol>
+        <li>Visit <a href="https://python.org/downloads" style="color: var(--primary);">python.org/downloads</a></li>
+        <li>Download the latest Python installer (.exe)</li>
+        <li>Run the installer</li>
+        <li><strong>Important:</strong> Check "Add Python to PATH"</li>
+        <li>Click "Install Now"</li>
+    </ol>
+
+    <h3>macOS</h3>
+    <div class="concept">
+        <strong>Option 1 - Homebrew:</strong><br>
+        <code>brew install python</code>
+    </div>
+    <div class="concept">
+        <strong>Option 2 - Official Installer:</strong><br>
+        Download from python.org/downloads
+    </div>
+
+    <h3>Linux (Ubuntu/Debian)</h3>
+    <pre><code>sudo apt update
+sudo apt install python3 python3-pip</code></pre>
+
+    <h2>Verifying Installation</h2>
+    <pre><code>python --version
+python3 --version</code></pre>
+
+    <div class="note">
+        <strong>📌 Note:</strong> On most Linux/macOS systems, use <code>python3</code> instead of <code>python</code> 
+        to ensure you're using Python 3.x
+    </div>
+
+    <h2>Choosing an IDE</h2>
+    
+    <h3>VS Code (Recommended for Beginners)</h3>
+    <ol>
+        <li>Install <a href="https://code.visualstudio.com" style="color: var(--primary);">Visual Studio Code</a></li>
+        <li>Install Python extension</li>
+        <li>Install Pylance extension for better IntelliSense</li>
+    </ol>
+
+    <h3>Other Options</h3>
+    <ul>
+        <li><strong>PyCharm:</strong> Powerful IDE specifically for Python</li>
+        <li><strong>Jupyter Notebook:</strong> Great for data science</li>
+        <li><strong>Thonny:</strong> Beginner-friendly IDE</li>
+    </ul>
+
+    <h2>Your First Python Project</h2>
+    <pre><code># Create a file named hello.py
+print("Hello, Python!")
+
+# Run it from terminal
+# python hello.py</code></pre>
+
+    <div class="warning">
+        <strong>⚠️ Important:</strong> Always use Python 3.x. Python 2 reached end of life in 2020.
+    </div>
+
+    <h2>Next Steps</h2>
+    <p>
+        Now that Python is set up, let's learn about:
+        <ul>
+            <li>Variables and Data Types</li>
+            <li>Basic Operators</li>
+            <li>Your First Program</li>
+        </ul>
+    </p>
+
+    <div class="nav-buttons">
+        <button class="btn btn-secondary" onclick="location.href='01-introduction.html'">← Back</button>
+        <button class="btn btn-primary" onclick="location.href='03-variables-datatypes.html'">Next: Variables & Data Types →</button>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,115 @@
+{
+  "courses": {
+    "java": {
+      "name": "Java",
+      "description": "Master Java programming from basics to advanced concepts",
+      "icon": "☕"
+    },
+    "c": {
+      "name": "C",
+      "description": "Learn the fundamentals of C programming language",
+      "icon": "⚡"
+    },
+    "cpp": {
+      "name": "C++",
+      "description": "Explore object-oriented programming with C++",
+      "icon": "🚀"
+    },
+    "mysql": {
+      "name": "MySQL",
+      "description": "Learn database management with MySQL",
+      "icon": "🗄️"
+    },
+    "python": {
+      "name": "Python",
+      "description": "Learn Python programming from basics to advanced",
+      "icon": "🐍"
+    }
+  },
+  "topicOrder": {
+    "java": [
+      "01-introduction.html",
+      "02-installation.html",
+      "03-syntax.html",
+      "04-datatypes.html",
+      "05-operators.html",
+      "06-control-statements.html",
+      "07-arrays.html",
+      "08-strings.html",
+      "09-oop-concepts.html",
+      "10-inheritance.html",
+      "11-polymorphism.html",
+      "12-abstraction.html",
+      "13-interfaces.html",
+      "14-exception-handling.html",
+      "15-collections.html",
+      "16-stream-api.html",
+      "17-file-handling.html",
+      "18-multithreading.html",
+      "19-advanced-java.html"
+    ],
+    "c": [
+      "01-introduction.html",
+      "02-structure.html",
+      "03-datatypes.html",
+      "04-operators.html",
+      "05-control-statements.html",
+      "06-functions.html",
+      "07-arrays.html",
+      "08-pointers.html",
+      "09-strings.html",
+      "10-structures.html",
+      "11-file-handling.html",
+      "12-advanced-c.html"
+    ],
+    "cpp": [
+      "01-introduction.html",
+      "02-syntax.html",
+      "03-oop.html",
+      "04-constructors.html",
+      "05-inheritance.html",
+      "06-polymorphism.html",
+      "07-templates.html",
+      "08-stl.html",
+      "09-file-handling.html",
+      "10-advanced-cpp.html"
+    ],
+    "mysql": [
+      "01-introduction.html",
+      "02-installation.html",
+      "03-database-basics.html",
+      "04-tables.html",
+      "05-crud.html",
+      "06-constraints.html",
+      "07-joins.html",
+      "08-subqueries.html",
+      "09-indexes.html",
+      "10-views.html",
+      "11-stored-procedures.html",
+      "12-triggers.html",
+      "13-advanced-sql.html"
+    ],
+    "python": [
+      "01-introduction.html",
+      "02-setup.html",
+      "03-variables-datatypes.html",
+      "04-operators.html",
+      "05-control-flow.html",
+      "06-functions.html",
+      "07-strings.html",
+      "08-lists.html",
+      "09-tuples.html",
+      "10-dictionaries.html",
+      "11-sets.html",
+      "12-modules.html",
+      "13-oop-basics.html",
+      "14-inheritance.html",
+      "15-polymorphism.html",
+      "16-file-handling.html",
+      "17-exceptions.html",
+      "18-libraries.html",
+      "19-advanced-python.html"
+    ]
+  }
+}
+
