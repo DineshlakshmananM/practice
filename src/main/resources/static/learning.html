@@ -2,119 +2,132 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TechySpine | Learning</title>
-
-    <!-- Reuse existing styles -->
+    <title>Learning | TechySpine</title>
     <link rel="stylesheet" href="css/theme.css">
-    <link class="user-theme" rel="stylesheet" href="css/dashboard.css">
-
     <style>
-        /* Page-specific layout only, colors untouched */
-
-        body {
+        .page-layout {
             display: flex;
-            height: 100vh;
-            background: var(--bg-main);
-            color: var(--text-main);
+            min-height: 100vh;
         }
-
+        
+        /* Sidebar Styles */
         .sidebar {
-            width: 260px;
+            width: 280px;
             background: var(--bg-dark);
             border-right: 1px solid var(--border-color);
             padding: 20px;
+            display: flex;
+            flex-direction: column;
             overflow-y: auto;
         }
-
-        .sidebar h3 {
+        .sidebar h2 {
             color: var(--primary);
-            margin-bottom: 12px;
-            font-size: 16px;
-        }
-
-        .sidebar button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 8px;
-            border-radius: 6px;
-            border: none;
-            background: #1e293b;
-            color: var(--text-main);
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s ease;
-        }
-
-        .sidebar button:hover {
-            background: #334155;
-        }
-
-        .sidebar button.active {
-            background: var(--primary);
-            color: #020617;
-            font-weight: 600;
-        }
-
-        .sidebar button.completed::after {
-            content: '✓';
-            float: right;
-            color: #22c55e;
-        }
-
-        #topics {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #334155;
-        }
-
-        #topics h3 {
-            color: var(--primary);
-            margin-bottom: 12px;
             font-size: 14px;
-            margin-top: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
         }
-
-        #topics button {
+        
+        /* Language Button */
+        .lang-btn {
             width: 100%;
-            padding: 8px;
-            margin-bottom: 6px;
-            border-radius: 6px;
-            border: none;
-            background: #0ea5e9;
-            color: #020617;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-main);
+            color: var(--text-secondary);
             cursor: pointer;
-            text-align: left;
+            font-size: 14px;
             font-weight: 500;
-            font-size: 13px;
-            transition: all 0.2s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
         }
-
-        #topics button:hover {
-            background: #38bdf8;
+        .lang-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
         }
-
-        #topics button.active {
+        .lang-btn.active {
             background: var(--primary);
-            box-shadow: 0 0 0 2px #fff;
+            color: white;
+            border-color: var(--primary);
         }
-
-        #topics button.completed {
-            background: #166534;
-            color: #fff;
+        
+        /* Expand Arrow */
+        .expand-arrow {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+            font-size: 12px;
         }
-
-        #topics button.completed::after {
-            content: '✓';
-            float: right;
-            color: #4ade80;
+        .lang-btn.expanded .expand-arrow {
+            transform: rotate(90deg);
         }
-
-        .main {
+        
+        /* Topics Dropdown Container */
+        .topics-dropdown {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            padding-left: 15px;
+            margin-bottom: 8px;
+            animation: slideDown 0.3s ease;
+        }
+        .topics-dropdown.show {
+            display: flex;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Topic Button (in dropdown) */
+        .topic-btn {
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 400;
+            text-align: left;
+            transition: all 0.2s;
+        }
+        .topic-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+        .topic-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .topic-btn.completed::after {
+            content: " ✓";
+            color: #4caf50;
+        }
+        .topic-btn.active.completed::after {
+            color: white;
+        }
+        
+        /* Main Content */
+        .main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
         }
-
+        
         .topbar {
             height: 60px;
             background: var(--bg-dark);
@@ -124,251 +137,143 @@
             justify-content: space-between;
             padding: 0 20px;
         }
-
-        .content {
-            flex: 1;
-            padding: 30px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
+        .topbar-title {
+            font-size: 18px;
+            font-weight: 600;
         }
-
-        #contentFrame {
-            flex: 1;
-            width: 100%;
-            border: none;
-            background: transparent;
-            border-radius: 8px;
-        }
-
-        .topbar-actions {
+        .topbar-user {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-
-        .profile-avatar {
-            width: 40px;
-            height: 40px;
+        .user-avatar {
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
             font-weight: bold;
             color: white;
-            border: 2px solid var(--primary);
-            transition: all 0.3s ease;
         }
-
-        .profile-avatar:hover {
-            box-shadow: 0 0 10px var(--primary);
-            transform: scale(1.1);
+        
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
         }
-
-        .topbar button {
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.3s;
+        .content-header {
+            margin-bottom: 20px;
         }
-
-        .topbar button:hover {
-            background: #dc2626;
+        .content-header h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
         }
-
-        /* Search Bar */
-        .search-container {
-            margin: 15px 0;
-        }
-
-        #topicSearch {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            background: #0f172a;
-            color: var(--text-main);
-            font-size: 14px;
-        }
-
-        #topicSearch:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        /* Breadcrumb */
         .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 15px;
+            color: var(--text-muted);
             font-size: 14px;
-            color: var(--text-muted);
         }
-
-        .breadcrumb a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .breadcrumb a:hover {
-            text-decoration: underline;
-        }
-
-        .breadcrumb span {
-            color: var(--text-main);
-        }
-
-        /* Navigation Controls */
-        .nav-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .nav-btn {
-            background: var(--primary);
-            color: #020617;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        .nav-btn:hover:not(:disabled) {
-            background: var(--primary-hover);
-            transform: translateY(-1px);
-        }
-
-        .nav-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .topic-counter {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        /* Progress indicator */
-        .progress-info {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 10px;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: #334155;
-            border-radius: 2px;
-            margin-top: 8px;
+        
+        .content-frame {
+            flex: 1;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
             overflow: hidden;
         }
-
+        .content-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Progress Section */
+        .progress-bar {
+            height: 4px;
+            background: var(--border-color);
+            border-radius: 2px;
+            overflow: hidden;
+            flex: 1;
+        }
         .progress-fill {
             height: 100%;
             background: var(--primary);
-            transition: width 0.3s ease;
+            transition: width 0.3s;
         }
-
-        /* Loading state */
-        .loading {
+        .progress-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            min-width: 100px;
+            text-align: right;
+        }
+        
+        /* Bottom Navigation Controls */
+        .bottom-nav {
+            padding: 15px 20px;
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100%;
+            gap: 20px;
+        }
+        .bottom-nav .nav-info {
             color: var(--text-muted);
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--border-color);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-right: 15px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
+<div class="page-layout">
 
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-    <h3 id="languagesTitle">Languages</h3>
-
-    <button onclick="loadTopics('java')" id="btn-java">Java</button>
-    <button onclick="loadTopics('c')" id="btn-c">C</button>
-    <button onclick="loadTopics('cpp')" id="btn-cpp">C++</button>
-    <button onclick="loadTopics('mysql')" id="btn-mysql">MySQL</button>
-
-    <div class="search-container">
-        <input type="text" id="topicSearch" placeholder="Search topics..." oninput="filterTopics(this.value)">
-    </div>
-
-    <div id="topics"></div>
-    
-    <div class="progress-info">
-        <div id="progressText">Progress: 0%</div>
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h2>Languages</h2>
+        <div id="sidebarContent">
+            <!-- Languages and topics will be dynamically loaded here -->
         </div>
-    </div>
-</aside>
 
-<!-- MAIN -->
-<div class="main">
-
-    <!-- TOPBAR -->
-    <div class="topbar">
-        <div id="userInfo">Learning</div>
-        <div class="topbar-actions">
-            <div class="profile-avatar" onclick="location.href='profile.html'" title="View Profile">
-                <span id="avatarInitial">?</span>
+        <div style="margin-top:auto;padding-top:20px;border-top:1px solid var(--border-color);">
+            <div class="progress-bar" style="margin-bottom:8px;">
+                <div class="progress-fill" id="overallProgress" style="width:0%"></div>
             </div>
-            <button onclick="logout()">Logout</button>
+            <div class="progress-text" id="progressText">0% Complete</div>
         </div>
-    </div>
+    </aside>
 
-    <!-- CONTENT -->
-    <div class="content">
-        <!-- Breadcrumb -->
-        <div class="breadcrumb" id="breadcrumb">
-            <span>Select a language to begin</span>
-        </div>
-
-        <!-- Navigation Controls -->
-        <div class="nav-controls">
-            <button class="nav-btn" id="prevBtn" onclick="navigateTopic(-1)" disabled>&larr; Previous</button>
-            <span class="topic-counter" id="topicCounter"></span>
-            <button class="nav-btn" id="nextBtn" onclick="navigateTopic(1)" disabled>Next &rarr;</button>
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="topbar">
+            <div class="topbar-title">TechySpine Learning</div>
+            <div class="topbar-user">
+                <span id="userName">User</span>
+                <div class="user-avatar" id="userAvatar">U</div>
+                <a href="profile.html" class="btn btn-secondary">Profile</a>
+            </div>
         </div>
 
-        <!-- Content Frame -->
-        <div id="contentContainer">
-            <iframe id="contentFrame"></iframe>
+        <div class="content-area">
+            <div class="content-header">
+                <h2 id="langTitle">Select a Language</h2>
+                <div class="breadcrumb" id="breadcrumb">Choose a language to start learning</div>
+            </div>
+
+            <div class="content-frame" style="height: calc(100vh - 180px);">
+                <iframe id="contentFrame"></iframe>
+            </div>
         </div>
-    </div>
+
+        <!-- Bottom Navigation Controls -->
+        <div class="bottom-nav">
+            <button class="btn btn-secondary" id="prevBtn" onclick="navigateTopic(-1)" disabled>← Previous</button>
+            <span class="nav-info" id="topicCounter">Select a topic to begin</span>
+            <button class="btn btn-primary" id="nextBtn" onclick="navigateTopic(1)" disabled>Next →</button>
+        </div>
+    </main>
 </div>
 
-<!-- Load JavaScript -->
 <script src="js/learning.js"></script>
-
 </body>
 </html>
 

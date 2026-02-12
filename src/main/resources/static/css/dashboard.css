@@ -1,72 +1,160 @@
+/* ================================
+   THEME VARIABLES (TECHYSPINE STYLE)
+================================ */
+
+/* Dark mode FIRST (default) */
+:root {
+    --primary: #4f46e5;        /* Indigo */
+    --primary-soft: #6366f1;
+    --accent: #22d3ee;         /* Cyan glow */
+
+    --bg-main: #020617;        /* Deep navy */
+    --bg-dark: #020617;
+    --bg-soft: #0b1220;
+
+    --text-main: #e5e7eb;
+    --text-muted: #94a3b8;
+
+    --border-color: #1e293b;
+    --danger: #ef4444;
+}
+
+/* Optional light mode (later use) */
+body.light {
+    --bg-main: #f8fafc;
+    --bg-dark: #ffffff;
+    --bg-soft: #eef2ff;
+
+    --text-main: #0f172a;
+    --text-muted: #475569;
+
+    --border-color: #e5e7eb;
+}
+
+/* ================================
+   GLOBAL RESET
+================================ */
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
-    display: flex;
     height: 100vh;
+    display: flex;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg-main);
     color: var(--text-main);
+    overflow: hidden;
 }
+
+/* ================================
+   SIDEBAR
+================================ */
 
 .sidebar {
     width: 260px;
-    background: var(--bg-dark);
+    background:
+        linear-gradient(
+            180deg,
+            #020617,
+            #020617
+        );
     border-right: 1px solid var(--border-color);
-    padding: 20px;
+    padding: 20px 16px;
     overflow-y: auto;
 }
 
 .sidebar h2 {
-    color: var(--primary);
-    margin-bottom: 20px;
+    color: var(--primary-soft);
+    font-size: 20px;
+    margin-bottom: 16px;
 }
 
+/* Language buttons */
 .lang-btn {
     width: 100%;
-    padding: 12px;
-    margin-bottom: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
     border: none;
-    border-radius: 6px;
-    background: var(--primary);
-    color: #020617;
+    border-radius: 12px;
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--accent)
+    );
+    color: white;
     font-weight: 600;
     cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
+.lang-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 0 25px rgba(34, 211, 238, 0.35),
+        0 15px 50px rgba(79, 70, 229, 0.45);
+}
+
+/* Topics list */
 .topics {
     display: none;
-    margin-top: 10px;
+    margin: 10px 0 16px;
+    padding-left: 6px;
+}
+
+.topics.active {
+    display: block;
 }
 
 .topics h3 {
     color: var(--text-muted);
-    font-size: 14px;
-    margin-bottom: 10px;
+    font-size: 12px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
 }
 
+/* Topic buttons */
 .sidebar button {
     width: 100%;
-    padding: 10px;
+    padding: 10px 12px;
     margin-bottom: 6px;
-    border: none;
-    border-radius: 6px;
-    background: #1e293b;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: transparent;
     color: var(--text-main);
     cursor: pointer;
     text-align: left;
+    font-size: 14px;
+    transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .sidebar button:hover {
-    background: #334155;
+    background: rgba(79, 70, 229, 0.12);
+    border-color: rgba(99, 102, 241, 0.35);
 }
+
+/* ================================
+   MAIN AREA
+================================ */
 
 .main {
     flex: 1;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
+
+/* ================================
+   TOP BAR (GLASS EFFECT)
+================================ */
 
 .topbar {
     height: 60px;
-    background: var(--bg-dark);
+    background: rgba(2, 6, 23, 0.85);
+    backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
@@ -74,20 +162,103 @@ body {
     padding: 0 20px;
 }
 
-.topbar button {
-    background: var(--danger);
-    border: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    color: white;
-    cursor: pointer;
+.topbar h1 {
+    font-size: 18px;
+    color: var(--text-main);
 }
 
+/* Action buttons */
+.topbar button {
+    background: linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-soft)
+    );
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+}
+
+.topbar button:hover {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.45);
+}
+
+/* ================================
+   CONTENT AREA (TECHYSPINE DEPTH)
+================================ */
+
 .content {
-    padding: 30px;
+    flex: 1;
+    padding: 32px;
     overflow-y: auto;
+    background:
+        radial-gradient(
+            60% 40% at 10% 10%,
+            rgba(79, 70, 229, 0.25),
+            transparent 60%
+        ),
+        radial-gradient(
+            50% 40% at 90% 20%,
+            rgba(34, 211, 238, 0.18),
+            transparent 60%
+        ),
+        linear-gradient(
+            180deg,
+            #020617,
+            #020617
+        );
 }
 
 .content h1 {
     color: #f8fafc;
+    margin-bottom: 16px;
+}
+
+.content p {
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 900px;
+}
+
+/* ================================
+   CODE BLOCKS
+================================ */
+
+.content pre {
+    background: #020617;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--primary);
+    border-radius: 12px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+.content code {
+    color: #e5e7eb;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+}
+
+/* ================================
+   SCROLLBARS
+================================ */
+
+.sidebar::-webkit-scrollbar,
+.content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.content::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+        180deg,
+        var(--primary),
+        var(--accent)
+    );
+    border-radius: 4px;
 }

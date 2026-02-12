@@ -1,42 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Practice History | TechySpine</title>
-<link rel="stylesheet" href="css/dashboard.css">
-<link rel="stylesheet" href="css/theme.css">
+    <meta charset="UTF-8">
+    <title>Practice | TechySpine</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <style>
+        /* styles unchanged */
+    </style>
 </head>
 <body>
+    <div class="page-layout">
 
-<header class="topbar">
-    <div class="logo">TechySpine</div>
-    <button onclick="logout()">Logout</button>
-</header>
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Practice Problems</h2>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-diff="all">All</button>
+                    <button class="filter-tab" data-diff="easy">Easy</button>
+                    <button class="filter-tab" data-diff="medium">Medium</button>
+                    <button class="filter-tab" data-diff="hard">Hard</button>
+                </div>
+            </div>
 
-<div class="content">
-    <h1>Practice History</h1>
+            <div class="problem-list" id="problemList">
+                <!-- Loaded by JS -->
+            </div>
+        </aside>
 
-    <div class="card">
-        <p>Problems Solved</p>
-        <h2 id="practiceCount">0</h2>
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <div class="topbar">
+                <div class="topbar-title">Practice Arena</div>
+                <div class="topbar-user">
+                    <span id="userName">User</span>
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <button class="btn btn-secondary" onclick="logout()">Logout</button>
+                </div>
+            </div>
+
+            <div class="workspace">
+
+                <!-- DESCRIPTION -->
+                <div class="description-panel" id="descriptionPanel">
+                    <h1 id="problemTitle">Choose a Problem</h1>
+                    <div class="problem-meta" style="margin-bottom: 20px;">
+                        <span class="difficulty easy" id="problemDifficulty">Easy</span>
+                        <span id="problemAcceptance">—</span>
+                    </div>
+                    <div class="description-content" id="descriptionContent">
+                        <p style="color: var(--text-muted); text-align: center; margin-top: 50px;">
+                            Select a problem from the left panel to begin coding.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- CODE EDITOR -->
+                <div class="editor-panel">
+                    <div class="editor-header">
+                        <select class="language-select" id="languageSelect" onchange="changeLanguage()">
+                            <option value="java">Java</option>
+                            <option value="python">Python</option>
+                            <option value="c">C</option>
+                            <option value="cpp">C++</option>
+                            <option value="javascript">JavaScript</option>
+                        </select>
+                        <div class="editor-actions">
+                            <button class="btn btn-secondary" onclick="resetCode()">Reset</button>
+                            <button class="btn btn-primary" onclick="runCode()">Run</button>
+                            <button class="btn btn-primary" onclick="submitCode()" style="background: var(--success);">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="code-editor">
+                        <textarea id="codeArea" placeholder="// Start typing your solution here..."></textarea>
+                    </div>
+
+                    <div class="output-panel">
+                        <div class="output-header">Console Output</div>
+                        <div class="output-content" id="outputContent">
+                            Run your code to see output.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
     </div>
-</div>
 
-<script>
-const user = JSON.parse(localStorage.getItem("user"));
-if (!user) location.href = "login.html";
-
-fetch(`/api/user/profile/${user.id}`)
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById("practiceCount").innerText =
-            data.problemsSolved ?? 0;
-    });
-
-function logout() {
-    localStorage.removeItem("user");
-    location.href = "login.html";
-}
-</script>
+    <script src="js/practice.js"></script>
 </body>
 </html>

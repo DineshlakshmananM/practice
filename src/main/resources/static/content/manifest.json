@@ -5,6 +5,11 @@
       "description": "Master Java programming from basics to advanced concepts",
       "icon": "☕"
     },
+    "python": {
+      "name": "Python",
+      "description": "Learn Python programming for AI, Data Science, and Web Development",
+      "icon": "🐍"
+    },
     "c": {
       "name": "C",
       "description": "Learn the fundamentals of C programming language",
@@ -15,15 +20,25 @@
       "description": "Explore object-oriented programming with C++",
       "icon": "🚀"
     },
+    "html": {
+      "name": "HTML",
+      "description": "Learn the building blocks of web pages",
+      "icon": "🌐"
+    },
+    "css": {
+      "name": "CSS",
+      "description": "Style your web pages with CSS",
+      "icon": "🎨"
+    },
+    "javascript": {
+      "name": "JavaScript",
+      "description": "Add interactivity to your web pages",
+      "icon": "⚛️"
+    },
     "mysql": {
       "name": "MySQL",
       "description": "Learn database management with MySQL",
       "icon": "🗄️"
-    },
-    "python": {
-      "name": "Python",
-      "description": "Learn Python programming from basics to advanced",
-      "icon": "🐍"
     }
   },
   "topicOrder": {
@@ -47,6 +62,27 @@
       "17-file-handling.html",
       "18-multithreading.html",
       "19-advanced-java.html"
+    ],
+    "python": [
+      "01-introduction.html",
+      "02-setup.html",
+      "03-variables-datatypes.html",
+      "04-operators.html",
+      "05-control-flow.html",
+      "06-functions.html",
+      "07-strings.html",
+      "08-lists.html",
+      "09-tuples.html",
+      "10-dictionaries.html",
+      "11-sets.html",
+      "12-modules.html",
+      "13-oop-basics.html",
+      "14-inheritance.html",
+      "15-polymorphism.html",
+      "16-file-handling.html",
+      "17-exceptions.html",
+      "18-libraries.html",
+      "19-advanced-python.html"
     ],
     "c": [
       "01-introduction.html",
@@ -74,6 +110,51 @@
       "09-file-handling.html",
       "10-advanced-cpp.html"
     ],
+    "html": [
+      "01-introduction.html",
+      "02-basic-elements.html",
+      "03-text-formatting.html",
+      "04-links.html",
+      "05-images.html",
+      "06-tables.html",
+      "07-forms.html",
+      "08-semantic.html",
+      "09-meta-tags.html",
+      "10-html5.html"
+    ],
+    "css": [
+      "01-introduction.html",
+      "02-syntax.html",
+      "03-selectors.html",
+      "04-colors.html",
+      "05-backgrounds.html",
+      "06-box-model.html",
+      "07-text-fonts.html",
+      "08-links-buttons.html",
+      "09-display-position.html",
+      "10-flexbox.html",
+      "11-grid.html",
+      "12-responsive.html",
+      "13-animations.html"
+    ],
+    "javascript": [
+      "01-introduction.html",
+      "02-syntax.html",
+      "03-variables.html",
+      "04-data-types.html",
+      "05-operators.html",
+      "06-control-flow.html",
+      "07-functions.html",
+      "08-objects.html",
+      "09-arrays.html",
+      "10-dom.html",
+      "11-events.html",
+      "12-strings.html",
+      "13-math.html",
+      "14-json.html",
+      "15-async.html",
+      "16-es6-features.html"
+    ],
     "mysql": [
       "01-introduction.html",
       "02-installation.html",
@@ -88,28 +169,6 @@
       "11-stored-procedures.html",
       "12-triggers.html",
       "13-advanced-sql.html"
-    ],
-    "python": [
-      "01-introduction.html",
-      "02-setup.html",
-      "03-variables-datatypes.html",
-      "04-operators.html",
-      "05-control-flow.html",
-      "06-functions.html",
-      "07-strings.html",
-      "08-lists.html",
-      "09-tuples.html",
-      "10-dictionaries.html",
-      "11-sets.html",
-      "12-modules.html",
-      "13-oop-basics.html",
-      "14-inheritance.html",
-      "15-polymorphism.html",
-      "16-file-handling.html",
-      "17-exceptions.html",
-      "18-libraries.html",
-      "19-advanced-python.html"
     ]
   }
 }
-

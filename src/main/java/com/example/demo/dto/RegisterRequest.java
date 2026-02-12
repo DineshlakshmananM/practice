@@ -5,7 +5,8 @@ public class RegisterRequest {
     private String username;
     private String email;
     private String password;
-
+    private String fullName;
+    
     // LOCAL or GOOGLE (future-ready)
     private String provider;
 
@@ -34,6 +35,14 @@ public class RegisterRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getProvider() {

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin | TechySpine</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <style>
+        /* styles unchanged */
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">TechySpine</div>
+            
+            <div class="nav-section">
+                <div class="nav-title">Dashboard</div>
+                <button class="nav-item active" data-section="overview">
+                    <span class="icon">📊</span>
+                    <span>Overview</span>
+                </button>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-title">Content</div>
+                <button class="nav-item" data-section="languages">
+                    <span class="icon">🌐</span>
+                    <span>Languages</span>
+                </button>
+                <button class="nav-item" data-section="topics">
+                    <span class="icon">📚</span>
+                    <span>Topics</span>
+                </button>
+                <button class="nav-item" data-section="questions">
+                    <span class="icon">💻</span>
+                    <span>Questions</span>
+                </button>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-title">Management</div>
+                <button class="nav-item" data-section="users">
+                    <span class="icon">👥</span>
+                    <span>Users</span>
+                </button>
+            </div>
+            
+            <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-color);">
+                <button class="nav-item" onclick="logout()">
+                    <span class="icon">🚪</span>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <section class="section active" id="overviewSection">
+                <div class="page-header">
+                    <h1 class="page-title">Dashboard Overview</h1>
+                </div>
+                <div class="content-area">
+                    <!-- unchanged -->
+                </div>
+            </section>
+
+            <section class="section" id="languagesSection">
+                <div class="page-header">
+                    <h1 class="page-title">Languages</h1>
+                </div>
+                <div class="content-area">
+                    <!-- unchanged -->
+                </div>
+            </section>
+
+            <section class="section" id="questionsSection">
+                <div class="page-header">
+                    <h1 class="page-title">Practice Questions</h1>
+                </div>
+                <div class="content-area">
+                    <!-- unchanged -->
+                </div>
+            </section>
+
+            <section class="section" id="usersSection">
+                <div class="page-header">
+                    <h1 class="page-title">Users</h1>
+                </div>
+                <div class="content-area">
+                    <!-- unchanged -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
