@@ -29,9 +29,17 @@ public class User {
     @Column
     private String password;
 
+    // Full name for display
+    @Column(name = "full_name")
+    private String fullName;
+
     // LOCAL / GOOGLE
     @Column(nullable = false)
     private String provider;
+
+    // USER / ADMIN
+    @Column(nullable = false)
+    private String role = "USER";
 
     // Profile image URL or file name
     @Column(name = "profile_image")
@@ -43,6 +51,24 @@ public class User {
     @Column(name = "problems_solved", nullable = false)
     private int problemsSolved = 0;
 
+    // Total submissions
+    @Column(name = "total_submissions", nullable = false)
+    private int totalSubmissions = 0;
+
+    // Accepted submissions
+    @Column(name = "accepted_submissions", nullable = false)
+    private int acceptedSubmissions = 0;
+
+    // Easy/Medium/Hard solved counts
+    @Column(name = "easy_solved", nullable = false)
+    private int easySolved = 0;
+
+    @Column(name = "medium_solved", nullable = false)
+    private int mediumSolved = 0;
+
+    @Column(name = "hard_solved", nullable = false)
+    private int hardSolved = 0;
+
     // Learning streak (days)
     @Column(name = "learning_streak", nullable = false)
     private int learningStreak = 0;
@@ -51,9 +77,17 @@ public class User {
     @Column(name = "skill_rating", nullable = false)
     private double skillRating = 0.0;
 
-    // Languages learned (comma-separated: JAVA,MYSQL,C++)
+    // Global ranking
+    @Column(name = "global_rank")
+    private Integer globalRank;
+
+    // Languages learned (comma-separated: JAVA,PYTHON,C,CPP,HTML,CSS,JS,MYSQL)
     @Column(length = 500)
     private String skills;
+
+    // Topics completed count
+    @Column(name = "topics_completed", nullable = false)
+    private int topicsCompleted = 0;
 
     // ================= AUDIT =================
 
@@ -107,6 +141,22 @@ public class User {
     
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getProvider() {
@@ -167,5 +217,61 @@ public class User {
 
     public void setLastLogin(LocalDateTime lastLogin) {
         this.lastLogin = lastLogin;
+    }
+
+    public int getTotalSubmissions() {
+        return totalSubmissions;
+    }
+
+    public void setTotalSubmissions(int totalSubmissions) {
+        this.totalSubmissions = totalSubmissions;
+    }
+
+    public int getAcceptedSubmissions() {
+        return acceptedSubmissions;
+    }
+
+    public void setAcceptedSubmissions(int acceptedSubmissions) {
+        this.acceptedSubmissions = acceptedSubmissions;
+    }
+
+    public int getEasySolved() {
+        return easySolved;
+    }
+
+    public void setEasySolved(int easySolved) {
+        this.easySolved = easySolved;
+    }
+
+    public int getMediumSolved() {
+        return mediumSolved;
+    }
+
+    public void setMediumSolved(int mediumSolved) {
+        this.mediumSolved = mediumSolved;
+    }
+
+    public int getHardSolved() {
+        return hardSolved;
+    }
+
+    public void setHardSolved(int hardSolved) {
+        this.hardSolved = hardSolved;
+    }
+
+    public Integer getGlobalRank() {
+        return globalRank;
+    }
+
+    public void setGlobalRank(Integer globalRank) {
+        this.globalRank = globalRank;
+    }
+
+    public int getTopicsCompleted() {
+        return topicsCompleted;
+    }
+
+    public void setTopicsCompleted(int topicsCompleted) {
+        this.topicsCompleted = topicsCompleted;
     }
 }

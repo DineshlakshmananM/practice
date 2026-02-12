@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Introduction - CodeMastery</title>
+    <link rel="stylesheet" href="../../css/theme.css">
+    <style>
+        .content-wrapper {
+            padding: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: var(--primary);
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: var(--primary-light);
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+        p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+        .info-box {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .code-example {
+            background: var(--darker-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .code-example pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            color: #e2e8f0;
+        }
+        .demo-box {
+            border: 2px dashed var(--primary);
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+            border-radius: 8px;
+        }
+        .demo-box h3 {
+            color: var(--primary);
+        }
+        .color-demo {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .color-box {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        ul, ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <h1>🎨 CSS Introduction</h1>
+        
+        <div class="info-box">
+            <strong>What is CSS?</strong><br>
+            CSS stands for Cascading Style Sheets. It describes how HTML elements are to be displayed on screen, paper, or in other media. CSS saves a lot of work because it can control the layout of multiple web pages all at once.
+        </div>
+
+        <h2>🚀 Why Use CSS?</h2>
+        <p>CSS is essential for creating visually appealing websites. Here's why you should learn CSS:</p>
+        
+        <ul>
+            <li><strong>Separation of concerns</strong> - Keep content and presentation separate</li>
+            <li><strong>Consistent styling</strong> - Apply the same style to multiple pages</li>
+            <li><strong>Better control</strong> - Precise control over layout and appearance</li>
+            <li><strong>Responsive design</strong> - Create sites that work on all devices</li>
+            <li><strong>Career advancement</strong> - Essential skill for frontend developers</li>
+        </ul>
+
+        <h2>📝 Adding CSS to HTML</h2>
+        <p>There are three ways to add CSS to your HTML documents:</p>
+
+        <h3>1. Inline CSS</h3>
+        <div class="code-example">
+<pre><!-- Directly in HTML elements -->
+<p style="color: blue; font-size: 18px;">This is a styled paragraph.</p></pre>
+        </div>
+
+        <h3>2. Internal CSS</h3>
+        <div class="code-example">
+<pre><!-- In the <head> section of HTML -->
+<style>
+    p {
+        color: blue;
+        font-size: 18px;
+    }
+</style></pre>
+        </div>
+
+        <h3>3. External CSS (Recommended)</h3>
+        <div class="code-example">
+<pre><!-- Link to external CSS file -->
+<link rel="stylesheet" href="styles.css"></pre>
+        </div>
+
+        <h2>🎯 Basic CSS Syntax</h2>
+        
+        <div class="code-example">
+<pre>/* Selector {
+    /* */
+p Property: Value */
+    color: blue;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+/* Multiple selectors */
+h1, h2, h3 {
+    color: #333;
+    font-weight: bold;
+}</pre>
+        </div>
+
+        <h2>🎨 CSS Colors Demo</h2>
+        <p>CSS supports various color formats:</p>
+        
+        <div class="color-demo">
+            <div class="color-box" style="background: red; color: white;">Red</div>
+            <div class="color-box" style="background: #00ff00; color: black;">#00FF00</div>
+            <div class="color-box" style="background: rgb(0, 0, 255); color: white;">rgb(0,0,255)</div>
+            <div class="color-box" style="background: hsl(120, 100%, 50%); color: white;">hsl(120,100%,50%)</div>
+        </div>
+
+        <div class="code-example">
+<pre>/* Different color formats */
+.element-1 {
+    color: red;              /* Color name */
+}
+
+.element-2 {
+    color: #ff0000;         /* Hex */
+}
+
+.element-3 {
+    color: rgb(255, 0, 0);  /* RGB */
+}
+
+.element-4 {
+    color: rgba(255, 0, 0, 0.5);  /* RGBA with opacity */
+}</pre>
+        </div>
+
+        <h2>💻 Complete Example</h2>
+        
+        <div class="code-example">
+<pre><!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        
+        p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background-color: yellow;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to CSS!</h1>
+    <p>This paragraph uses CSS for styling.</p>
+    <p class="highlight">This text has a yellow background.</p>
+</body>
+</html></pre>
+        </div>
+
+        <h2>📚 Next Topics</h2>
+        <ul>
+            <li>CSS Selectors - Target HTML elements precisely</li>
+            <li>CSS Box Model - Understand margins, padding, borders</li>
+            <li>CSS Flexbox - Modern layout system</li>
+            <li>CSS Grid - Two-dimensional layouts</li>
+        </ul>
+
+        <div class="nav-buttons" style="display: flex; justify-content: space-between; margin-top: 50px;">
+            <button onclick="location.href='../html/01-introduction.html'">← HTML</button>
+            <button onclick="location.href='02-syntax.html'">Next: CSS Syntax →</button>
+        </div>
+    </div>
+</body>
+</html>

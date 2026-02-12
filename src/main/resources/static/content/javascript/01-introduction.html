@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Introduction - CodeMastery</title>
+    <link rel="stylesheet" href="../../css/theme.css">
+    <style>
+        .content-wrapper {
+            padding: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: var(--primary);
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: var(--primary-light);
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+        p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+        }
+        .info-box {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .code-example {
+            background: var(--darker-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .code-example pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            color: #e2e8f0;
+        }
+        .js-demo {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            color: #d4d4d4;
+        }
+        .js-demo .output {
+            color: #ce9178;
+        }
+        .js-demo .keyword {
+            color: #569cd6;
+        }
+        .js-demo .string {
+            color: #ce9178;
+        }
+        .js-demo .comment {
+            color: #6a9955;
+        }
+        ul, ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: var(--primary);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <h1>⚛️ JavaScript Introduction</h1>
+        
+        <div class="info-box">
+            <strong>What is JavaScript?</strong><br>
+            JavaScript is the world's most popular programming language. It is the language of the Web, and it can make your websites interactive and dynamic. JavaScript is a scripting language that enables you to create dynamically updating content, control multimedia, animate images, and much more.
+        </div>
+
+        <h2>🚀 Why Learn JavaScript?</h2>
+        
+        <ul>
+            <li><strong>Essential for web development</strong> - JavaScript is the only programming language that runs in web browsers</li>
+            <li><strong>High demand</strong> - One of the most sought-after skills in tech</li>
+            <li><strong>Full-stack development</strong> - Use JavaScript for both frontend and backend (Node.js)</li>
+            <li><strong>Rich ecosystem</strong> - Thousands of libraries and frameworks available</li>
+            <li><strong>Easy to start</strong> - No additional software needed, runs in your browser</li>
+        </ul>
+
+        <h2>💻 JavaScript Can Do</h2>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Web Interactivity</td>
+                <td>Respond to user clicks, mouse movements, and keyboard input</td>
+            </tr>
+            <tr>
+                <td>Dynamic Content</td>
+                <td>Update web page content without reloading</td>
+            </tr>
+            <tr>
+                <td>Form Validation</td>
+                <td>Check user input before sending to server</td>
+            </tr>
+            <tr>
+                <td>Animations</td>
+                <td>Create smooth animations and visual effects</td>
+            </tr>
+            <tr>
+                <td>Games</td>
+                <td>Build browser-based games</td>
+            </tr>
+            <tr>
+                <td>APIs</td>
+                <td>Fetch data from servers and third-party services</td>
+            </tr>
+        </table>
+
+        <h2>📝 Your First JavaScript Code</h2>
+        
+        <div class="code-example">
+<pre><!-- Add JavaScript to HTML -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My First JS</title>
+</head>
+<body>
+    <h1>JavaScript Demo</h1>
+    <button onclick="sayHello()">Click Me!</button>
+    
+    <script>
+        function sayHello() {
+            alert("Hello, World!");
+        }
+    </script>
+</body>
+</html></pre>
+        </div>
+
+        <h2>🎯 Basic JavaScript Concepts</h2>
+
+        <h3>Variables</h3>
+        <div class="code-example">
+<pre>// Declaring variables
+let name = "John";        // String
+let age = 25;            // Number
+let isStudent = true;    // Boolean
+
+// Constants
+const PI = 3.14159;
+
+// Output to console
+console.log("Name:", name);
+console.log("Age:", age);</pre>
+        </div>
+
+        <h3>Data Types</h3>
+        <div class="code-example">
+<pre>// String
+let message = "Hello, JavaScript!";
+
+// Number
+let price = 99.99;
+let count = 42;
+
+// Boolean
+let isActive = true;
+let isComplete = false;
+
+// Undefined and Null
+let undefinedVar;
+let nullVar = null;
+
+// Object
+let person = {
+    name: "John",
+    age: 30,
+    city: "New York"
+};
+
+// Array
+let colors = ["red", "green", "blue"];</pre>
+        </div>
+
+        <h3>Functions</h3>
+        <div class="code-example">
+<pre>// Function declaration
+function greet(name) {
+    return "Hello, " + name + "!";
+}
+
+// Arrow function
+const add = (a, b) => a + b;
+
+// Using functions
+console.log(greet("World"));  // Output: Hello, World!
+console.log(add(5, 3));      // Output: 8</pre>
+        </div>
+
+        <h3>Conditionals</h3>
+        <div class="code-example">
+<pre>let score = 85;
+
+if (score >= 90) {
+    console.log("Grade: A");
+} else if (score >= 80) {
+    console.log("Grade: B");
+} else if (score >= 70) {
+    console.log("Grade: C");
+} else {
+    console.log("Grade: F");
+}
+
+// Ternary operator
+let result = score >= 60 ? "Pass" : "Fail";</pre>
+        </div>
+
+        <h3>Loops</h3>
+        <div class="code-example">
+<pre>// For loop
+for (let i = 0; i < 5; i++) {
+    console.log("Iteration:", i);
+}
+
+// While loop
+let i = 0;
+while (i < 3) {
+    console.log("Count:", i);
+    i++;
+}
+
+// ForEach with arrays
+let fruits = ["apple", "banana", "orange"];
+fruits.forEach(fruit => {
+    console.log(fruit);
+});</pre>
+        </div>
+
+        <h2>🔧 JavaScript in Browser Console</h2>
+        <p>You can practice JavaScript directly in your browser's developer console:</p>
+        <ol>
+            <li>Open any web page</li>
+            <li>Right-click and select "Inspect" or press F12</li>
+            <li>Go to the "Console" tab</li>
+            <li>Type JavaScript code and press Enter</li>
+        </ol>
+
+        <div class="info-box">
+            <strong>💡 Pro Tip:</strong><br>
+            Try typing these commands in your browser console:<br>
+            <code style="background: var(--darker-bg); padding: 2px 6px; border-radius: 4px;">console.log("Hello!")</code><br>
+            <code style="background: var(--darker-bg); padding: 2px 6px; border-radius: 4px;">alert("Welcome!")</code><br>
+            <code style="background: var(--darker-bg); padding: 2px 6px; border-radius: 4px;">document.body.style.background = "lightblue"</code>
+        </div>
+
+        <h2>📚 Next Topics</h2>
+        <ul>
+            <li>JavaScript Syntax - Learn the rules of JavaScript</li>
+            <li>Variables & Data Types - Store and manipulate data</li>
+            <li>Functions - Write reusable code blocks</li>
+            <li>DOM Manipulation - Change web pages dynamically</li>
+            <li>Events - Respond to user interactions</li>
+        </ul>
+
+        <div class="nav-buttons" style="display: flex; justify-content: space-between; margin-top: 50px;">
+            <button onclick="location.href='../css/01-introduction.html'">← CSS</button>
+            <button onclick="location.href='02-syntax.html'">Next: JavaScript Syntax →</button>
+        </div>
+    </div>
+</body>
+</html>

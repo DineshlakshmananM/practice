@@ -1,18 +1,14 @@
 // ==========================
-// BASE CONFIG & CACHE
+// BASE CONFIG & API CACHE
 // ==========================
 
 const API_BASE = "/api";
 const apiCache = new Map();
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_DURATION = 5 * 60 * 1000;
 let requestQueue = Promise.resolve();
 
-// Cache management
 function setCache(key, value) {
-    apiCache.set(key, {
-        data: value,
-        timestamp: Date.now()
-    });
+    apiCache.set(key, { data: value, timestamp: Date.now() });
 }
 
 function getCache(key) {
@@ -25,21 +21,16 @@ function getCache(key) {
 }
 
 function clearCache(key) {
-    if (key) apiCache.delete(key);
-    else apiCache.clear();
+    key ? apiCache.delete(key) : apiCache.clear();
 }
 
-// Queue requests to prevent race conditions
 function queueRequest(fn) {
-    requestQueue = requestQueue.then(fn).catch(e => {
-        console.error("Queued request error:", e);
-        return Promise.reject(e);
-    });
+    requestQueue = requestQueue.then(fn).catch(console.error);
     return requestQueue;
 }
 
 // ==========================
-// AUTH APIs (OPTIMIZED)
+// AUTH APIs
 // ==========================
 
 async function apiLogin(email, password) {
@@ -47,247 +38,162 @@ async function apiLogin(email, password) {
         const res = await fetch(`${API_BASE}/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                email: email,
-                password: password,
-                provider: "LOCAL"
-            })
+            credentials: "include",
+            body: JSON.stringify({ email, password, provider: "LOCAL" })
         });
-
         const data = await res.json();
-        if (data.success) {
-            clearCache(); // Clear all cache on login
+        if (data?.success) {
+            clearCache();
+            localStorage.setItem("user", JSON.stringify(data.user));
         }
         return data;
     });
 }
 
-async function apiRegister(username, email, password) {
+async function apiRegister(username, email, password, fullName) {
     return queueRequest(async () => {
         const res = await fetch(`${API_BASE}/auth/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                username: username,
-                email: email,
-                password: password,
-                provider: "LOCAL"
-            })
+            body: JSON.stringify({ username, email, password, fullName, provider: "LOCAL" })
         });
-
         return res.json();
     });
 }
 
+async function apiLogout() {
+    try {
+        await fetch(`${API_BASE}/auth/logout`, { method: "POST" });
+    } finally {
+        localStorage.clear();
+        location.href = "index.html";
+    }
+}
+
 // ==========================
-// USER PROFILE APIs (CACHED)
+// USER PROFILE
 // ==========================
 
 async function apiGetUserProfile(userId) {
-    const cacheKey = `user_profile_${userId}`;
-    const cached = getCache(cacheKey);
-    
+    const key = `user_${userId}`;
+    const cached = getCache(key);
     if (cached) return cached;
-    
+
     const res = await fetch(`${API_BASE}/user/profile/${userId}`);
     const data = await res.json();
-    
-    if (data.success) {
-        setCache(cacheKey, data);
-    }
+    if (data?.success) setCache(key, data);
     return data;
 }
 
-// ==========================
-// LEARNING / PRACTICE APIs (OPTIMIZED)
-// ==========================
-
-async function apiGetLearningProgress(userId) {
-    const cacheKey = `learning_progress_${userId}`;
-    const cached = getCache(cacheKey);
-    
-    if (cached) return cached;
-    
-    const res = await fetch(`${API_BASE}/user/progress/${userId}`);
-    const data = await res.json();
-    
-    if (data.success) {
-        setCache(cacheKey, data);
-    }
-    return data;
-}
-
-async function apiGetPracticeHistory(userId) {
-    const cacheKey = `practice_history_${userId}`;
-    const cached = getCache(cacheKey);
-    
-    if (cached) return cached;
-    
-    const res = await fetch(`${API_BASE}/user/practice/${userId}`);
-    const data = await res.json();
-    
-    if (data.success) {
-        setCache(cacheKey, data);
-    }
-    return data;
-}
-
-async function apiUpdateProgress(userId, language, topic) {
-    clearCache(); // Clear cache on update
-    
-    const res = await fetch(`${API_BASE}/progress/update`, {
-        method: "POST",
+async function apiUpdateProfile(userId, payload) {
+    clearCache(`user_${userId}`);
+    const res = await fetch(`${API_BASE}/user/profile/${userId}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            userId: userId,
-            language: language,
-            topic: topic,
-            completedAt: new Date().toISOString()
-        })
+        body: JSON.stringify(payload)
     });
     return res.json();
 }
 
-async function apiLogout() {
-    try {
-        await fetch(`${API_BASE}/auth/logout`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" }
-        });
-    } catch (e) {
-        console.error("Logout error:", e);
-    }
-    localStorage.removeItem("user");
-    localStorage.removeItem("sessionToken");
-    location.href = "index.html";
-}
-
 // ==========================
-// GOOGLE LOGIN (OPTIMIZED)
+// LEARNING
 // ==========================
 
-function apiGoogleLogin() {
-    // Google OAuth callback - initiates the OAuth flow
-    window.location.href = `${API_BASE}/auth/google`;
+async function apiGetLearningProgress(userId) {
+    const key = `progress_${userId}`;
+    const cached = getCache(key);
+    if (cached) return cached;
+
+    const res = await fetch(`${API_BASE}/user/progress/${userId}`);
+    const data = await res.json();
+    if (data?.success) setCache(key, data);
+    return data;
 }
 
-async function handleGoogleCallback(code) {
-    return queueRequest(async () => {
-        const res = await fetch(`${API_BASE}/auth/google-callback?code=${code}`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" }
-        });
-        
-        const data = await res.json();
-        if (data.success) {
-            clearCache();
-        }
-        return data;
+async function apiUpdateProgress(userId, language, topic, completed) {
+    clearCache();
+    const res = await fetch(`${API_BASE}/progress/update`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId, language, topic, completed })
     });
+    return res.json();
 }
 
-// Initialize Google Sign-In (Optional - requires Google API key)
-function initGoogleSignIn() {
-    if (typeof google !== 'undefined' && google.accounts) {
-        google.accounts.id.initialize({
-            client_id: 'YOUR_GOOGLE_CLIENT_ID_HERE',
-            callback: handleGoogleSignInResponse
-        });
-    }
-}
-
-function handleGoogleSignInResponse(response) {
-    // Send token to backend for verification
-    const requestBody = {
-        token: response.credential
-    };
-    
-    fetch(`${API_BASE}/auth/google-signin`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            localStorage.setItem("user", JSON.stringify(data.user));
-            localStorage.setItem("sessionToken", new Date().getTime());
-            setTimeout(() => {
-                location.href = "dashboard.html";
-            }, 300);
-        } else {
-            alert(data.message || "Google login failed");
-        }
-    })
-    .catch(err => {
-        console.error("Google sign-in error:", err);
-        alert("Google login failed. Please try again.");
-    });
-}
-
-// Handle OAuth redirect callback (for server-side OAuth flow)
-function handleOAuthRedirect() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-    const error = urlParams.get('error');
-    
-    if (error) {
-        console.error("OAuth error:", error);
-        alert("Google login was cancelled or failed: " + error);
-        window.location.href = "login.html";
-        return;
-    }
-    
-    if (code) {
-        // Exchange code for tokens
-        fetch(`${API_BASE}/auth/google-callback?code=${code}`, {
-            method: "GET",
-            headers: { "Content-Type": "application/json" }
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                // For full OAuth flow, you would implement token exchange here
-                // Then redirect to dashboard
-                alert("Google login successful! Redirecting...");
-                window.location.href = "dashboard.html";
-            } else {
-                alert(data.message || "Google login failed");
-                window.location.href = "login.html";
-            }
-        })
-        .catch(err => {
-            console.error("OAuth callback error:", err);
-            alert("Google login failed. Please try again.");
-            window.location.href = "login.html";
-        });
-    }
-}
 // ==========================
-// HELPER FUNCTIONS
+// PRACTICE
+// ==========================
+
+async function apiGetProblems(userId, difficulty, language) {
+    const params = new URLSearchParams({ userId, difficulty, language });
+    const res = await fetch(`${API_BASE}/practice/problems?${params}`);
+    return res.json();
+}
+
+async function apiSubmitSolution(userId, problemId, code, language) {
+    const res = await fetch(`${API_BASE}/practice/submit`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId, problemId, code, language })
+    });
+    return res.json();
+}
+
+// ==========================
+// ADMIN
+// ==========================
+
+async function apiAdminGetLanguages() {
+    return (await fetch(`${API_BASE}/admin/languages`)).json();
+}
+
+async function apiAdminAddLanguage(data) {
+    return (await fetch(`${API_BASE}/admin/languages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })).json();
+}
+
+async function apiAdminDeleteLanguage(id) {
+    return (await fetch(`${API_BASE}/admin/languages/${id}`, { method: "DELETE" })).json();
+}
+
+// ==========================
+// HELPERS
 // ==========================
 
 function getCurrentUser() {
-    const userStr = localStorage.getItem("user");
-    if (!userStr) return null;
-    
     try {
-        return JSON.parse(userStr);
-    } catch (e) {
-        console.error("Error parsing user:", e);
+        return JSON.parse(localStorage.getItem("user"));
+    } catch {
         return null;
     }
 }
 
 function isAuthenticated() {
-    const user = getCurrentUser();
-    return user && user.id;
+    return !!getCurrentUser()?.id;
 }
 
-function guardRoute(redirectTo = "login.html") {
+function isAdmin() {
+    return getCurrentUser()?.role === "ADMIN";
+}
+
+function guardRoute() {
     if (!isAuthenticated()) {
-        localStorage.removeItem("user");
-        location.href = redirectTo;
+        location.href = "login.html";
+        return false;
+    }
+    return true;
+}
+
+function guardAdminRoute() {
+    if (!isAuthenticated()) {
+        location.href = "login.html";
+        return false;
+    }
+    if (!isAdmin()) {
+        location.href = "dashboard.html";
         return false;
     }
     return true;

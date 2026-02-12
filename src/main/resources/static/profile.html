@@ -1,713 +1,453 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Profile | CodeMastery</title>
-<link rel="stylesheet" href="css/dashboard.css">
-<link rel="stylesheet" href="css/theme.css">
-<link rel="stylesheet" href="css/profile.css">
-
-<style>
-    body {
-        margin: 0;
-        background: var(--bg-main);
-        color: var(--text-main);
-        font-family: "Segoe UI", Arial, sans-serif;
-    }
-
-    .topbar {
-        height: 60px;
-        background: var(--bg-dark);
-        border-bottom: 1px solid var(--border-color);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-    }
-
-    .topbar .logo {
-        font-size: 20px;
-        font-weight: bold;
-        color: var(--primary);
-    }
-
-    .topbar-actions button {
-        background: #ef4444;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-        margin-left: 10px;
-    }
-
-    .topbar-actions button:hover {
-        background: #dc2626;
-    }
-
-    .profile-wrapper {
-        display: flex;
-        max-width: 1400px;
-        margin: 0 auto;
-        gap: 30px;
-        padding: 30px 20px;
-    }
-
-    /* ===== LEFT SIDEBAR ===== */
-    .profile-sidebar {
-        width: 320px;
-        flex-shrink: 0;
-    }
-
-    .profile-card {
-        background: var(--bg-dark);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 20px;
-        text-align: center;
-    }
-
-    .profile-avatar {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background: var(--primary);
-        margin: 0 auto 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 48px;
-        color: #020617;
-        font-weight: bold;
-    }
-
-    .profile-name {
-        font-size: 20px;
-        font-weight: 600;
-        color: #f8fafc;
-        margin: 0 0 5px;
-    }
-
-    .profile-username {
-        font-size: 13px;
-        color: var(--text-muted);
-        margin: 0 0 15px;
-    }
-
-    .profile-badge {
-        display: inline-block;
-        background: var(--primary);
-        color: #020617;
-        padding: 6px 12px;
-        border-radius: 6px;
-        font-size: 12px;
-        font-weight: 600;
-        margin: 5px;
-    }
-
-    .profile-meta {
-        background: var(--bg-dark);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .meta-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 12px;
-        font-size: 13px;
-        color: var(--text-muted);
-    }
-
-    .meta-item:last-child {
-        margin-bottom: 0;
-    }
-
-    .meta-icon {
-        color: var(--primary);
-        font-size: 16px;
-    }
-
-    .community-stats {
-        background: var(--bg-dark);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 15px;
-    }
-
-    .community-stats h3 {
-        margin: 0 0 12px;
-        font-size: 14px;
-        color: #f8fafc;
-        text-transform: uppercase;
-        font-weight: 600;
-    }
-
-    .stat-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px 0;
-        font-size: 13px;
-        border-bottom: 1px solid var(--border-color);
-    }
-
-    .stat-item:last-child {
-        border-bottom: none;
-    }
-
-    .stat-label {
-        color: var(--text-muted);
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .stat-value {
-        color: #f8fafc;
-        font-weight: 600;
-    }
-
-    /* ===== MAIN CONTENT ===== */
-    .profile-main {
-        flex: 1;
-        min-width: 0;
-    }
-
-    .stats-overview {
-        background: var(--bg-dark);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 25px;
-        margin-bottom: 25px;
-    }
-
-    .stats-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        gap: 20px;
-    }
-
-    .stat-box {
-        text-align: center;
-    }
-
-    .stat-label-main {
-        font-size: 13px;
-        color: var(--text-muted);
-        margin-bottom: 8px;
-        text-transform: uppercase;
-        font-weight: 500;
-    }
-
-    .stat-number {
-        font-size: 36px;
-        font-weight: 700;
-        color: var(--primary);
-        margin: 0;
-    }
-
-    .stat-subtext {
-        font-size: 12px;
-        color: var(--text-muted);
-        margin-top: 4px;
-    }
-
-    .stats-chart {
-        background: var(--bg-dark);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 25px;
-        margin-bottom: 25px;
-    }
-
-    .chart-title {
-        font-size: 16px;
-        font-weight: 600;
-        color: #f8fafc;
-        margin: 0 0 15px;
-    }
-
-    .difficulty-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-    }
-
-    .difficulty-item {
-        flex: 1;
-    }
-
-    .difficulty-name {
-        font-size: 13px;
-        color: var(--text-muted);
-        margin-bottom: 5px;
-        font-weight: 500;
-    }
-
-    .difficulty-bar {
-        height: 6px;
-        background: #1e293b;
-        border-radius: 3px;
-        overflow: hidden;
-    }
-
-    .difficulty-fill {
-        height: 100%;
-        background: var(--primary);
-        border-radius: 3px;
-    }
-
-    .difficulty-stats {
-        text-align: right;
-        margin-left: 15px;
-        font-size: 13px;
-        color: #f8fafc;
-        white-space: nowrap;
-    }
-
-    .activity-section {
-        background: var(--bg-dark);
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        padding: 25px;
-        margin-bottom: 25px;
-    }
-
-    .activity-title {
-        font-size: 16px;
-        font-weight: 600;
-        color: #f8fafc;
-        margin: 0 0 15px;
-    }
-
-    .activity-calendar {
-        overflow-x: auto;
-    }
-
-    .calendar-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
-        gap: 3px;
-    }
-
-    .calendar-box {
-        width: 30px;
-        height: 30px;
-        background: #1e293b;
-        border: 1px solid var(--border-color);
-        border-radius: 4px;
-        cursor: pointer;
-        transition: all 0.2s;
-    }
-
-    .calendar-box:hover {
-        border-color: var(--primary);
-    }
-
-    .calendar-box.active {
-        background: var(--primary);
-        border-color: var(--primary);
-    }
-
-    .tabs {
-        display: flex;
-        gap: 0;
-        border-bottom: 1px solid var(--border-color);
-        margin-bottom: 0;
-    }
-
-    .tab-btn {
-        padding: 15px 20px;
-        background: transparent;
-        border: none;
-        border-bottom: 2px solid transparent;
-        color: var(--text-muted);
-        cursor: pointer;
-        font-size: 13px;
-        font-weight: 500;
-        transition: all 0.3s;
-    }
-
-    .tab-btn.active {
-        color: var(--primary);
-        border-bottom-color: var(--primary);
-    }
-
-    .tab-btn:hover {
-        color: #f8fafc;
-    }
-
-    .tab-content {
-        background: var(--bg-dark);
-        border: 1px solid var(--border-color);
-        border-top: none;
-        border-radius: 0 0 12px 12px;
-        padding: 20px;
-    }
-
-    .problem-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 0;
-        border-bottom: 1px solid var(--border-color);
-        font-size: 13px;
-    }
-
-    .problem-item:last-child {
-        border-bottom: none;
-    }
-
-    .problem-name {
-        color: #f8fafc;
-        flex: 1;
-    }
-
-    .problem-date {
-        color: var(--text-muted);
-        margin-left: 15px;
-    }
-
-    @media (max-width: 1024px) {
-        .profile-wrapper {
-            flex-direction: column;
+    <meta charset="UTF-8">
+    <title>Profile | CodeMastery</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <style>
+        .page-layout {
+            min-height: 100vh;
         }
-
-        .profile-sidebar {
-            width: 100%;
+        
+        .topbar {
+            height: 60px;
+            background: var(--bg-dark);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
         }
-
-        .stats-grid {
-            grid-template-columns: repeat(2, 1fr);
+        
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-    }
-
-    @media (max-width: 768px) {
-        .stats-grid {
-            grid-template-columns: 1fr;
+        
+        .nav-links {
+            display: flex;
+            gap: 10px;
         }
-
-        .profile-wrapper {
-            padding: 15px 10px;
+        
+        .nav-link {
+            padding: 8px 16px;
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+        
+        .nav-link.active {
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.15);
+        }
+        
+        .topbar-right {
+            display: flex;
+            align-items: center;
             gap: 15px;
         }
-    }
-</style>
-</head>
-<body>
-
-<header class="topbar">
-    <div class="logo">CodeMastery</div>
-    <div class="topbar-actions">
-        <button onclick="location.href='learning.html'">Back to Learning</button>
-        <button onclick="logout()">Logout</button>
-    </div>
-</header>
-
-<div class="profile-wrapper">
-    <!-- LEFT SIDEBAR -->
-    <div class="profile-sidebar">
-        <!-- Profile Card -->
-        <div class="profile-card">
-            <div class="profile-avatar" id="profileAvatar">U</div>
-            <h2 class="profile-name" id="profileName">User Name</h2>
-            <p class="profile-username" id="profileUsername">@username</p>
-            <div id="badgesContainer"></div>
-        </div>
-
-        <!-- Meta Information -->
-        <div class="profile-meta">
-            <div class="meta-item">
-                <span class="meta-icon">📍</span>
-                <span id="location">Location not set</span>
-            </div>
-            <div class="meta-item">
-                <span class="meta-icon">🎓</span>
-                <span id="college">College not set</span>
-            </div>
-            <div class="meta-item">
-                <span class="meta-icon">📧</span>
-                <span id="email">email@example.com</span>
-            </div>
-            <div class="meta-item">
-                <span class="meta-icon">📅</span>
-                <span id="joinDate">Joined today</span>
-            </div>
-        </div>
-
-        <!-- Community Stats -->
-        <div class="community-stats">
-            <h3>Community Stats</h3>
-            <div class="stat-item">
-                <span class="stat-label">👁️ Views</span>
-                <span class="stat-value" id="viewCount">0</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">✅ Solutions</span>
-                <span class="stat-value" id="solutionCount">0</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">💬 Discussions</span>
-                <span class="stat-value" id="discussionCount">0</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">⭐ Reputation</span>
-                <span class="stat-value" id="reputationCount">0</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div class="profile-main">
-        <!-- Stats Overview -->
-        <div class="stats-overview">
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <div class="stat-label-main">Topics Completed</div>
-                    <p class="stat-number" id="topicsCount">0</p>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-label-main">Problems Solved</div>
-                    <p class="stat-number" id="problemsCount">0</p>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-label-main">Streak</div>
-                    <p class="stat-number" id="streakCount">0</p>
-                    <div class="stat-subtext">days</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-label-main">Skill Rating</div>
-                    <p class="stat-number" id="skillRating">0.0</p>
-                    <div class="stat-subtext">/ 5.0</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Difficulty Chart -->
-        <div class="stats-chart">
-            <h3 class="chart-title">Solving Progress</h3>
-            <div class="difficulty-row">
-                <div class="difficulty-item">
-                    <div class="difficulty-name">Easy</div>
-                    <div class="difficulty-bar">
-                        <div class="difficulty-fill" id="easyBar" style="width: 0%;"></div>
-                    </div>
-                </div>
-                <div class="difficulty-stats" id="easyStats">0/0</div>
-            </div>
-            <div class="difficulty-row">
-                <div class="difficulty-item">
-                    <div class="difficulty-name">Medium</div>
-                    <div class="difficulty-bar">
-                        <div class="difficulty-fill" id="mediumBar" style="width: 0%;"></div>
-                    </div>
-                </div>
-                <div class="difficulty-stats" id="mediumStats">0/0</div>
-            </div>
-            <div class="difficulty-row">
-                <div class="difficulty-item">
-                    <div class="difficulty-name">Hard</div>
-                    <div class="difficulty-bar">
-                        <div class="difficulty-fill" id="hardBar" style="width: 0%;"></div>
-                    </div>
-                </div>
-                <div class="difficulty-stats" id="hardStats">0/0</div>
-            </div>
-        </div>
-
-        <!-- Activity Calendar -->
-        <div class="activity-section">
-            <h3 class="activity-title">Learning Activity</h3>
-            <div class="activity-calendar">
-                <div class="calendar-grid" id="activityCalendar">
-                    <!-- Calendar cells will be generated by JavaScript -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Tabs Section -->
-        <div class="activity-section" style="padding: 0; border-radius: 12px; overflow: hidden;">
-            <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('recent')">Recent Activity</button>
-                <button class="tab-btn" onclick="switchTab('top')">Top Problems</button>
-                <button class="tab-btn" onclick="switchTab('badges')">Badges</button>
-            </div>
-
-            <div id="tab-recent" class="tab-content tab-active">
-                <div id="recentActivityList">
-                    <p style="color: var(--text-muted); text-align: center; margin: 20px 0;">No recent activity</p>
-                </div>
-            </div>
-
-            <div id="tab-top" class="tab-content" style="display: none;">
-                <div id="topProblemsList">
-                    <p style="color: var(--text-muted); text-align: center; margin: 20px 0;">No problems solved yet</p>
-                </div>
-            </div>
-
-            <div id="tab-badges" class="tab-content" style="display: none;">
-                <div id="badgesList">
-                    <p style="color: var(--text-muted); text-align: center; margin: 20px 0;">No badges earned yet</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="js/logout.js"></script>
-<script>
-/* ===== GET USER FROM LOCALSTORAGE ===== */
-let user = JSON.parse(localStorage.getItem("user"));
-console.log("Profile page loaded, user:", user);
-
-// Set default values
-function initializeProfile() {
-    if (user && user.username) {
-        document.getElementById("profileName").innerText = user.username;
-        document.getElementById("profileUsername").innerText = "@" + user.username.toLowerCase();
-        document.getElementById("profileAvatar").innerText = user.username.charAt(0).toUpperCase();
-        document.getElementById("email").innerText = user.email || "email@example.com";
-    }
-
-    const today = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    document.getElementById("joinDate").innerText = "Joined " + today.toLocaleDateString('en-US', options);
-
-    // Generate activity calendar
-    generateActivityCalendar();
-
-    // Add some sample badges
-    addBadges(['🌟 Bronze', '🎯 Learner']);
-
-    // Add sample recent activity
-    addRecentActivity([
-        { date: '2 days ago', activity: 'Completed C Fundamentals' },
-        { date: '5 days ago', activity: 'Solved 3 Java problems' },
-        { date: '1 week ago', activity: 'Started MySQL course' }
-    ]);
-}
-
-function generateActivityCalendar() {
-    const calendar = document.getElementById("activityCalendar");
-    const days = 365;
-    
-    for (let i = 0; i < days; i++) {
-        const box = document.createElement("div");
-        box.className = "calendar-box";
         
-        // Randomly activate some boxes
-        if (Math.random() > 0.7) {
-            box.classList.add("active");
+        .streak-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(249, 115, 22, 0.15);
+            color: #f97316;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
         }
         
-        calendar.appendChild(box);
-    }
-}
-
-function addBadges(badges) {
-    const container = document.getElementById("badgesContainer");
-    container.innerHTML = '';
-    
-    badges.forEach(badge => {
-        const badgeEl = document.createElement("span");
-        badgeEl.className = "profile-badge";
-        badgeEl.innerText = badge;
-        container.appendChild(badgeEl);
-    });
-}
-
-function addRecentActivity(activities) {
-    const container = document.getElementById("recentActivityList");
-    container.innerHTML = '';
-    
-    activities.forEach(item => {
-        const el = document.createElement("div");
-        el.className = "problem-item";
-        el.innerHTML = `<span class="problem-name">${item.activity}</span><span class="problem-date">${item.date}</span>`;
-        container.appendChild(el);
-    });
-}
-
-function switchTab(tabName) {
-    // Hide all tabs
-    document.querySelectorAll(".tab-content").forEach(tab => tab.style.display = "none");
-    document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
-
-    // Show selected tab
-    document.getElementById("tab-" + tabName).style.display = "block";
-    event.target.classList.add("active");
-}
-
-// Initialize profile when page loads
-initializeProfile();
-
-// Load additional data from API if available
-if (user && user.id) {
-    fetch(`/api/user/profile/${user.id}`)
-        .then(res => res.json())
-        .then(data => {
-            console.log("Profile data:", data);
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 25px;
+        }
+        
+        .profile-header {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .profile-username {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+        
+        .stats-row {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .card {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+        }
+        
+        .card h3 {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill-tag {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 13px;
+        }
+        
+        .progress-ring {
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+        
+        .progress-ring svg {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-ring circle {
+            fill: none;
+            stroke-width: 8;
+        }
+        
+        .progress-ring .bg {
+            stroke: var(--border-color);
+        }
+        
+        .progress-ring .fill {
+            stroke: var(--primary);
+            stroke-linecap: round;
+        }
+        
+        .progress-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .progress-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .activity-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .activity-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        
+        .activity-icon.solved {
+            background: rgba(16, 185, 129, 0.15);
+        }
+        
+        .activity-info {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .activity-time {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        .badge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 15px;
+        }
+        
+        .badge-item {
+            text-align: center;
+            padding: 15px 10px;
+            background: var(--bg-main);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .badge-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .badge-name {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
             
-            // Update basic stats
-            if (data.problemsSolved !== undefined) {
-                document.getElementById("problemsCount").innerText = data.problemsSolved;
+            .stats-row {
+                justify-content: center;
             }
-            if (data.learningStreak !== undefined) {
-                document.getElementById("streakCount").innerText = data.learningStreak;
+            
+            .nav-links {
+                display: none;
             }
-            if (data.skillRating !== undefined) {
-                document.getElementById("skillRating").innerText = data.skillRating.toFixed(1);
-            }
-            if (data.learningCount !== undefined) {
-                document.getElementById("topicsCount").innerText = data.learningCount;
-            }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 25px;">
+            <a href="index.html" class="logo">CodeMastery</a>
+            <div class="nav-links">
+                <a href="learning.html" class="nav-link">Learn</a>
+                <a href="practice.html" class="nav-link">Practice</a>
+                <a class="nav-link active">Profile</a>
+            </div>
+        </div>
+        <div class="topbar-right">
+            <div class="streak-badge">
+                <span>🔥</span>
+                <span id="streakCount">0 Day Streak</span>
+            </div>
+            <div class="user-avatar" onclick="location.href='profile.html'">U</div>
+            <button class="btn btn-secondary" onclick="logout()">Logout</button>
+        </div>
+    </header>
 
-            // Update difficulty-based progress (REAL DATA)
-            if (data.easyStats) {
-                const easyCompleted = data.easyStats.completed;
-                const easyTotal = data.easyStats.total;
-                const easyPercentage = data.easyStats.percentage;
-                
-                document.getElementById("easyStats").innerText = `${easyCompleted}/${easyTotal}`;
-                document.getElementById("easyBar").style.width = easyPercentage + "%";
-            }
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- PROFILE HEADER -->
+        <div class="profile-header">
+            <div class="profile-avatar" id="profileAvatar">U</div>
+            <div class="profile-info">
+                <h1 class="profile-name" id="profileName">User Name</h1>
+                <p class="profile-username" id="profileUsername">@username</p>
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalSolved">0</div>
+                        <div class="stat-label">Solved</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalSubmissions">0</div>
+                        <div class="stat-label">Submissions</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="topicsCompleted">0</div>
+                        <div class="stat-label">Topics</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            if (data.mediumStats) {
-                const mediumCompleted = data.mediumStats.completed;
-                const mediumTotal = data.mediumStats.total;
-                const mediumPercentage = data.mediumStats.percentage;
-                
-                document.getElementById("mediumStats").innerText = `${mediumCompleted}/${mediumTotal}`;
-                document.getElementById("mediumBar").style.width = mediumPercentage + "%";
-            }
+        <!-- GRID -->
+        <div class="grid">
+            <!-- SOLVED PROGRESS -->
+            <div class="card">
+                <h3>📊 Problems Solved</h3>
+                <div style="display: flex; gap: 30px; align-items: center;">
+                    <div class="progress-ring">
+                        <svg width="100" height="100">
+                            <circle class="bg" cx="50" cy="50" r="42"></circle>
+                            <circle class="fill" id="progressCircle" cx="50" cy="50" r="42"
+                                stroke-dasharray="264" stroke-dashoffset="264"></circle>
+                        </svg>
+                        <div class="progress-center">
+                            <div class="progress-number" id="solvedCount">0</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                            <div style="width: 12px; height: 12px; border-radius: 50%; background: #10b981;"></div>
+                            <span>Easy: <strong id="easyCount">0</strong></span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                            <div style="width: 12px; height: 12px; border-radius: 50%; background: #f59e0b;"></div>
+                            <span>Medium: <strong id="mediumCount">0</strong></span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 12px; height: 12px; border-radius: 50%; background: #ef4444;"></div>
+                            <span>Hard: <strong id="hardCount">0</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            if (data.hardStats) {
-                const hardCompleted = data.hardStats.completed;
-                const hardTotal = data.hardStats.total;
-                const hardPercentage = data.hardStats.percentage;
-                
-                document.getElementById("hardStats").innerText = `${hardCompleted}/${hardTotal}`;
-                document.getElementById("hardBar").style.width = hardPercentage + "%";
-            }
+            <!-- SKILLS -->
+            <div class="card">
+                <h3>💻 Skills</h3>
+                <div class="skills-grid">
+                    <div class="skill-tag">☕ Java</div>
+                    <div class="skill-tag">🐍 Python</div>
+                    <div class="skill-tag">⚡ C</div>
+                    <div class="skill-tag">🚀 C++</div>
+                    <div class="skill-tag">🌐 HTML</div>
+                    <div class="skill-tag">🎨 CSS</div>
+                    <div class="skill-tag">⚛️ JavaScript</div>
+                    <div class="skill-tag">🗄️ MySQL</div>
+                </div>
+            </div>
 
-            // Update community stats if available
-            if (data.practiceCount !== undefined) {
-                document.getElementById("solutionCount").innerText = data.practiceCount;
-            }
-        })
-        .catch(err => {
-            console.warn("Error loading profile data from API:", err);
-            console.log("Showing default values");
-        });
-}
-</script>
+            <!-- RECENT ACTIVITY -->
+            <div class="card">
+                <h3>📝 Recent Activity</h3>
+                <div class="activity-list" id="activityList">
+                    <div class="activity-item">
+                        <div class="activity-icon solved">✓</div>
+                        <div class="activity-info">
+                            <div class="activity-title">Two Sum</div>
+                            <div class="activity-time">2 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon solved">✓</div>
+                        <div class="activity-info">
+                            <div class="activity-title">Add Two Numbers</div>
+                            <div class="activity-time">3 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon solved" style="background: rgba(249, 115, 22, 0.15);">🔥</div>
+                        <div class="activity-info">
+                            <div class="activity-title">7 Day Streak!</div>
+                            <div class="activity-time">Keep it up!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- BADGES -->
+            <div class="card">
+                <h3>🏆 Badges</h3>
+                <div class="badge-grid">
+                    <div class="badge-item">
+                        <div class="badge-icon">🌟</div>
+                        <div class="badge-name">First Solve</div>
+                    </div>
+                    <div class="badge-item">
+                        <div class="badge-icon">🔥</div>
+                        <div class="badge-name">7 Day Streak</div>
+                    </div>
+                    <div class="badge-item">
+                        <div class="badge-icon">🎯</div>
+                        <div class="badge-name">10 Problems</div>
+                    </div>
+                    <div class="badge-item">
+                        <div class="badge-icon">💪</div>
+                        <div class="badge-name">Easy Master</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/profile.js"></script>
 </body>
 </html>

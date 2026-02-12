@@ -3,49 +3,67 @@
 // ======================
 
 function login() {
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
+    const email = document.getElementById("loginEmail")?.value.trim();
+    const password = document.getElementById("loginPassword")?.value.trim();
     const errorDiv = document.getElementById("error");
     const loginBtn = document.getElementById("loginBtn");
 
-    errorDiv.innerText = "";
+    // Hide error initially
+    if (errorDiv) {
+        errorDiv.style.display = "none";
+        errorDiv.innerText = "";
+    }
 
     if (!email || !password) {
-        errorDiv.innerText = "Email and password are required";
+        if (errorDiv) {
+            errorDiv.innerText = "Email and password are required";
+            errorDiv.style.display = "block";
+        }
         return;
     }
 
-    if (!email.includes('@')) {
-        errorDiv.innerText = "Please enter a valid email";
+    if (!email.includes("@")) {
+        if (errorDiv) {
+            errorDiv.innerText = "Please enter a valid email";
+            errorDiv.style.display = "block";
+        }
         return;
     }
 
-    loginBtn.disabled = true;
-    loginBtn.innerText = "Logging in...";
+    if (loginBtn) {
+        loginBtn.disabled = true;
+        loginBtn.innerText = "Logging in...";
+    }
 
     apiLogin(email, password)
         .then(data => {
-            if (!data.success) {
-                errorDiv.innerText = data.message || "Invalid email or password";
-                loginBtn.disabled = false;
-                loginBtn.innerText = "Login";
+            if (!data || !data.success) {
+                if (errorDiv) {
+                    errorDiv.innerText = data?.message || "Invalid email or password";
+                    errorDiv.style.display = "block";
+                }
+                if (loginBtn) {
+                    loginBtn.disabled = false;
+                    loginBtn.innerText = "Login to Account";
+                }
                 return;
             }
 
-            // Save user session
-            localStorage.setItem("user", JSON.stringify(data.user));
-            localStorage.setItem("sessionToken", new Date().getTime());
+            // user already stored in apiLogin
+            localStorage.setItem("sessionToken", Date.now().toString());
 
-            // Redirect to dashboard
-            setTimeout(() => {
-                location.href = "dashboard.html";
-            }, 300);
+            location.href = "learning.html";
         })
-        .catch((err) => {
-            console.error("Login error:", err);
-            errorDiv.innerText = "Network error. Please try again.";
-            loginBtn.disabled = false;
-            loginBtn.innerText = "Login";
+        .catch(err => {
+            console.error(err);
+            if (errorDiv) {
+                errorDiv.innerText = "Network error. Please try again.";
+                errorDiv.style.display = "block";
+            }
+            if (loginBtn) {
+                loginBtn.disabled = false;
+                loginBtn.innerText = "Login to Account";
+            }
         });
 }
 
@@ -54,45 +72,82 @@ function login() {
 // ======================
 
 function register() {
-    const username = document.getElementById("username").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const msg = document.getElementById("msg");
+    const username = document.getElementById("username")?.value.trim();
+    const email = document.getElementById("registerEmail")?.value.trim();
+    const password = document.getElementById("registerPassword")?.value.trim();
+    const confirmPassword = document.getElementById("confirmPassword")?.value.trim();
 
-    msg.innerText = "";
-    msg.className = "msg";
+    const errorDiv = document.getElementById("error");
+    const successDiv = document.getElementById("success");
+    const registerBtn = document.getElementById("registerBtn");
 
-    if (!username || !email || !password) {
-        msg.innerText = "All fields are required";
-        msg.classList.add("error");
+    if (!errorDiv || !successDiv || !registerBtn) return;
+
+    errorDiv.innerText = "";
+    successDiv.innerText = "";
+    errorDiv.classList.remove("show");
+    successDiv.classList.remove("show");
+
+    if (!username || !email || !password || !confirmPassword) {
+        errorDiv.innerText = "All fields are required";
+        errorDiv.classList.add("show");
         return;
     }
 
-    apiRegister(username, email, password)
+    if (!email.includes("@")) {
+        errorDiv.innerText = "Please enter a valid email";
+        errorDiv.classList.add("show");
+        return;
+    }
+
+    if (password.length < 6) {
+        errorDiv.innerText = "Password must be at least 6 characters";
+        errorDiv.classList.add("show");
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        errorDiv.innerText = "Passwords do not match";
+        errorDiv.classList.add("show");
+        return;
+    }
+
+    registerBtn.disabled = true;
+    registerBtn.innerText = "Creating account...";
+
+    apiRegister(username, email, password, username)
         .then(data => {
-            if (!data.success) {
-                msg.innerText = data.message;
-                msg.classList.add("error");
+            if (!data || !data.success) {
+                errorDiv.innerText = data?.message || "Registration failed";
+                errorDiv.classList.add("show");
+                registerBtn.disabled = false;
+                registerBtn.innerText = "Create Account";
                 return;
             }
 
-            msg.innerText = data.message;
-            msg.classList.add("success");
+            successDiv.innerText = "Account created successfully! Redirecting to login...";
+            successDiv.classList.add("show");
 
             setTimeout(() => {
-                location.href = "login.html";
-            }, 1500);
+                location.href = "auth.html";
+            }, 1200);
         })
         .catch(() => {
-            msg.innerText = "Server error. Try again later.";
-            msg.classList.add("error");
+            errorDiv.innerText = "Server error. Try again later.";
+            errorDiv.classList.add("show");
+            registerBtn.disabled = false;
+            registerBtn.innerText = "Create Account";
         });
 }
 
 // ======================
-// GOOGLE LOGIN (UI HOOK)
+// GOOGLE LOGIN / REGISTER (PLACEHOLDER)
 // ======================
 
 function googleLogin() {
-    apiGoogleLogin();
+    alert("Google login not implemented yet");
+}
+
+function googleRegister() {
+    alert("Google register not implemented yet");
 }
